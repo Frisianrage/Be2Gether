@@ -26,8 +26,9 @@ const withAuthentication = Component => {
     componentWillUnmount() {
       this.listener();
     }
- 
+    
     render() {
+      
       return (
         <AuthUserContext.Provider value={this.state.authUser}>
           <Component {...this.props} />
@@ -38,5 +39,5 @@ const withAuthentication = Component => {
  
   return withFirebase(WithAuthentication);
 };
- 
+
 export default withAuthentication;

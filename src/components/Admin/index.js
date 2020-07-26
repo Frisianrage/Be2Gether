@@ -12,6 +12,10 @@ class AdminPage extends Component {
       };
     };
 
+    
+    componentWillUnmount() {
+      this.props.firebase.users().off();
+  }
 
     componentDidMount() {
     this.setState({ loading: true });
@@ -31,9 +35,6 @@ class AdminPage extends Component {
         });
     }
 
-    componentWillUnmount() {
-        this.props.firebase.users().off();
-    }
     
 
 

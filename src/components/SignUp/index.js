@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
  
-import { withFirebase, FirebaseContext } from '../Firebase';
+import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
  
 const SignUpPage = () => (
@@ -17,7 +17,6 @@ const INITIAL_STATE = {
     email: '',
     passwordOne: '',
     passwordTwo: '',
-    chats: [],
     error: null,
   };
  
@@ -29,7 +28,8 @@ class SignUpFormBase extends Component {
   }
  
   onSubmit = event => {
-    const { username, email, passwordOne, chats } = this.state;
+    const { username, email, passwordOne } = this.state;
+
  
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, passwordOne)
@@ -39,8 +39,7 @@ class SignUpFormBase extends Component {
           .user(authUser.user.uid)
           .set({
             username,
-            email,
-            chats,
+            email
           });
       })
       .then(() => {
@@ -64,7 +63,6 @@ class SignUpFormBase extends Component {
       email,
       passwordOne,
       passwordTwo,
-      chats,
       error,
     } = this.state;
 

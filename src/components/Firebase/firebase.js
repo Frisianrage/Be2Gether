@@ -2,6 +2,8 @@ import app from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 
+
+
 const config = {
     apiKey: "AIzaSyBqP0hYswK7xBlBkhLte6QP8D7a2DfG6R0",
     authDomain: "projectone-ac97c.firebaseapp.com",
@@ -12,11 +14,12 @@ const config = {
     appId: "1:448588157749:web:a235ede43452fad408f27c",
     measurementId: "G-JC0SL7JJKQ"
   };
-
+  
   class Firebase {
     constructor() {
+      
       app.initializeApp(config);
-
+      
       this.auth = app.auth();
       this.db = app.database();
     }
@@ -34,7 +37,10 @@ const config = {
     
       doPasswordUpdate = password =>
         this.auth.currentUser.updatePassword(password);
+
+    
       
+        
          // *** Merge Auth and DB User API *** //
  
   onAuthUserListener = (next, fallback) =>
@@ -57,20 +63,27 @@ const config = {
             ...dbUser,
           };
 
+
           next(authUser);
         });
+      
+
     } else {
       fallback();
     }
   });
+            // *** User API ***
 
-        // *** User API ***
-    
-      user = uid => this.db.ref(`users/${uid}`);
-    
-      users = () => this.db.ref('users');
-      
+            user = uid => this.db.ref(`users/${uid}`);
+
+            users = () => this.db.ref('users');
+  
   }
+  
+ 
+   
+
+  
   
   export default Firebase;
 

@@ -73,6 +73,9 @@ const config = {
     }
   });
             // *** User API ***
+            message = uid => this.db.ref(`messages/${uid}`)
+
+            messages = () => this.db.ref('messages')
 
             user = uid => this.db.ref(`users/${uid}`);
 

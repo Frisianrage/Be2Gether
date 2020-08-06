@@ -44,18 +44,19 @@ class SignUpFormBase extends Component {
 
  
     this.props.firebase
-      .doCreateUserWithEmailAndPassword(first_name, email, passwordOne)
+      .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
         // Create a user in your Firebase realtime database
         return this.props.firebase
           .user(authUser.user.uid)
           .set({
-            username,
-            email,
+            username,            
             first_name,
             last_name,
             age,
+            email,
             roles,
+            isAdmin,
             chat,
           });
       })
@@ -90,7 +91,7 @@ class SignUpFormBase extends Component {
       isAdmin,
       error,
     } = this.state;
-
+    
     const isInvalid =
       passwordOne !== passwordTwo ||
       passwordOne === '' ||
@@ -131,7 +132,7 @@ class SignUpFormBase extends Component {
           name="email"
           value={email}
           onChange={this.onChange}
-          type="text"
+          type="email"
           placeholder="Email Address"
         />
         <input

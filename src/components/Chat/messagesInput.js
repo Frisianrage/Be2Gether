@@ -21,14 +21,16 @@ export default function MessagesInput(props) {
           var updates = {};
           updates['/messages/' + newMessageKey] = postData;
           updates['/user-message/' + props.authUser.uid + '/' + newMessageKey] = postData;
-        
-          return props.firebase.db.app.database().ref().update(updates);
 
-        
+          document.getElementById("test").reset();
+
+          return props.firebase.db.app.database().ref().update(updates);
+ 
       }
+    
       return (
-        <form onSubmit={writeNewMessage}>
-            <input ref={textAreaRef} onChange={updateText} value={textValue}></input>
+        <form id="test" onSubmit={writeNewMessage}>
+            <input id="ttt" ref={textAreaRef} onChange={updateText} ></input>
             <br />
             <button type="submit">Send</button>
         </form>

@@ -8,18 +8,13 @@ function History(props) {
      .once('value')
      .then(function(snapshot) {
           let newArray = snapshot.val();
-        
+            if(newArray){
         const messages = Object.keys(newArray).map(key => newArray[key])
-     
         setchathistory(messages)
-     }) 
-     
-     
+        }
+        }) 
 
- 
-      
-   
-  return <div>
+  return <div className="chatHistory">
             {chathistory.map(message => <li>{message.author}: {message.body}</li>)}
          </div>
 }

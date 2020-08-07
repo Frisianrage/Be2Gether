@@ -6,7 +6,7 @@ export default function MessagesInput(props) {
     function updateText(e) { e.preventDefault() 
       setTextValue(e.target.value) }
       
-      console.log(props.firebase.db.app.database().ref().child("messages"))
+      
       function writeNewMessage(e) {
         e.preventDefault()
         if(!textValue) return

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import chatid from './chatid'
+import ChatId from './chatid'
 
 export default function MessagesInput(props) {
     const [textValue, setTextValue] = useState("") 
@@ -19,7 +19,7 @@ export default function MessagesInput(props) {
           createdAt: Date.now(),
         };
        
-        let newId = chatid
+        let newId = ChatId()
          
           var updates = {};
           updates['/chats/' + newId + '/' + newMessageKey] = postData

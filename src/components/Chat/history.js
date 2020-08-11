@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
 import ChatId from './chatid';
 
-
+let newId = ChatId()
 function History(props) {
     //var userId = props.authUser.uid;
     
-    let newId = ChatId()
+    
+   
    
      // var messageKey = props.firebase.db.app.database().ref().child('messages').push().key
   const [chathistory, setchathistory] = useState([])

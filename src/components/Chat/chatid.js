@@ -4,10 +4,8 @@
 
 function ChatId() {
 
-//let test = await userIdB 
-//console.log(idone, idtwo)
-let firstID = "BJjFizyhDvMniQuSTi3gAPWqOWJ2"
-let secondID = "fHfw8F7nlSeQ6ajLhHvxuKACGa42"
+let firstID = "BJjFizyhDvMniQuSTi3gAPWqOWJ2";
+let secondID = "fHfw8F7nlSeQ6ajLhHvxuKACGa42";
 let firstUser;
 let secondUser; 
 

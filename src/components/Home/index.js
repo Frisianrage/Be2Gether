@@ -7,11 +7,7 @@ import Userlist from '../Chat/userlist'
 const HomePage = (props) => (
   <AuthUserContext.Consumer> 
  {authUser => 
-            
-           
-                
-                       
-            <Userlist firebase={props.firebase} authUser={authUser} />
+      <Userlist firebase={props.firebase} authUser={authUser} />
  }
   </AuthUserContext.Consumer>  
        

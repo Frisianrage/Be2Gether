@@ -1,24 +1,32 @@
 
+const ChatId = (userOne, userTwo) => {
 
-
-
-function ChatId() {
-
-let firstID = "BJjFizyhDvMniQuSTi3gAPWqOWJ2";
-let secondID = "fHfw8F7nlSeQ6ajLhHvxuKACGa42";
+//console.log(userOne, userTwo)
+let firstID = userOne;
+let secondID = userTwo;
 let firstUser;
-let secondUser; 
+let secondUser;
+let chatId 
 
+if (firstID !== null){
 if(firstID < secondID) {
 firstUser = firstID; 
-secondUser = secondID
-} else { 
+secondUser = secondID;
+chatId = firstUser.substring(0,14)+secondUser.substring(0,14)
+return chatId;
+
+
+} else if (firstID > secondID) { 
 secondUser =  firstID;
-firstUser = secondID};
+firstUser = secondID;
+chatId = firstUser.substring(0,14)+secondUser.substring(0,14);
+return chatId;
 
-let chatId = firstUser.substring(0,14)+secondUser.substring(0,14)
+};}
+else console.log("Error")
 
-return chatId
 
 }
+
+
 export default ChatId;

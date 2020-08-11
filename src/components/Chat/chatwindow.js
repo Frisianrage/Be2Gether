@@ -3,10 +3,10 @@ import React from 'react';
 import { AuthUserContext, withAuthorization } from '../Session';
 import MessagesInput from './messagesInput'
 import History from './history'
+import {newerId} from './userlist'
 
 const Chatwindow = (props) => {
-//var userId = props.authUser.uid;
-         
+      
 return (
     <AuthUserContext.Consumer>   
           {authUser => (
@@ -18,7 +18,7 @@ return (
                         
                       </div>
                           <br/>
-                          <History authUser={authUser} firebase={props.firebase} />
+                          <History newerId={newerId} authUser={authUser} firebase={props.firebase} />
                           <MessagesInput authUser={authUser} firebase={props.firebase} />
                           
                           <div>

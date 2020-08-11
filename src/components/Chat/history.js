@@ -1,16 +1,14 @@
 import React, {useState} from 'react';
-import ChatId from './chatid';
 
-let newId = ChatId()
+
+
+
 function History(props) {
+   
     //var userId = props.authUser.uid;
-    
-    
-   
-   
      // var messageKey = props.firebase.db.app.database().ref().child('messages').push().key
   const [chathistory, setchathistory] = useState([])
-  props.firebase.db.app.database().ref().child('chats/'+ newId)
+  props.firebase.db.app.database().ref().child('chats/'+ props.newerId)
      .once('value')
      .then(function(snapshot) {
           let newArray = snapshot.val();

@@ -24,7 +24,9 @@ const INITIAL_STATE = {
     passwordTwo: '',
     isAdmin: false,
     error: null,
-    chat: ''
+    id:"",
+    friendwith:"",
+    lastLogin:""
   };
  
 class SignUpFormBase extends Component {
@@ -35,8 +37,9 @@ class SignUpFormBase extends Component {
   }
  
   onSubmit = event => {
-    const { username, first_name, last_name, age, email, passwordOne, isAdmin, chat } = this.state;
+    const { username, first_name, last_name, age, email, passwordOne, isAdmin } = this.state;
     const roles = {};
+    
  
     if (isAdmin) {
       roles[ROLES.ADMIN] = ROLES.ADMIN;
@@ -56,9 +59,12 @@ class SignUpFormBase extends Component {
             age,
             email,
             roles,
-            isAdmin,
-            chat,
-          });
+            isAdmin: false,
+            id: authUser.user.uid,
+            friendwith: "",
+            lastLogin: new Date()
+            
+          },);
       })
       .then(() => {
         this.setState({ ...INITIAL_STATE });

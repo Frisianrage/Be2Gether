@@ -20,8 +20,8 @@ return (
         {authUser => (
             
             <div>
-                 <h1>Chats: {authUser.first_name} {authUser.last_name}</h1>
-                    <p>Here will be an overview of all Chats</p>
+                 <h1>Coming soon!!!</h1>
+                    <p>Here will be an overview of all Chats from {authUser.first_name} {authUser.last_name}, also known as {authUser.username} </p>
 
             </div>
     )}

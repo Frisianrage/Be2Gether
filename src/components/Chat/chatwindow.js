@@ -3,16 +3,16 @@ import React from 'react';
 import { AuthUserContext, withAuthorization } from '../Session';
 import MessagesInput from './messagesInput'
 import History from './history'
-import {newerId} from './userlist'
+import {newerId, userTwoName} from './userlist'
 
-const Chatwindow = (props) => {
-      
+const Chatwindow = (props) => {   
 return (
     <AuthUserContext.Consumer>   
           {authUser => (
               
               <div>
-                   <h1>Chat: {authUser.first_name} {authUser.last_name}</h1>
+                   <h1>You are chatting with {userTwoName}</h1> 
+                   
                       <div className="chats">
                         
                         
@@ -22,7 +22,7 @@ return (
                           <MessagesInput authUser={authUser} firebase={props.firebase} />
                           
                           <div>
-                            Login in as: <strong>{authUser.email}</strong>
+                            Login in as: <strong>{authUser.username}</strong>
                           </div>
   
               </div>

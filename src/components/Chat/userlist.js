@@ -7,6 +7,7 @@ import ChatId from './chatid'
 
 let userOne;
 let userTwo;
+let userTwoName;
 let newerId
 function Userlist(props) {
   const [userlist, setuserlist] = useState([])
@@ -23,22 +24,24 @@ function Userlist(props) {
         
        userOne = props.authUser.uid;
        const handleclick = (e) => {
-        userTwo = e.currentTarget.id;
+         userTwoName = e.currentTarget.title
+         userTwo = e.currentTarget.id
         newerId = ChatId(userOne, userTwo)
-        }
+        
+      }
        
   return <div className="chatHistory">
       <p>Userlist</p>
         {userlist.map(user => 
            
-          (<div id={user.id} onClick={handleclick}>
+          (<div title={user.username} id={user.id} onClick={handleclick}>
                 
-                <Link to={ROUTES.CHATWINDOW}>{user.username}</Link>
+                <Link to={{pathname: ROUTES.CHATWINDOW, hash: user.id}}>{user.username}</Link>
                 
          </div>))} 
          </div>
 }
-export {newerId}; 
+export {newerId, userTwo, userTwoName}; 
 export default Userlist;
 
 

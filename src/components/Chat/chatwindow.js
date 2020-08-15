@@ -18,6 +18,7 @@ return (
                         
                       </div>
                           <br/>
+                          
                           <History newerId={newerId} authUser={authUser} firebase={props.firebase} />
                           <MessagesInput authUser={authUser} firebase={props.firebase} />
                           

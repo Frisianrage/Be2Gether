@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
 import {newerId} from './userlist'
 
+
+
 export default function MessagesInput(props) {
-    const [textValue, setTextValue] = useState("") 
+    const [textValue, setTextValue] = useState("Test") 
     const textAreaRef = React.createRef(); 
     function updateText(e) { e.preventDefault() 
       setTextValue(e.target.value) }
@@ -29,15 +31,20 @@ export default function MessagesInput(props) {
           document.getElementById("test").reset();
 
           return props.firebase.db.app.database().ref().update(updates);
- 
+          
       }
-    
+      
       return (
-        <form id="test" onSubmit={writeNewMessage}>
+        <div className="historyContainer">
+          
+          <form id="test" onSubmit={writeNewMessage}>
             <input id="ttt" ref={textAreaRef} onChange={updateText} ></input>
             <br />
             <button type="submit">Send</button>
-        </form>
+          </form>
+
+        </div>
+        
       )
   }
   

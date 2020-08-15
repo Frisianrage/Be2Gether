@@ -30,7 +30,7 @@ function Userlist(props) {
         
       }
        
-  return <div className="chatHistory">
+  return <div className="userList">
       <p>Userlist</p>
         {userlist.map(user => 
            

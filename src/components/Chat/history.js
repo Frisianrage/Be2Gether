@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React,  {useState} from 'react';
+
 
 
 
@@ -8,20 +9,29 @@ function History(props) {
     //var userId = props.authUser.uid;
      // var messageKey = props.firebase.db.app.database().ref().child('messages').push().key
   const [chathistory, setchathistory] = useState([])
-  props.firebase.db.app.database().ref().child('chats/'+ props.newerId)
-     .once('value')
-     .then(function(snapshot) {
-          let newArray = snapshot.val();
-            if(newArray){
-        const messages = Object.keys(newArray).map(key => newArray[key])
-        setchathistory(messages)
-      
-        }
-        }) 
+  
+    props.firebase.db.app.database().ref().child('chats/'+ props.newerId)
+   .once('value')
+   .then( function (snapshot) {
+      let newArray = snapshot.val() 
+      if (newArray){
 
-  return <div className="chatHistory">
+        const messages = Object.keys(newArray).map(key => newArray[key]);
+      
+        setchathistory(messages)
+      }
+         
+   
+    }) 
+    
+ 
+  return <div className="historyContainer">
+          <div className="chatHistory">
             {chathistory.map(message => <li>{message.author}: {message.body}</li>)}
-         </div>
+          </div>
+
+  </div>
+  
 }
               
 export default History;

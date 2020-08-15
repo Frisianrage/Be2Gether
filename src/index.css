@@ -12,19 +12,43 @@ code {
     monospace;
 }
 
+ul {
+  text-align: center;
+}
+
 li {
   list-style-type: none ;
   padding-top: 5px;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  display: inline-flex;
+  margin: 1rem;
+   
 
-}
-
-.chatHistory {
-  width: 300px; 
-  border: 3px solid black;
-  padding: 10px 0
 }
 
 input {
+  width: 100%;
   margin-top: 30px;
+  padding: 5px
+}
+
+.chatHistory {
+  width: 75%;
+  height: 800px;
+  max-height: 500px;
+  border: 3px solid black;
+  padding: 10px 0;
+  }
+
+.historyContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.userList {
+  width: 300px;
+  border: 3px solid black;
   padding: 5px
 }

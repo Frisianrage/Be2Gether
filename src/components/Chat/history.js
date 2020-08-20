@@ -12,14 +12,14 @@ function History(props) {
   
     props.firebase.db.app.database().ref().child('chats/'+ props.newerId)
    .once('value')
-   .then( function (snapshot) {
-      let newArray = snapshot.val() 
+   .then( async function (snapshot) {
+      let newArray = await snapshot.val() 
       if (newArray){
 
         const messages = Object.keys(newArray).map(key => newArray[key]);
       
         setchathistory(messages)
-      }
+      } else (setchathistory([]))
          
    
     }) 
@@ -27,7 +27,7 @@ function History(props) {
  
   return <div className="historyContainer">
           <div className="chatHistory">
-            {chathistory.map(message => <li>{message.author}: {message.body}</li>)}
+            {chathistory.map(message => <li>{message.author}{(message.author) ? ": ": ""}{message.body}</li>)}
           </div>
 
   </div>

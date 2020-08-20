@@ -3,14 +3,13 @@ import { Link } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
 import ChatId from './chatid'
 
-
-
 let userOne;
 let userTwo;
 let userTwoName;
 let newerId
 function Userlist(props) {
   const [userlist, setuserlist] = useState([])
+  
   props.firebase.db.app.database().ref().child('users/')
      .once('value')
      .then(function(snapshot) {
@@ -21,15 +20,23 @@ function Userlist(props) {
       
         }
         }) 
-        
+
        userOne = props.authUser.uid;
        const handleclick = (e) => {
          userTwoName = e.currentTarget.title
          userTwo = e.currentTarget.id
-        newerId = ChatId(userOne, userTwo)
+        newerId = ChatId(userOne, userTwo)  
+        ;
         
-      }
-       
+        const content = document.getElementById("test")
+          
+        if (content) {
+              content.reset();
+          }
+    }
+        
+    
+
   return <div className="userList">
       <p>Userlist</p>
         {userlist.map(user => 

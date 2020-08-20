@@ -20,7 +20,7 @@ const Navigation = () => (
 
 
 const NavigationAuth = ({ authUser }) => (
-  <ul>
+  <ul className="Navbar">
     <li>
       <Link to={ROUTES.LANDING}>Landing</Link>
     </li>

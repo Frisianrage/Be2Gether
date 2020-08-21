@@ -11,7 +11,7 @@ return (
           {authUser => (
               
               <div>
-                   <h1>You are chatting with {userTwoName}</h1> 
+                   <h1 className="chatwindowhead">You are chatting with {userTwoName}</h1> 
                    
                       <div className="chats">
                         

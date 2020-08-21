@@ -27,7 +27,16 @@ function History(props) {
  
   return <div className="historyContainer">
           <div className="chatHistory">
-            {chathistory.map(message => <li>{message.author}{(message.author) ? ": ": ""}{message.body}</li>)}
+
+            {chathistory.map(message => 
+                  <div className={(message.author == props.authUser.username) ? "right" : "left"}>
+                    <li className={(message.author == props.authUser.username) ? "chatme" : "chatyou"}>
+                      {message.body}
+                   </li>
+                  </div>
+                  
+            )} 
+
           </div>
 
   </div>

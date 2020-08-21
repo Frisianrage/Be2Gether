@@ -22,11 +22,13 @@ function Userlist(props) {
         }) 
 
        userOne = props.authUser.uid;
+       
        const handleclick = (e) => {
          userTwoName = e.currentTarget.title
          userTwo = e.currentTarget.id
         newerId = ChatId(userOne, userTwo)  
         ;
+        console.log(props.authUser)
         
         const content = document.getElementById("test")
           

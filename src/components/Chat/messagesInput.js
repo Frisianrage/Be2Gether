@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {newerId} from './userlist'
+// import imageregular from '../../Pics/image-regular.svg'
 
 
 
@@ -33,16 +34,20 @@ export default function MessagesInput(props) {
           return props.firebase.db.app.database().ref().update(updates);
           
       }
-      
+    
       return (
         <div className="historyContainer">
-          
+          <div className="messageContainer">
           <form id="test" onSubmit={writeNewMessage}>
-            <input id="ttt" ref={textAreaRef} onChange={updateText} ></input>
+            <input id="ttt" ref={textAreaRef} onChange={updateText} >
+          </input>
             <br />
-            <button type="submit">Send</button>
+            <button id="messageSubmit" type="submit">Send</button>
+          
           </form>
-
+          </div>
+          
+          
         </div>
         
       )

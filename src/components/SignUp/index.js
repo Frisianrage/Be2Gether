@@ -16,11 +16,17 @@ const SignUpPage = () => (
 
 const INITIAL_STATE = {
     username: '',
+    first_name: '',
+    last_name: '',
+    age: '',
     email: '',
     passwordOne: '',
     passwordTwo: '',
     isAdmin: false,
     error: null,
+    id:"",
+    friendwith:"",
+    lastLogin:""
   };
  
 class SignUpFormBase extends Component {
@@ -31,8 +37,9 @@ class SignUpFormBase extends Component {
   }
  
   onSubmit = event => {
-    const { username, email, passwordOne, isAdmin } = this.state;
+    const { username, first_name, last_name, age, email, passwordOne, isAdmin } = this.state;
     const roles = {};
+    
  
     if (isAdmin) {
       roles[ROLES.ADMIN] = ROLES.ADMIN;
@@ -46,10 +53,18 @@ class SignUpFormBase extends Component {
         return this.props.firebase
           .user(authUser.user.uid)
           .set({
-            username,
+            username,            
+            first_name,
+            last_name,
+            age,
             email,
             roles,
-          });
+            isAdmin: false,
+            id: authUser.user.uid,
+            friendwith: "",
+            lastLogin: new Date()
+            
+          },);
       })
       .then(() => {
         this.setState({ ...INITIAL_STATE });
@@ -73,13 +88,15 @@ class SignUpFormBase extends Component {
   render() {
     const {
       username,
+      first_name,
+      last_name,
+      age,
       email,
       passwordOne,
       passwordTwo,
-      isAdmin,
       error,
     } = this.state;
-
+    
     const isInvalid =
       passwordOne !== passwordTwo ||
       passwordOne === '' ||
@@ -93,13 +110,34 @@ class SignUpFormBase extends Component {
           value={username}
           onChange={this.onChange}
           type="text"
-          placeholder="Full Name"
+          placeholder="Username"
+        />
+        <input
+          name="first_name"
+          value={first_name}
+          onChange={this.onChange}
+          type="text"
+          placeholder="First Name"
+        />
+        <input
+          name="last_name"
+          value={last_name}
+          onChange={this.onChange}
+          type="text"
+          placeholder="Last Name"
+        />
+        <input
+          name="age"
+          value={age}
+          onChange={this.onChange}
+          type="number"
+          placeholder="Age"
         />
         <input
           name="email"
           value={email}
           onChange={this.onChange}
-          type="text"
+          type="email"
           placeholder="Email Address"
         />
         <input

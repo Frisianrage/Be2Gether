@@ -11,3 +11,116 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+ul {
+  text-align: center;
+}
+
+.Navbar {
+  display: inline-flex;
+}
+
+li {
+  list-style-type: none ;
+  padding-top: 5px;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  margin: 1rem;
+}
+
+#messageSubmit {
+  border: 3px solid green
+}
+
+#test {
+  display: inline-flex;
+}
+
+input {
+  width: 70%;
+  margin-top: 30px;
+  padding: 5px
+}
+
+.chatwindowhead {
+  text-align: center
+}
+
+.chatHistory {
+  width: 75%;
+  height: 800px;
+  max-height: 500px;
+  border: 3px solid black;
+  padding: 10px 0;
+ 
+  }
+
+.historyContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ 
+}
+
+.left {
+  
+  padding: 10px;
+  text-align: start;
+}
+
+.right {
+  padding: 10px;
+  text-align: end;
+}
+
+.chatyou {
+  background-color: lightblue;
+  display: inline;
+  border-radius: 10px;
+  padding: 5px 15px
+}
+
+.chatme {
+  background-color: lightgreen;
+  display: inline;
+  border-radius: 10px;
+  padding: 5px 15px
+}
+
+.picme {
+  width: 75px;
+}
+
+.picyou {
+  width: 75px;
+}
+
+.listItem {
+  border: 2px solid red;
+ 
+  
+}
+
+.messageContainer {
+  display: flex;
+  width: 800px;
+  border: 5px solid royalblue;
+  padding: 10px;
+  margin: 25px;
+  
+}
+
+.userList {
+  width: 300px;
+  border: 3px solid black;
+  padding: 5px
+}
+
+
+#picmessage {
+  width: 25px;
+  padding: 10px;
+  border: 3px solid red
+  
+}
+

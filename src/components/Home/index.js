@@ -1,12 +1,19 @@
 import React from 'react';
+import { AuthUserContext, withAuthorization } from '../Session';
+import MyCard from './MyCard';
+import PartnerCard from './PartnerCard'
+import giphy from '../../Pics/giphy.gif'
+
+
  
-import { withAuthorization } from '../Session';
- 
-const HomePage = () => (
-  <div>
-    <h1>Home Page</h1>
-    <p>The Home Page is accessible by every signed in user.</p>
-  </div>
+const HomePage = (props) => (
+ <div>
+   Here comes the Homepage!
+ </div>
+  
+           
+    
+  
 );
  
 const condition = authUser => !!authUser;

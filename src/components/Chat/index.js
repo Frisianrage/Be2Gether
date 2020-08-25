@@ -1,6 +1,6 @@
 import React from 'react';
 import { AuthUserContext, withAuthorization } from '../Session';
-
+import Userlist from './userlist'
 
 
 /*
@@ -16,18 +16,12 @@ function Chat(props) {
  
     
 return (
-  <AuthUserContext.Consumer>   
-        {authUser => (
-            
-            <div>
-                 <h1>Coming soon!!!</h1>
-                    <p>Here will be an overview of all Chats from {authUser.first_name} {authUser.last_name}, also known as {authUser.username} </p>
-
-            </div>
+  <AuthUserContext.Consumer> 
+ {authUser => 
+      <Userlist firebase={props.firebase} authUser={authUser} />
+ }
+  </AuthUserContext.Consumer>  
     )}
-  </AuthUserContext.Consumer>
-)
-}
 
 
 const condition = authUser => !!authUser;

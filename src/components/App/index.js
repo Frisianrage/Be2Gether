@@ -11,6 +11,7 @@ import AccountPage from '../Account';
 import AdminPage from '../Admin';
 import Chat from '../Chat';
 import Chatwindow from '../Chat/chatwindow'
+import Map from '../Map'
 
 import * as ROUTES from '../../constants/routes';
 import { withAuthentication } from '../Session';
@@ -35,6 +36,7 @@ const App = () => (
       <Route exact path={ROUTES.ADMIN} component={AdminPage} />
       <Route exact path={ROUTES.CHATS} component={Chat} />
       <Route exact path={ROUTES.CHATWINDOW} component={Chatwindow} /> 
+      <Route exact path={ROUTES.MAP} component={Map} /> 
     </div>
   </Router>
 );

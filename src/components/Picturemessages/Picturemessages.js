@@ -82,6 +82,8 @@ export default function Picturemessages(props) {
         <div>
             <img onClick={handleClick}  src={addpic} alt="test"></img>
             <input onChange={handleChange} type="file" id="getpic" style={{display: "none"}}></input>
+            
+               
         </div>
     )
 

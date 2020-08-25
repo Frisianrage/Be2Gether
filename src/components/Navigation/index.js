@@ -39,6 +39,9 @@ const NavigationAuth = ({ authUser }) => (
       </li>
     )}
     <li>
+      <Link to={ROUTES.MAP}>Map</Link>
+    </li>
+    <li>
       <SignOutButton />
     </li>
   </ul>

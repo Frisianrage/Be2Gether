@@ -28,11 +28,11 @@ function History(props) {
               {chathistory.map(message => 
                     <div className={(message.author == props.authUser.username) ? "right" : "left"}>
                       <li>
-                        {(message.type == "image") ? 
-                        <img onClick={imgclick} className={(message.author == props.authUser.username) ? "picme" : "picyou"} src={message.body} alt="Something is wrong" ></img> 
-                          : 
-                        <p className={(message.author == props.authUser.username) ? "chatme" : "chatyou"}>{message.body}</p> }
-                    </li>
+                        {(message.type == "image") ?
+                          <img className={(message.author == props.authUser.username) ? "picme" : "picyou"} src={message.body} alt="Something is wrong" ></img> 
+                             : 
+                          <p className={(message.author == props.authUser.username) ? "chatme" : "chatyou"}>{message.body}</p> }
+                      </li>
                     </div>
                     
               )} 

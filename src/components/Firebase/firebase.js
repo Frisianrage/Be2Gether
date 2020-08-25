@@ -1,6 +1,7 @@
 import app from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
+import 'firebase/storage'
 
 
 
@@ -22,6 +23,7 @@ const config = {
       
       this.auth = app.auth();
       this.db = app.database();
+      this.store = app.storage();
     }
      // *** Auth API ***
  

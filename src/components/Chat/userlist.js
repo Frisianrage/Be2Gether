@@ -7,6 +7,7 @@ let userOne;
 let userTwo;
 let userTwoName;
 let newerId
+
 function Userlist(props) {
   const [userlist, setuserlist] = useState([])
   
@@ -15,27 +16,26 @@ function Userlist(props) {
      .then(function(snapshot) {
           let newArray = snapshot.val();
             if(newArray){
-        const messages = Object.keys(newArray).map(key => newArray[key])
-        setuserlist(messages)
-      
-        }
-        }) 
+              const messages = Object.keys(newArray).map(key => newArray[key])
+              setuserlist(messages)
+            }
+      }) 
 
        userOne = props.authUser.uid;
        
-       const handleclick = (e) => {
-         userTwoName = e.currentTarget.title
-         userTwo = e.currentTarget.id
-        newerId = ChatId(userOne, userTwo)  
-        ;
-        console.log(props.authUser)
-        
-        const content = document.getElementById("test")
-          
-        if (content) {
-              content.reset();
-          }
+  const handleclick = (e) => {
+    userTwoName = e.currentTarget.title
+    userTwo = e.currentTarget.id
+  newerId = ChatId(userOne, userTwo)  
+  ;
+  
+  
+  const content = document.getElementById("test")
+    
+  if (content) {
+        content.reset();
     }
+  }
         
     
 
@@ -50,6 +50,7 @@ function Userlist(props) {
          </div>))} 
          </div>
 }
+
 export {newerId, userTwo, userTwoName}; 
 export default Userlist;
 

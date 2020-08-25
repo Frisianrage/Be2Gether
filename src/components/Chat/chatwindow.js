@@ -1,9 +1,9 @@
 import React from 'react';
-
 import { AuthUserContext, withAuthorization } from '../Session';
 import MessagesInput from './messagesInput'
 import History from './history'
 import {newerId, userTwoName} from './userlist'
+
 
 const Chatwindow = (props) => {   
 return (

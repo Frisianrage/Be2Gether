@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {newerId} from './userlist'
-// import imageregular from '../../Pics/image-regular.svg'
+import Picturemessages from '../Picturemessages/Picturemessages'
 
 
 
@@ -16,6 +16,7 @@ export default function MessagesInput(props) {
         if(!textValue) return
         const newMessageKey = props.firebase.db.app.database().ref().child('messages').push().key;
         var postData = {
+          type: "text",
           author: props.authUser.username,
           uid: props.authUser.uid,
           body: textAreaRef.current.value,
@@ -40,11 +41,15 @@ export default function MessagesInput(props) {
           <div className="messageContainer">
           <form id="test" onSubmit={writeNewMessage}>
             <input id="ttt" ref={textAreaRef} onChange={updateText} >
+           
           </input>
+          <Picturemessages firebase={props.firebase} authUser={props.authUser} />
             <br />
             <button id="messageSubmit" type="submit">Send</button>
-          
+            
           </form>
+
+          
           </div>
           
           

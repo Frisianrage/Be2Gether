@@ -20,11 +20,9 @@ function History(props) {
 
     const handleClick = (e) => {
       setSelectedImage(e.target)
-      setImageWasClicked(true)
-    }
-
-    const setfalse = () => {
-      setImageWasClicked(false)
+      if(!imageWasClicked) {
+      setImageWasClicked(true);
+    } else setImageWasClicked(false)
     }
 
   return <div className="test">
@@ -42,7 +40,7 @@ function History(props) {
                     )} 
                   </div> 
               </div>
-             { imageWasClicked && <PictureModal messagebody={selectedImage} close={setfalse} /> } 
+             { imageWasClicked && <PictureModal messagebody={selectedImage} imageWasClicked={imageWasClicked} setImageWasClicked={setImageWasClicked} /> } 
         </div>
 }
 

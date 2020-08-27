@@ -2,13 +2,13 @@ import React, {useState} from 'react';
 import {Modal} from 'react-bootstrap';
 
 function PictureModal(props) {
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(props.imageWasClicked);
 
-  const handleClose = () => setShow(false);
- 
+  const handleClose = () => props.setImageWasClicked(false);
+
   return (
     
-      <Modal className="modalbody" show={show} onHide={handleClose}>
+      <Modal className="modalbody" show={props.imageWasClicked} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>{props.messagebody.id}</Modal.Title>
         </Modal.Header>

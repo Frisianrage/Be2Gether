@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react'
-import { withAuthorization } from '../Session';
+import { AuthUserContext, withAuthorization } from '../Session';
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
 import L from 'leaflet';
 import Search from "react-leaflet-search";
 import CostumPopup from './Custompopup'
+import Placemodal from './Placemodal'
 
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -15,38 +16,39 @@ L.Icon.Default.mergeOptions({
 
 const position = [51.505, -0.09]
 
-export default function MyMap() {
+const MyMap = (props) => {
+  const [buttonclicked, setButtonclicked] = useState(false)
+  const [placeinfos, setPlaceinfos] = useState()
 
-  return (
+  return (<AuthUserContext.Consumer>
+    {authUser => (
     <div>
-<div>
-    <h1 className="mapwindowhead"
-    >Places we've been...</h1>
-      <div className="leaflet">
-                <Map className="MyMap" center={position} zoom={3}>   
-                <TileLayer
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                  attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
-                />
-                <Search position="topleft" inputPlaceholder="Custom placeholder" showMarker={true} zoom={7} closeResultsOnClick={true} openSearchOnLoad={false}>
-                  {(info)=>
-                  <Marker position={[info.latLng.lat, info.latLng.lng]}>
-                  <CostumPopup props={info} />
-                </Marker>}
+      <div>
+        <h1 className="mapwindowhead">Places we've been...</h1>
+        <div className="leaflet">
+          <Map className="MyMap" center={position} zoom={3}>
+          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors" />
+          <Search position="topleft" inputPlaceholder="Custom placeholder" showMarker={true} zoom={7} closeResultsOnClick={true} openSearchOnLoad={false}>
+                {(info)=>  {setPlaceinfos(info);  
+                    return (
+                      <Marker position={[info.latLng.lat, info.latLng.lng]}>
+                        <CostumPopup info={info} setButtonclicked={setButtonclicked} />
+                      </Marker>
+                    )
+                   }
+                  }
                 </Search>
                   <Marker position={position}>Hello</Marker>
                 </Map>
-
         </div>
-        
-  </div>
-
-    </div>
-  
-  
-  
-         )
+       </div>
+       { buttonclicked && <Placemodal firebase={props.firebase} authUser={props.authUser} placeinfos={placeinfos} buttonclicked={buttonclicked} setButtonclicked={setButtonclicked} /> } 
+    </div> )}
+  </AuthUserContext.Consumer>
+  )
 }
  
-//const condition = authUser => !!authUser;
+const condition = authUser => !!authUser;
+
+export default withAuthorization(condition)(MyMap);
  

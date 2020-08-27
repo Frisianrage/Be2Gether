@@ -1,15 +1,21 @@
 import React, {useState, useEffect} from 'react'
 import {Popup} from 'react-leaflet'
+import {Button} from 'react-bootstrap';
 
 
 
 export default function CostumPopup(props) {
-  console.log(props)
+  console.log(props.info.raw[0])
+  const handleClick = () => {
+    props.setButtonclicked(true)
+  }
   return (
     <Popup>
       <div>
-        <p>I am a custom popUp</p>
-        
+  <p>This is {props.info.raw[0].address.city}</p>
+        <Button variant="success" onClick={handleClick}>New Memory</Button>
+        <p></p>
+        <Button variant="success" >Show Pictures</Button>
       </div>
     </Popup>
   );

@@ -1,6 +1,6 @@
 import React,  {useState} from 'react';
 import PictureModal from './picturemodal'
-import {userTwoName} from './userlist'
+
 
 function History(props) {
    
@@ -29,12 +29,12 @@ function History(props) {
             <div className="historyContainer">
                   <div className="chatHistory">
                     {chathistory.map((message, key) => 
-                          <div key={key} className={(message.author == props.authUser.username) ? "right" : "left"}>
+                          <div key={key} className={(message.author === props.authUser.username) ? "right" : "left"}>
                             <li id={chathistory.length}>
-                              {(message.type == "image") ?
-                                <img onClick={handleClick} id={message.name} className={(message.author == props.authUser.username) ? "picme" : "picyou"} src={message.body} alt="Something is wrong" ></img>
+                              {(message.type === "image") ?
+                                <img onClick={handleClick} id={message.name} className={(message.author === props.authUser.username) ? "picme" : "picyou"} src={message.body} alt="Something is wrong" ></img>
                                   : 
-                                <p className={(message.author == props.authUser.username) ? "chatme" : "chatyou"}>{message.body}</p> }
+                                <p className={(message.author === props.authUser.username) ? "chatme" : "chatyou"}>{message.body}</p> }
                             </li>
                           </div> 
                     )} 

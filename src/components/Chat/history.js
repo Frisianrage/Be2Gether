@@ -1,14 +1,12 @@
 import React,  {useState} from 'react';
-
-
-
+import PictureModal from './picturemodal'
 
 
 function History(props) {
    
-    //var userId = props.authUser.uid;
-     // var messageKey = props.firebase.db.app.database().ref().child('messages').push().key
   const [chathistory, setchathistory] = useState([])
+  const [selectedImage, setSelectedImage] = useState(false)
+  const [imageWasClicked, setImageWasClicked] = useState(false)
   
     props.firebase.db.app.database().ref().child('chats/'+ props.newerId)
    .once('value')
@@ -20,27 +18,32 @@ function History(props) {
       } else (setchathistory([]))
     }) 
 
-    const imgclick = () => {
-      window.prompt("test")
+    const handleClick = (e) => {
+      setSelectedImage(e.target)
+      if(!imageWasClicked) {
+      setImageWasClicked(true);
+    } else setImageWasClicked(false)
     }
-  return <div className="historyContainer">
-            <div className="chatHistory">
-              {chathistory.map(message => 
-                    <div className={(message.author == props.authUser.username) ? "right" : "left"}>
-                      <li>
-                        {(message.type == "image") ?
-                          <img className={(message.author == props.authUser.username) ? "picme" : "picyou"} src={message.body} alt="Something is wrong" ></img> 
-                             : 
-                          <p className={(message.author == props.authUser.username) ? "chatme" : "chatyou"}>{message.body}</p> }
-                      </li>
-                    </div>
-                    
-              )} 
 
-            </div>
-         </div>
-  
+  return <div className="test">
+            <div className="historyContainer">
+                  <div className="chatHistory">
+                    {chathistory.map((message, key) => 
+                          <div key={key} className={(message.author === props.authUser.username) ? "right" : "left"}>
+                            <li id={chathistory.length}>
+                              {(message.type === "image") ?
+                                <img onClick={handleClick} id={message.name} className={(message.author === props.authUser.username) ? "picme" : "picyou"} src={message.body} alt="Something is wrong" ></img>
+                                  : 
+                                <p className={(message.author === props.authUser.username) ? "chatme" : "chatyou"}>{message.body}</p> }
+                            </li>
+                          </div> 
+                    )} 
+                  </div> 
+              </div>
+             { imageWasClicked && <PictureModal messagebody={selectedImage} imageWasClicked={imageWasClicked} setImageWasClicked={setImageWasClicked} /> } 
+        </div>
 }
-              
+
+
 export default History;
 

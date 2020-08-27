@@ -21,37 +21,33 @@ function Userlist(props) {
             }
       }) 
 
-       userOne = props.authUser.uid;
+  userOne = props.authUser.uid;
        
   const handleclick = (e) => {
     userTwoName = e.currentTarget.title
     userTwo = e.currentTarget.id
   newerId = ChatId(userOne, userTwo)  
-  ;
-  
-  
-  const content = document.getElementById("test")
-    
-  if (content) {
-        content.reset();
-    }
   }
-        
-    
-
+ 
   return <div className="userList">
-      <p>Userlist</p>
-        {userlist.map(user => 
-           
-          (<div title={user.username} id={user.id} onClick={handleclick}>
-                
-                <Link to={{pathname: ROUTES.CHATWINDOW, hash: user.id}}>{user.username}</Link>
-                
-         </div>))} 
+                <p>Userlist</p>
+                  {userlist.map((user, key) => (
+                      <div key={key} title={user.username} id={user.id} onClick={handleclick}>
+                          <Link to={{pathname: ROUTES.CHATWINDOW, hash: user.id}}>{user.username}</Link>
+                      </div>
+                    )
+                  )} 
          </div>
 }
 
 export {newerId, userTwo, userTwoName}; 
 export default Userlist;
 
+/*
 
+  const content = document.getElementById("test")
+    
+  if (content) {
+        content.reset();
+    }
+*/

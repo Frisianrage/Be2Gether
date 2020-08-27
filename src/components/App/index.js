@@ -9,19 +9,20 @@ import PasswordForgetPage from '../PasswordForget';
 import HomePage from '../Home';
 import AccountPage from '../Account';
 import AdminPage from '../Admin';
-import Chat from '../Chat';
+import Chats from '../Chat/index';
 import Chatwindow from '../Chat/chatwindow'
 import Map from '../Map'
 
 import * as ROUTES from '../../constants/routes';
 import { withAuthentication } from '../Session';
 
+
 const App = () => (
   <Router>
     <div>
       <Navigation />
 
-      <hr />
+      
 
       <Route exact path={ROUTES.LANDING} component={LandingPage} />
       <Route exact path={ROUTES.SIGN_UP} component={SignUpPage} />
@@ -34,10 +35,11 @@ const App = () => (
       <Route exact path={ROUTES.HOME} component={HomePage} />
       <Route exact path={ROUTES.ACCOUNT} component={AccountPage} />
       <Route exact path={ROUTES.ADMIN} component={AdminPage} />
-      <Route exact path={ROUTES.CHATS} component={Chat} />
+      <Route exact path={ROUTES.CHATS} component={Chats} />
       <Route exact path={ROUTES.CHATWINDOW} component={Chatwindow} /> 
       <Route exact path={ROUTES.MAP} component={Map} /> 
     </div>
+    
   </Router>
 );
 

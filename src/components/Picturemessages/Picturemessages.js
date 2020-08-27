@@ -58,6 +58,7 @@ export default function Picturemessages(props) {
                 uid: props.authUser.uid,
                 type: "image",
                 body: downloadURL,
+                name: file.name,
                 createdAt: Date.now(),
                 };
        

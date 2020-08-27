@@ -1,3 +1,4 @@
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,9 +6,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  position: absolute;
   width: 100%;
-
 }
 
 code {
@@ -37,6 +36,7 @@ li {
 
 h1 {
   font-size: 26px;
+  padding-bottom: 10px
 }
 
 #messageSubmit {
@@ -59,7 +59,15 @@ input {
 
 
 .chatwindowhead {
-  text-align: center
+  text-align: center;
+  border-top: 1px solid grey;
+  border-bottom: 1px solid grey;
+  margin-top: -5px
+}
+
+.mapwindowhead {
+  text-align: center;
+  font-size: 36px;
 }
 
 
@@ -72,11 +80,11 @@ width: 100%;
 height: 650px;
 overflow-y: auto;
 position: relative;
-background-color: rgb(235, 231, 231);
 }
 
 .chatwindow {
   width: 100%;
+  background-color: rgb(235, 231, 231);
 }
 
 .historyContainer {
@@ -153,13 +161,6 @@ background-color: rgb(235, 231, 231);
   padding: 10px; 
 }
 
-
-
-.try {
-  z-index: 10;
-  position: absolute;
-}
-
 .modalbody {
   text-align: center;
 }
@@ -170,6 +171,23 @@ background-color: rgb(235, 231, 231);
 }
 
 
+.MyMap{
+  top: 25px;
+  z-index: 0;
+  overflow: hidden;
+  height: 600px;
+  
+}
+
+.Newplace {
+  height: 600px;
+  width: 600px;
+  overflow: hidden;
+}
+
+.newplacemodal {
+  width: 900px;
+}
 
 
 

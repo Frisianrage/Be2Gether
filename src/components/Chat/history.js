@@ -17,7 +17,7 @@ function History(props) {
         setchathistory(messages)
       } else (setchathistory([]))
     }) 
-
+    console.log(chathistory)
     const handleClick = (e) => {
       setSelectedImage(e.target)
       if(!imageWasClicked) {

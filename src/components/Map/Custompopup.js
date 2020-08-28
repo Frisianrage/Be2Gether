@@ -6,7 +6,7 @@ import ShowPicCarousel from './showpicscarousel'
 
 
 export default function CostumPopup(props) {
-  console.log(props.info.raw[0])
+  
   const handleClick = () => {
     props.setButtonclicked(true)
   }
@@ -17,7 +17,7 @@ export default function CostumPopup(props) {
   return (
     <Popup>
       <div>
-  <p>This is {props.info.raw[0].address.city}</p>
+  <p>This is SPARTA!!!!!</p>
         <Button variant="success" onClick={handleClick}>New Memory</Button>
         <p></p>
         <Button variant="success" onClick={handleShow}>Show Pictures</Button>

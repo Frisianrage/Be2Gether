@@ -14,13 +14,44 @@ L.Icon.Default.mergeOptions({
     shadowUrl: require('leaflet/dist/images/marker-shadow.png')
 });
 
-const position = [51.505, -0.09]
+
 
 const MyMap = (props) => {
   const [buttonclicked, setButtonclicked] = useState(false)
   const [placeinfos, setPlaceinfos] = useState()
   const [showpicsclicked, setShowpicsclicked] = useState(false)
+ /* const [marker, setMarker] = useState([])*/
   
+ // const [position, setPosition] = useState()
+
+  const newerId = "EL2a3ZzudpaEiDverbOyzQUVep5H"
+ //  let probe = []
+  props.firebase.db.app.database().ref().child('/places-together/' + newerId)
+  .once('value')
+  .then(async function (snapshot) {
+     let newArray = await snapshot.val();
+     const test = Object.keys(newArray).map(v => newArray[v]);
+     test.forEach(item => item.forEach(t => console.log(t)))
+     
+      //setPosition(newitem)
+     /*snapshot.forEach(function(childSnapshot) {
+     const Data = childSnapshot.val();
+      console.log(Data)
+     
+      var childData = childSnapshot.val();
+     console.log(childData)
+      childSnapshot.forEach(async function(grandchildSnapshot) {
+        //var commonId = grandchildSnapshot.key;
+        var places = await grandchildSnapshot.val();
+        const newplaces = Object.keys(places).map(key => places[key]);;
+       setPosition(newplaces)
+   })
+   })*/
+   })
+   
+   
+
+    const centerpos = [53.36745, 7.20778]
 
   return (<AuthUserContext.Consumer>
     {authUser => (
@@ -28,19 +59,20 @@ const MyMap = (props) => {
       <div>
         <h1 className="mapwindowhead">Places we've been...</h1>
         <div className="leaflet">
-          <Map className="MyMap" center={position} zoom={3}>
+          <Map className="MyMap" center={centerpos} zoom={3}>
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors" />
           <Search position="topleft" inputPlaceholder="Custom placeholder" showMarker={true} zoom={7} closeResultsOnClick={true} openSearchOnLoad={false}>
-                {(info)=>  {setPlaceinfos(info);  
+                {(info)=>  {setPlaceinfos(info); 
                     return (
                       <Marker position={[info.latLng.lat, info.latLng.lng]}>
-                        <CostumPopup info={info} showpicsclicked={showpicsclicked} placeinfos={placeinfos} firebase={props.firebase} setShowpicsclicked={setShowpicsclicked} setButtonclicked={setButtonclicked} />
+                        <CostumPopup showpicsclicked={showpicsclicked} placeinfos={placeinfos} firebase={props.firebase} setShowpicsclicked={setShowpicsclicked} setButtonclicked={setButtonclicked} />
                       </Marker>
                     )
                    }
                   }
                 </Search>
-                  <Marker position={position}>Hello</Marker>
+                
+                  <Marker position={centerpos}></Marker>
                 </Map>
         </div>
        </div>

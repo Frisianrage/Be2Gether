@@ -4,6 +4,7 @@ import addpic from '../../Pics/addpic.png';
 
 export default function Placemodal(props) {
     console.log(props)
+    
     const handleClose = () => props.setButtonclicked(false);
 
     const handleSave = (e) => console.log(e)
@@ -22,14 +23,14 @@ export default function Placemodal(props) {
         console.log(typeof(filesarray))
         console.log(city)
 
+
+        
         filesarray.map((file) => {
         var storageRef = props.firebase.store.app.storage().ref();
         var metadata = {
             contentType: 'image/jpeg'
           };
-    
-          
-          
+     
           var uploadTask = storageRef.child('images/' + city + '/' + file.name).put(file, metadata);
     
           
@@ -83,8 +84,8 @@ export default function Placemodal(props) {
                 
     
                 var updates = {};
-                updates['/places-together/' + newerId + '/' + city + '/' + newPlaceKey] = postData
-                updates['/places/' + city + '/' + newPlaceKey] = postData;
+                updates['/places-together/' + newerId + '/' + city] = postData
+                updates['/places/' + city + '/' + newerId + '/' + newPlaceKey] = postData;
                 updates['/user-places/' + props.authUser.uid + '/' + city + '/' + newPlaceKey] = postData;
     
                 return props.firebase.db.app.database().ref().update(updates); 
@@ -135,6 +136,7 @@ export default function Placemodal(props) {
               Close
             </Button>
             <Button variant="primary" onClick={handleSave}>
+            
               Save Memory
             </Button>
           </Modal.Footer>

@@ -19,6 +19,8 @@ const position = [51.505, -0.09]
 const MyMap = (props) => {
   const [buttonclicked, setButtonclicked] = useState(false)
   const [placeinfos, setPlaceinfos] = useState()
+  const [showpicsclicked, setShowpicsclicked] = useState(false)
+  
 
   return (<AuthUserContext.Consumer>
     {authUser => (
@@ -32,7 +34,7 @@ const MyMap = (props) => {
                 {(info)=>  {setPlaceinfos(info);  
                     return (
                       <Marker position={[info.latLng.lat, info.latLng.lng]}>
-                        <CostumPopup info={info} setButtonclicked={setButtonclicked} />
+                        <CostumPopup info={info} showpicsclicked={showpicsclicked} placeinfos={placeinfos} firebase={props.firebase} setShowpicsclicked={setShowpicsclicked} setButtonclicked={setButtonclicked} />
                       </Marker>
                     )
                    }
@@ -42,7 +44,13 @@ const MyMap = (props) => {
                 </Map>
         </div>
        </div>
-       { buttonclicked && <Placemodal firebase={props.firebase} authUser={props.authUser} placeinfos={placeinfos} buttonclicked={buttonclicked} setButtonclicked={setButtonclicked} /> } 
+       { buttonclicked && 
+       <Placemodal 
+       firebase={props.firebase} 
+       authUser={authUser} 
+       placeinfos={placeinfos} 
+       buttonclicked={buttonclicked} 
+       setButtonclicked={setButtonclicked}/> } 
     </div> )}
   </AuthUserContext.Consumer>
   )

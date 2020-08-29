@@ -9,12 +9,13 @@ function ShowPicCarousel(props) {
    const city = props.placeinfos.raw[0].address.city
    
    
-     props.firebase.db.app.database().ref().child('/places/' + city + '/' + newerId )
+     props.firebase.db.app.database().ref().child('/places/' + newerId )
     .once('value')
     .then( async function (snapshot) {
        let newArray = await snapshot.val(); 
        if (newArray){
            const places = Object.keys(newArray).map(key => newArray[key]);;
+        
            setPlacehistory(places)
        } else (setPlacehistory([]))
      }) 
@@ -28,7 +29,9 @@ function ShowPicCarousel(props) {
         <Modal.Body>
 
         <Carousel indicators={false}>
-            {placehistory.map(place => 
+            {placehistory.map(place => {
+              if(place.city === city) {
+                return (
                 <Carousel.Item className="carousel-item">
                 <img
                   className="d-block w-100"
@@ -39,12 +42,11 @@ function ShowPicCarousel(props) {
                   <h3>Our trip to {city}</h3>
                   <p>Our trip to {city}. We've been here... (Time)!!</p>
                 </Carousel.Caption>
-              </Carousel.Item>)}
-  
-</Carousel>
-
-        </Modal.Body>
-
+              </Carousel.Item>
+                )} 
+              } ) }
+            </Carousel>
+          </Modal.Body>
       </Modal>
     </div>
       

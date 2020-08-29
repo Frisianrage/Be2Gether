@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import {Popup} from 'react-leaflet'
 import {Button} from 'react-bootstrap';
 import ShowPicCarousel from './showpicscarousel'
@@ -14,10 +14,13 @@ export default function CostumPopup(props) {
   const handleShow = () => {
     props.setShowpicsclicked(true)
   }
+  
+
+  
   return (
     <Popup>
       <div>
-  <p>This is SPARTA!!!!!</p>
+  <p>This is {props.info.raw[0].address.city}!!!!!</p>
         <Button variant="success" onClick={handleClick}>New Memory</Button>
         <p></p>
         <Button variant="success" onClick={handleShow}>Show Pictures</Button>

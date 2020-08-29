@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Modal, Button, Container, Row, Col, Form, Image} from 'react-bootstrap';
-import addpic from '../../Pics/addpic.png';
+import addpic from '../../../Pics/addpic.png';
 
 export default function Placemodal(props) {
    
@@ -16,7 +16,7 @@ export default function Placemodal(props) {
         console.log(allfiles.length)
         const filesarray = Object.values(allfiles)
         const city = props.placeinfos.raw[0].address.city
-        const newerId = "EL2a3ZzudpaEiDverbOyzQUVep5H"
+        const coupleId = props.newerId
         
        
 
@@ -27,7 +27,7 @@ export default function Placemodal(props) {
                     contentType: 'image/jpeg'
                   };
              
-                  var uploadTask = storageRef.child('images/' + city + '/' + file.name).put(file, metadata);
+                  var uploadTask = storageRef.child('images/' + coupleId + '/' + city + '/' + file.name).put(file, metadata);
             
                   
                   uploadTask.on(props.firebase.store.app.firebase_.storage.TaskEvent.STATE_CHANGED, 
@@ -72,6 +72,7 @@ export default function Placemodal(props) {
                         body: downloadURL,
                         file_name: file.name,
                         createdAt: Date.now(),
+                        city: city,
                         address: props.placeinfos.raw[0].address,
                         coordinates: [props.placeinfos.raw[0].lat, props.placeinfos.raw[0].lon],
                         placeid: props.placeinfos.raw[0].place_id
@@ -80,8 +81,10 @@ export default function Placemodal(props) {
                         
             
                         var updates = {};
-                        updates['/places-together/' + newerId + '/' + city  + '/' + newPlaceKey] = postData
-                        updates['/places/' + city + '/' + newerId + '/' + newPlaceKey] = postData;
+                        //places-together für Markerposition
+                        updates['/places-together/' + coupleId + '/' + city] = postData
+                        //places für Bilder
+                        updates['/places/' + coupleId + '/' + newPlaceKey] = postData;
                         updates['/user-places/' + props.authUser.uid + '/' + city + '/' + newPlaceKey] = postData;
             
                         return props.firebase.db.app.database().ref().update(updates); 
@@ -138,6 +141,7 @@ export default function Placemodal(props) {
                     body: downloadURL,
                     file_name: file.name,
                     createdAt: Date.now(),
+                    city: city,
                     address: props.placeinfos.raw[0].address,
                     coordinates: [props.placeinfos.raw[0].lat, props.placeinfos.raw[0].lon],
                     placeid: props.placeinfos.raw[0].place_id
@@ -146,9 +150,11 @@ export default function Placemodal(props) {
                     
         
                     var updates = {};
-                    updates['/places-together/' + newerId + '/' + city] = postData
-                    updates['/places/' + city + '/' + newerId + '/' + newPlaceKey] = postData;
-                    updates['/user-places/' + props.authUser.uid + '/' + city + '/' + newPlaceKey] = postData;
+                        //places-together für Markerposition
+                        updates['/places-together/' + coupleId + '/' + city] = postData
+                        //places für Bilder
+                        updates['/places/' + coupleId + '/' + newPlaceKey] = postData;
+                        updates['/user-places/' + props.authUser.uid + '/' + city + '/' + newPlaceKey] = postData;
         
                     return props.firebase.db.app.database().ref().update(updates); 
                 });
@@ -158,7 +164,7 @@ export default function Placemodal(props) {
         
        
     }
-
+    
     const handleClick = () => {
         document.getElementById("placepic").click()
             }

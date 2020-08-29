@@ -12,7 +12,8 @@ import Chats from '../Chat/index';
 import Chatwindow from '../Chat/chatwindow'
 import * as ROUTES from '../../constants/routes';
 import { withAuthentication } from '../Session';
-import MyMap from '../Map';
+import Map from '../Map';
+import MyMap from '../Map/mapwindow'
 
 
 const App = () => (
@@ -32,7 +33,8 @@ const App = () => (
       <Route exact path={ROUTES.ADMIN} component={AdminPage} />
       <Route exact path={ROUTES.CHATS} component={Chats} />
       <Route exact path={ROUTES.CHATWINDOW} component={Chatwindow} /> 
-      <Route exact path={ROUTES.MAP} component={MyMap} />
+      <Route exact path={ROUTES.MAP} component={Map} />
+      <Route exact path={ROUTES.MAPWINDOW} component={MyMap} />
     </div>
      
   </Router>

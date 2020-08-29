@@ -4,10 +4,10 @@ import {Modal, Carousel} from 'react-bootstrap';
 function ShowPlaceCarousel(props) {
    const handleClose = () => props.setShowpicsclicked(false);
 
-   const [placehistory, setPlacehistory] = useState([])
+   const [thisplacehistory, setThisPlacehistory] = useState([])
    const newerId = "EL2a3ZzudpaEiDverbOyzQUVep5H"
 
-   const city = props.placeinfos.city
+   const thiscity = props.placeinfos.city
    
    
    props.firebase.db.app.database().ref().child('/places/' + newerId )
@@ -15,23 +15,22 @@ function ShowPlaceCarousel(props) {
   .then( async function (snapshot) {
      let newArray = await snapshot.val(); 
      if (newArray){
-         const places = Object.keys(newArray).map(key => newArray[key]);;
-      
-         setPlacehistory(places)
-     } else (setPlacehistory([]))
+      const places = Object.keys(newArray).map(key => newArray[key]);;
+      setThisPlacehistory(places)
+     } else (setThisPlacehistory([]))
    })
     
   return (
     <div className="placemodal">
 <Modal size="xl" show={props.showpicsclicked} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>{city}</Modal.Title>
+          <Modal.Title>{thiscity}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
 
         <Carousel indicators={false}>
-            {placehistory.map(place => {
-              if(place.city === city) {
+            {thisplacehistory.map(place => {
+              if(place.city === thiscity) {
                 return (
                 <Carousel.Item className="carousel-item">
                 <img
@@ -40,8 +39,8 @@ function ShowPlaceCarousel(props) {
                   alt={place.file_name}
                 />
                 <Carousel.Caption>
-                  <h3>Our trip to {city}</h3>
-                  <p>Our trip to {city}. We've been here... (Time)!!</p>
+                  <h3>Our trip to {thiscity}</h3>
+                  <p>Our trip to {thiscity}. We've been here... (Time)!!</p>
                 </Carousel.Caption>
               </Carousel.Item>
                 )} 

@@ -125,10 +125,8 @@ export default function Placemodal(props) {
                 </Button>
                 <Button variant="primary" onClick={handleSave}>
                 Save Memory
-                </Button>
-                
+                </Button> 
             </Modal.Footer>
         </Modal>
-      
     );
 }

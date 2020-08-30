@@ -7,9 +7,10 @@ import ShowPlaceCarousel from './showplacecarousel'
 
 
 export default function PlacePopup(props) {
-   //for displaying the gallery inside the placemodal
-   const [showpicsclicked, setShowpicsclicked] = useState(false)
-   const [buttonclicked, setButtonclicked] = useState(false)
+  const [showpicsclicked, setShowpicsclicked] = useState(false)
+  const [buttonclicked, setButtonclicked] = useState(false)
+  const [thisplacehistory, setThisPlacehistory] = useState([])
+  
   const handleClick = () => {
     setButtonclicked(true)
     console.log(props)
@@ -17,11 +18,8 @@ export default function PlacePopup(props) {
 
   const handleShow = () => {
     setShowpicsclicked(true)
-    
   }
  
-  const [thisplacehistory, setThisPlacehistory] = useState([])
-  
   return (
     <Popup>
       <div>

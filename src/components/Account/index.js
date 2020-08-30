@@ -16,9 +16,9 @@ const AccountPage = () => (
         <h4>User</h4>
         <p>User-ID: {authUser.uid}</p>
         <p>Username: {authUser.username}</p>
-        <p>Vorname: {authUser.first_name}</p>
-        <p>Nachname: {authUser.last_name}</p>
-        <p>Alter: {authUser.age}</p>
+        <p>Firstname: {authUser.first_name}</p>
+        <p>Lastname: {authUser.last_name}</p>
+        <p>Age: {authUser.age}</p>
           <br/>
         <h3>Change your Password</h3>
       

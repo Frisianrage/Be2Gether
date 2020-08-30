@@ -6,10 +6,8 @@ function ShowPlaceCarousel(props) {
     props.setShowpicsclicked(false);
   }
 
-  
   const newerId = props.newerId
-  const thiscity = props.placeinfos.address.city
-   
+  const thiscity = props.placeinfos.address.city 
   const storageUrl =  props.firebase.db.app.database().ref().child('/places/' + newerId + '/' + thiscity)
   
   useEffect(() => {
@@ -23,11 +21,12 @@ function ShowPlaceCarousel(props) {
           const places = Object.keys(newArray).map(key => newArray[key]);;
           props.setThisPlacehistory(places)
         }
-      }})
-   return () => {
-    mounted = false
-  }
-})
+      }
+    })
+    return () => {
+     mounted = false
+    }
+  })
   
   return (
     <div className="placemodal">
@@ -40,7 +39,6 @@ function ShowPlaceCarousel(props) {
                   {props.thisplacehistory.map((place, key) => 
                   <Carousel.Item key={key} className="carousel-item">
                       <img
-                        
                         className="d-block w-100"
                         src={place.body}
                         alt={place.file_name}
@@ -57,7 +55,6 @@ function ShowPlaceCarousel(props) {
         </Modal>
     </div>
     );
-  
 }
                
 export default ShowPlaceCarousel;

@@ -6,13 +6,13 @@ export default function Placemodal(props) {
     
     const handleClose = () => props.setButtonclicked(false);
 
-    const handleSave = () => console.log(props.info.latLng)
+    const handleSave = () => console.log(props)
 
     const handleChange = (e) => {
         var fileElement = document.getElementById('placepic');
         var allfiles = fileElement.files 
         const filesarray = Object.values(allfiles)
-        const city = props.info.raw[0].address.city
+        const city = props.placeinfos.address.city
         const coupleId = props.newerId
 
         filesarray.map((file) => {
@@ -66,9 +66,9 @@ export default function Placemodal(props) {
                     file_name: file.name,
                     createdAt: Date.now(),
                     city: city,
-                    address: props.info.raw[0].address,
-                    coordinates: [props.info.raw[0].lat, props.info.raw[0].lon],
-                    placeid: props.info.raw[0].place_id
+                    address: props.placeinfos.address,
+                    coordinates: props.placeinfos.coordinates,
+                    placeid: props.placeinfos.placeid
                     };
            
                     var updates = {};

@@ -1,20 +1,26 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {Popup} from 'react-leaflet'
 import {Button} from 'react-bootstrap';
+import Myplacesmodal from './Myplacesmodal'
 import ShowPlaceCarousel from './showplacecarousel'
 
 
 
 export default function PlacePopup(props) {
-  
+   //for displaying the gallery inside the placemodal
+   const [showpicsclicked, setShowpicsclicked] = useState(false)
+   const [buttonclicked, setButtonclicked] = useState(false)
   const handleClick = () => {
-    props.setButtonclicked(true)
+    setButtonclicked(true)
+    console.log(props)
   }
 
   const handleShow = () => {
-    props.setShowpicsclicked(true)
+    setShowpicsclicked(true)
+    
   }
  
+  const [thisplacehistory, setThisPlacehistory] = useState([])
   
   return (
     <Popup>
@@ -22,8 +28,9 @@ export default function PlacePopup(props) {
   <p>This is {props.placeinfos.city}</p>
         <Button variant="success" onClick={handleClick}>New Memory</Button>
         <p></p>
-        <Button variant="success" onClick={handleShow}>Show Pictures</Button>
-        { props.showpicsclicked && <ShowPlaceCarousel firebase={props.firebase} placeinfos={props.placeinfos} showpicsclicked={props.showpicsclicked} setShowpicsclicked={props.setShowpicsclicked} /> }
+        <Button variant="success" onClick={handleShow}>Gallery</Button>
+        { buttonclicked && <Myplacesmodal firebase={props.firebase} authUser={props.authUser} placeinfos={props.placeinfos} buttonclicked={buttonclicked} setButtonclicked={setButtonclicked} newerId={props.newerId}/> } 
+        { showpicsclicked && <ShowPlaceCarousel firebase={props.firebase} setThisPlacehistory={setThisPlacehistory} thisplacehistory={thisplacehistory} newerId={props.newerId} placeinfos={props.placeinfos} showpicsclicked={showpicsclicked} setShowpicsclicked={setShowpicsclicked} /> }
       </div>
     </Popup>
   );

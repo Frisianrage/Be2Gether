@@ -1,22 +1,23 @@
 import React, {useState} from 'react';
 import {Modal, Carousel} from 'react-bootstrap';
+import newerId from '../mapuserlist'
 
 function ShowPicCarousel(props) {
    const handleClose = () => props.setShowpicsclicked(false);
 
    const [placehistory, setPlacehistory] = useState([])
-   const newerId = "EL2a3ZzudpaEiDverbOyzQUVep5H"
-   const city = props.placeinfos.raw[0].address.city
+   
+   const city = props.info.raw[0].address.city
+   //props.info.raw[0].address.city
    
    
-     props.firebase.db.app.database().ref().child('/places/' + newerId )
+     props.firebase.db.app.database().ref().child('/places/' + newerId + '/' + city )
     .once('value')
     .then( async function (snapshot) {
        let newArray = await snapshot.val(); 
        if (newArray){
            const places = Object.keys(newArray).map(key => newArray[key]);;
-        
-           setPlacehistory(places)
+          setPlacehistory(places)
        } else (setPlacehistory([]))
      }) 
     
@@ -58,19 +59,3 @@ function ShowPicCarousel(props) {
                
 export default ShowPicCarousel;
 
-/*
-
-
-  {placehistory.map((message, key) => 
-                           <Carousel.Item>
-                           <img
-                             className="d-block w-100"
-                             src="holder.js/800x400?text=First slide&bg=373940"
-                             alt="First slide"
-                           />
-                           <Carousel.Caption>
-                             <h3>First slide label</h3>
-                             <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                           </Carousel.Caption>
-                         </Carousel.Item>
-                    )} */

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { AuthUserContext, withAuthorization } from '../Session';
 import { Map, Marker, TileLayer } from 'react-leaflet'
 import L from 'leaflet';
@@ -19,30 +19,40 @@ L.Icon.Default.mergeOptions({
 
 
 const MyMap = (props) => {
-  const [buttonclicked, setButtonclicked] = useState(false)
-  const [placeinfos, setPlaceinfos] = useState([])
-  const [showpicsclicked, setShowpicsclicked] = useState(false)
+  //for displaying the placemodal
+  
+ 
+
+  //const [placeinfos, setPlaceinfos] = useState([])
+
+  
   const [position, setPosition] = useState([])
   const centerpos = [53.36745, 7.20778]
 
-     
-  props.firebase.db.app.database().ref().child('/places-together/' + newerId)
-  .once('value')
+  const storageUrl = props.firebase.db.app.database().ref().child('/places-together/' + newerId)
+
+useEffect(() => {
+  let mounted = true
+
+  storageUrl.once('value')
   .then(async function (snapshot) {
      const newArray = await snapshot.val();
-     if(newArray){
-      const mymarker = Object.keys(newArray).map(key => newArray[key]);
-      setPosition(mymarker)
-     } else {
-      setPosition([])
-     }
-     
-   })
-  
-   const handleClick = (item) => {
-    setPlaceinfos(item)
-   }
+     if(mounted){
+      if(newArray){
+        const mymarker = Object.keys(newArray).map(key => newArray[key]);
+        setPosition(mymarker)
+      } 
+     }     
+  })
+  return () => {
+    mounted = false
+  }
+   
 
+}
+)    
+  
+  
   return (<AuthUserContext.Consumer>
     {authUser => (
     <div>
@@ -54,28 +64,20 @@ const MyMap = (props) => {
           <Search position="topleft" inputPlaceholder="Custom placeholder" showMarker={true} zoom={7} closeResultsOnClick={true} openSearchOnLoad={false}>
                 {(info) =>  { 
                     return (
-                      <Marker onClick={handleClick(info)} position={[info.latLng.lat, info.latLng.lng]}>
-                        <CostumPopup showpicsclicked={showpicsclicked} info={info} firebase={props.firebase} setShowpicsclicked={setShowpicsclicked} setButtonclicked={setButtonclicked} />
+                      <Marker position={[info.latLng.lat, info.latLng.lng]}>
+                        <CostumPopup info={info} authUser={authUser} firebase={props.firebase} newerId={newerId} />
                       </Marker>
                     )
                    }
                   }
                 </Search>
                 <div>
-                {position.map(place => <Marker position={place.coordinates}><Placepopup showpicsclicked={showpicsclicked} placeinfos={place} firebase={props.firebase} setShowpicsclicked={setShowpicsclicked} setButtonclicked={setButtonclicked}></Placepopup></Marker>)}
-                </div>
-                
+                 </div>
+                 {position.map((place, key) => <Marker key={key} position={place.coordinates}><Placepopup newerId={newerId} authUser={authUser} placeinfos={place} firebase={props.firebase} ></Placepopup></Marker>)}
                 </Map>
         </div>
        </div>
-       { buttonclicked && 
-       <Placemodal 
-       firebase={props.firebase} 
-       authUser={authUser} 
-       placeinfos={placeinfos} 
-       buttonclicked={buttonclicked} 
-       setButtonclicked={setButtonclicked}
-       newerId={newerId}/> } 
+       
     </div> )}
   </AuthUserContext.Consumer>
   )
@@ -85,3 +87,7 @@ const condition = authUser => !!authUser;
 
 export default withAuthorization(condition)(MyMap);
  
+
+/*
+               
+*/

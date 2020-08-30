@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
 import ChatId from './chatid'
@@ -8,18 +8,30 @@ let userTwo;
 let userTwoName;
 let newerId
 
+
+
 function MapUserlist(props) {
   const [userlist, setuserlist] = useState([])
+  const storageUrl = props.firebase.db.app.database().ref().child('users/')
   
-  props.firebase.db.app.database().ref().child('users/')
-     .once('value')
-     .then(function(snapshot) {
-          let newArray = snapshot.val();
+  useEffect(() => {
+    let mounted = true
+    storageUrl.once('value')
+    .then(function(snapshot) {
+         let newArray = snapshot.val();
+         if(mounted) {
             if(newArray){
               const messages = Object.keys(newArray).map(key => newArray[key])
               setuserlist(messages)
             }
+         }
       }) 
+      return () => {
+        mounted = false
+      }
+  })
+  
+      
 
   userOne = props.authUser.uid;
        

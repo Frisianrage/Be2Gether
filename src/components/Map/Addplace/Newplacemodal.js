@@ -30,7 +30,7 @@ export default function Newplacemodal(props) {
     function writeNewMessage(e) {
       e.preventDefault()
       if(!textValue) return
-      const newMessageKey = props.firebase.db.app.database().ref().child('travel-memories').push().key;
+      const newMessageKey = props.firebase.db.app.database().ref().child('travel').push().key;
       var blogData = {
         type: "text",
         author: props.authUser.username,
@@ -42,14 +42,15 @@ export default function Newplacemodal(props) {
         createdAt: Date.now(),
         placeid: newMessageKey
       };
-      
+      console.log(city)
       var updates = {};
-      updates['map/places-together/' + coupleId + '/' + location.city] = blogData
+      updates['map/places-together/' + coupleId + '/' + city] = blogData
       updates['travel/memories/' + coupleId + '/' + newMessageKey] = blogData
       updates['travel/travel-memories/' + newMessageKey] = blogData;
       updates['travel/user-travel-memories/' + props.authUser.uid + '/' + newMessageKey] = blogData;
 
-      return props.firebase.db.app.database().ref().update(updates);
+      return (props.firebase.db.app.database().ref().update(updates),
+        handleClose())
     }
   
     const HandleChange = (e) => {
@@ -116,10 +117,10 @@ export default function Newplacemodal(props) {
            
                     var updates = {};
                     //places-together für Markerposition
-                    updates['/places-together/' + coupleId + '/' + city] = postData
+                    updates['map/places-together/' + coupleId + '/' + city] = postData
                     //places für Bilder
-                    updates['/places/' + coupleId + '/' + city + '/' + newPlaceKey] = postData;
-                    updates['/user-places/' + props.authUser.uid + '/' + city + '/' + newPlaceKey] = postData;
+                    updates['map/places/' + coupleId + '/' + city + '/' + newPlaceKey] = postData;
+                    updates['map/user-places/' + props.authUser.uid + '/' + city + '/' + newPlaceKey] = postData;
                     setIsLoading(false)
 
                     loadedpictures.push(postData)

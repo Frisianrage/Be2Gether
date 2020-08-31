@@ -2,12 +2,14 @@ import React, {useState, useEffect} from 'react';
 import {Modal, Carousel} from 'react-bootstrap';
 
 function ShowPlaceCarousel(props) {
+  const [thisplacehistory, setThisPlacehistory] = useState([])
   const handleClose = () => {
     props.setShowpicsclicked(false);
   }
-
+  
   const newerId = props.newerId
   const thiscity = props.placeinfos.address.city 
+  
   const storageUrl =  props.firebase.db.app.database().ref().child('map/places/' + newerId + '/' + thiscity)
   
   useEffect(() => {
@@ -19,7 +21,7 @@ function ShowPlaceCarousel(props) {
       if(mounted) {
         if (newArray){
           const places = Object.keys(newArray).map(key => newArray[key]);;
-          props.setThisPlacehistory(places)
+          setThisPlacehistory(places)
         }
       }
     })
@@ -27,7 +29,7 @@ function ShowPlaceCarousel(props) {
      mounted = false
     }
   })
-  
+ 
   return (
     <div className="placemodal">
       <Modal size="xl" show={props.showpicsclicked} onHide={handleClose}>
@@ -36,7 +38,7 @@ function ShowPlaceCarousel(props) {
             </Modal.Header>
             <Modal.Body>
                 <Carousel indicators={false}>
-                  {props.thisplacehistory.map((place, key) => 
+                  {thisplacehistory.map((place, key) => 
                   <Carousel.Item key={key} className="carousel-item">
                       <img
                         className="d-block w-100"

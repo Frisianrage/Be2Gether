@@ -19,7 +19,7 @@ export default function Placemodal(props) {
   function writeNewMessage(e) {
     e.preventDefault()
     if(!textValue) return
-    const newMessageKey = props.firebase.db.app.database().ref().child('travel-memories').push().key;
+    const newMessageKey = props.firebase.db.app.database().ref().child('travel').push().key;
     var blogData = {
       type: "text",
       author: props.authUser.username,
@@ -37,7 +37,8 @@ export default function Placemodal(props) {
     updates['travel/travel-memories/' + newMessageKey] = blogData;
     updates['travel/user-travel-memories/' + props.authUser.uid + '/' + newMessageKey] = blogData;
 
-    return props.firebase.db.app.database().ref().update(updates);
+    return (props.firebase.db.app.database().ref().update(updates),
+    handleClose())
   }
 
   const handleChange = (e) => {
@@ -91,7 +92,7 @@ export default function Placemodal(props) {
             }, function() {
               uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
                 console.log('File available at', downloadURL);
-                const newPlaceKey = props.firebase.db.app.database().ref().child('places').push().key;
+                const newPlaceKey = props.firebase.db.app.database().ref().child('travel').push().key;
               var postData = {
                   author: props.authUser.username,
                   uid: props.authUser.uid,
@@ -107,10 +108,10 @@ export default function Placemodal(props) {
                   var updates = {};
 
                   //places-together für Markerposition
-                  updates['/places-together/' + coupleId + '/' + city] = postData
+                  updates['map/places-together/' + coupleId + '/' + city] = postData
                   //places für Bilder
-                  updates['/places/' + coupleId + '/' + city + '/' + newPlaceKey] = postData;
-                  updates['/user-places/' + props.authUser.uid + '/' + city + '/' + newPlaceKey] = postData;
+                  updates['map/places/' + coupleId + '/' + city + '/' + newPlaceKey] = postData;
+                  updates['map/user-places/' + props.authUser.uid + '/' + city + '/' + newPlaceKey] = postData;
                   setIsLoading(false)
 
                   return (props.firebase.db.app.database().ref().update(updates),

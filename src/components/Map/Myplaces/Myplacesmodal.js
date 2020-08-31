@@ -3,6 +3,7 @@ import {Modal, Button, Container, Row, Col, Form, Image} from 'react-bootstrap';
 import addpic from '../../../Pics/addpic.png';
 import loading from  '../../../Pics/loading.gif'
 
+
 export default function Placemodal(props) {
   const [isloading, setIsLoading] = useState(false)
   const [preview, setPreview] = useState([])
@@ -176,6 +177,7 @@ export default function Placemodal(props) {
                 <Button variant="primary" onClick={writeNewMessage}>
                 Save Memory
                 </Button> 
+                
             </Modal.Footer>
         </Modal>
     );

@@ -36,6 +36,9 @@ const NavigationAuth = ({ authUser }) => (
     <li>
       <Link to={ROUTES.MAP}>Map</Link>
     </li>
+    <li>
+      <Link to={ROUTES.TRAVEL}>Travel-Blog</Link>
+    </li>
     {!!authUser.roles[ROLES.ADMIN] && (
       <li>
         <Link to={ROUTES.ADMIN}>Admin</Link>

@@ -14,6 +14,7 @@ import * as ROUTES from '../../constants/routes';
 import { withAuthentication } from '../Session';
 import Map from '../Map';
 import MyMap from '../Map/mapwindow'
+import Travel from '../Travel/index'
 
 
 const App = () => (
@@ -32,12 +33,17 @@ const App = () => (
       <Route exact path={ROUTES.ACCOUNT} component={AccountPage} />
       <Route exact path={ROUTES.ADMIN} component={AdminPage} />
       <Route exact path={ROUTES.CHATS} component={Chats} />
-      <Route exact path={ROUTES.CHATWINDOW} component={Chatwindow} /> 
+      <Route exact path={ROUTES.CHATWINDOW} component={Chatwindow} />
       <Route exact path={ROUTES.MAP} component={Map} />
       <Route exact path={ROUTES.MAPWINDOW} component={MyMap} />
+      <Route exact path={ROUTES.TRAVEL} render={(props) => (
+    <Travel {...props} isAuthed={true} />
+  )} />
     </div>
      
   </Router>
 );
 
 export default withAuthentication(App);
+
+// 

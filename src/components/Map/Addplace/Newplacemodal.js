@@ -46,7 +46,7 @@ export default function Newplacemodal(props) {
       var updates = {};
       updates['map/places-together/' + coupleId + '/' + city] = blogData
       updates['travel/memories/' + coupleId + '/' + newMessageKey] = blogData
-      updates['travel/travel-memories/' + newMessageKey] = blogData;
+      updates['travel/travel-memories/'+ coupleId + '/' + city + '/' + newMessageKey] = blogData;
       updates['travel/user-travel-memories/' + props.authUser.uid + '/' + newMessageKey] = blogData;
 
       return (props.firebase.db.app.database().ref().update(updates),

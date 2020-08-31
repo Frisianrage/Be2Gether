@@ -8,7 +8,7 @@ function ShowPicCarousel(props) {
    const [placehistory, setPlacehistory] = useState([])
    const newerId = props.newerId
    const city = props.info.raw[0].address.city 
-   const storageUrl =  props.firebase.db.app.database().ref().child('/places/' + newerId + '/' + city)
+   const storageUrl =  props.firebase.db.app.database().ref().child('map/places/' + newerId + '/' + city)
   
   useEffect(() => {
     let mounted = true

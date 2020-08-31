@@ -8,7 +8,7 @@ function ShowPlaceCarousel(props) {
 
   const newerId = props.newerId
   const thiscity = props.placeinfos.address.city 
-  const storageUrl =  props.firebase.db.app.database().ref().child('/places/' + newerId + '/' + thiscity)
+  const storageUrl =  props.firebase.db.app.database().ref().child('map/places/' + newerId + '/' + thiscity)
   
   useEffect(() => {
     let mounted = true

@@ -6,97 +6,127 @@ import loading from  '../../../Pics/loading.gif'
 export default function Placemodal(props) {
   const [isloading, setIsLoading] = useState(false)
   const [preview, setPreview] = useState([])
+  const [textValue, setTextValue] = useState("")
+  const coupleId = props.newerId
 
-    const handleClose = () => props.setButtonclicked(false);
+  const handleClose = () => props.setButtonclicked(false);
 
-    const handleSave = () => console.log(props)
-
-    const handleChange = (e) => {
-        let loadedpictures = []
-        var fileElement = document.getElementById('placepic');
-        var allfiles = fileElement.files 
-        const filesarray = Object.values(allfiles)
-        const city = props.placeinfos.address.city
-        const coupleId = props.newerId
-
-        filesarray.map((file) => {
-            var storageRef = props.firebase.store.app.storage().ref();
-            var metadata = {
-                contentType: 'image/jpeg'
-              };
-         
-              var uploadTask = storageRef.child('images/' + coupleId + '/' + city + '/' + file.name).put(file, metadata);
-        
-              uploadTask.on(props.firebase.store.app.firebase_.storage.TaskEvent.STATE_CHANGED, 
-                function(snapshot) {
-                  var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                  setIsLoading(true)
-                  console.log('Upload is ' + progress + '% done');
-                  switch (snapshot.state) {
-                    case props.firebase.store.app.firebase_.storage.TaskState.PAUSED: // or 'paused'
-                      console.log('Upload is paused');
-                      break;
-                    case props.firebase.store.app.firebase_.storage.TaskState.RUNNING: // or 'running'
-                      console.log('Upload is running');
-                      break;
-                    
-                    default:
-                        console.log("Something went wrong??")
-                        break;
-                  }
-                }, function(error) {   
-                switch (error.code) {
-                  case 'storage/unauthorized':
-                    break;
-              
-                  case 'storage/canceled':
-                    break;
-              
-                  case 'storage/unknown':
-                    break;
-                
-                    default:
-                        console.log("Something went wrong??")
-                        break;
-                }
-              }, function() {
-                uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-                  console.log('File available at', downloadURL);
-                  const newPlaceKey = props.firebase.db.app.database().ref().child('places').push().key;
-                var postData = {
-                    author: props.authUser.username,
-                    uid: props.authUser.uid,
-                    type: "image",
-                    body: downloadURL,
-                    file_name: file.name,
-                    createdAt: Date.now(),
-                    city: city,
-                    address: props.placeinfos.address,
-                    coordinates: props.placeinfos.coordinates,
-                    placeid: props.placeinfos.placeid
-                    };
-           
-                    var updates = {};
-                    //places-together für Markerposition
-                    updates['/places-together/' + coupleId + '/' + city] = postData
-                    //places für Bilder
-                    updates['/places/' + coupleId + '/' + city + '/' + newPlaceKey] = postData;
-                    updates['/user-places/' + props.authUser.uid + '/' + city + '/' + newPlaceKey] = postData;
-                    setIsLoading(false)
-
-                    return (props.firebase.db.app.database().ref().update(updates),
-                    loadedpictures.push(postData)) 
-                });
-              })
-        })
-        setPreview(loadedpictures)
-    } 
+  function updateText(e) { 
+    e.preventDefault() 
+    setTextValue(e.target.value) 
+  }
     
-    const handleClick = () => {
+  function writeNewMessage(e) {
+    e.preventDefault()
+    if(!textValue) return
+    const newMessageKey = props.firebase.db.app.database().ref().child('travel-memories').push().key;
+    var blogData = {
+      type: "text",
+      author: props.authUser.username,
+      uid: props.authUser.uid,
+      body: textValue,
+      address: props.placeinfos.address,
+      coordinates: props.position ,
+      pictures: preview,
+      createdAt: Date.now(),
+    };
+    
+    var updates = {};
+    updates['map/places-together/' + coupleId + '/' + props.placeinfos.address.city] = blogData
+    updates['travel/memories/' + coupleId + '/' + newMessageKey] = blogData
+    updates['travel/travel-memories/' + newMessageKey] = blogData;
+    updates['travel/user-travel-memories/' + props.authUser.uid + '/' + newMessageKey] = blogData;
+
+    return props.firebase.db.app.database().ref().update(updates);
+  }
+
+  const handleChange = (e) => {
+      let loadedpictures = []
+      var fileElement = document.getElementById('placepic');
+      var allfiles = fileElement.files 
+      const filesarray = Object.values(allfiles)
+      const city = props.placeinfos.address.city
+      const coupleId = props.newerId
+
+      filesarray.map((file) => {
+          var storageRef = props.firebase.store.app.storage().ref();
+          var metadata = {
+              contentType: 'image/jpeg'
+            };
+        
+            var uploadTask = storageRef.child('images/' + coupleId + '/' + city + '/' + file.name).put(file, metadata);
+      
+            uploadTask.on(props.firebase.store.app.firebase_.storage.TaskEvent.STATE_CHANGED, 
+              function(snapshot) {
+                var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                setIsLoading(true)
+                console.log('Upload is ' + progress + '% done');
+                switch (snapshot.state) {
+                  case props.firebase.store.app.firebase_.storage.TaskState.PAUSED: // or 'paused'
+                    console.log('Upload is paused');
+                    break;
+                  case props.firebase.store.app.firebase_.storage.TaskState.RUNNING: // or 'running'
+                    console.log('Upload is running');
+                    break;
+                  
+                  default:
+                      console.log("Something went wrong??")
+                      break;
+                }
+              }, function(error) {   
+              switch (error.code) {
+                case 'storage/unauthorized':
+                  break;
+            
+                case 'storage/canceled':
+                  break;
+            
+                case 'storage/unknown':
+                  break;
+              
+                  default:
+                      console.log("Something went wrong??")
+                      break;
+              }
+            }, function() {
+              uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                console.log('File available at', downloadURL);
+                const newPlaceKey = props.firebase.db.app.database().ref().child('places').push().key;
+              var postData = {
+                  author: props.authUser.username,
+                  uid: props.authUser.uid,
+                  type: "image",
+                  body: downloadURL,
+                  file_name: file.name,
+                  createdAt: Date.now(),
+                  address: props.placeinfos.address,
+                  coordinates: props.placeinfos.coordinates,
+                  placeid: newPlaceKey
+                  };
+          
+                  var updates = {};
+
+                  //places-together für Markerposition
+                  updates['/places-together/' + coupleId + '/' + city] = postData
+                  //places für Bilder
+                  updates['/places/' + coupleId + '/' + city + '/' + newPlaceKey] = postData;
+                  updates['/user-places/' + props.authUser.uid + '/' + city + '/' + newPlaceKey] = postData;
+                  setIsLoading(false)
+
+                  return (props.firebase.db.app.database().ref().update(updates),
+                  loadedpictures.push(postData)) 
+              });
+            })
+      })
+      setPreview(loadedpictures)
+      
+  } 
+  
+  const handleClick = () => {
         document.getElementById("placepic").click()
             }
 
-    return (
+  return (
        <Modal show={props.buttonclicked} onHide={handleClose}>
             <Modal.Header closeButton>
             <Modal.Title id="contained-modal-title-vcenter">
@@ -113,10 +143,10 @@ export default function Placemodal(props) {
                         Country: 
                     </Col>
                 </Row>
-                <Form>
+                <Form onSubmit={writeNewMessage}>
                     <Form.Group controlId="exampleForm.ControlTextarea1">
                         <Form.Label>Story</Form.Label>
-                        <Form.Control as="textarea" rows="3" />
+                        <Form.Control as="textarea" rows="3" value={textValue} onChange={updateText} />
                     </Form.Group>
                 </Form>
                 <Row>
@@ -142,7 +172,7 @@ export default function Placemodal(props) {
                 <Button variant="secondary" onClick={handleClose}>
                 Close
                 </Button>
-                <Button variant="primary" onClick={handleSave}>
+                <Button variant="primary" onClick={writeNewMessage}>
                 Save Memory
                 </Button> 
             </Modal.Footer>

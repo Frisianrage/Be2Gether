@@ -6,10 +6,41 @@ import loading from  '../../../Pics/loading.gif'
 export default function Placemodal(props) {
     const [isloading, setIsLoading] = useState(false)
     const [preview, setPreview] = useState([])
- 
+    const [textValue, setTextValue] = useState("")
+    const coupleId = props.newerId
     const handleClose = () => props.setButtonclicked(false);
 
-    const handleSave = () => console.log(props.info.latLng)
+    function updateText(e) { 
+      e.preventDefault() 
+      setTextValue(e.target.value) 
+    }
+      
+    function writeNewMessage(e) {
+      e.preventDefault()
+      if(!textValue) return
+      const newPlaceKey = props.firebase.db.app.database().ref().child('travel').push().key;
+      var blogData = {
+        type: "text",
+        author: props.authUser.username,
+        uid: props.authUser.uid,
+        body: textValue,
+        address: props.info.raw[0].address,
+        coordinates: [props.info.raw[0].lat, props.info.raw[0].lon],
+        pictures: preview,
+        createdAt: Date.now(),
+        placeid: newPlaceKey
+      };
+      
+      var updates = {};
+      updates['map/places-together/' + coupleId + '/' + props.info.raw[0].address.city] = blogData
+      updates['travel/memories/' + coupleId + '/' + newPlaceKey] = blogData
+      updates['travel/travel-memories/' + newPlaceKey] = blogData;
+      updates['travel/user-travel-memories/' + props.authUser.uid + '/' + newPlaceKey] = blogData;
+  
+      return (props.firebase.db.app.database().ref().update(updates),
+      handleClose())
+    }
+  
 
     const handleChange = (e) => {
         let loadedpictures = []
@@ -17,7 +48,7 @@ export default function Placemodal(props) {
         var allfiles = fileElement.files 
         const filesarray = Object.values(allfiles)
         const city = props.info.raw[0].address.city
-        const coupleId = props.newerId
+        
 
         filesarray.map((file) => {
             var storageRef = props.firebase.store.app.storage().ref();
@@ -62,7 +93,7 @@ export default function Placemodal(props) {
               }, function() {
                 uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
                   console.log('File available at', downloadURL);
-                  const newPlaceKey = props.firebase.db.app.database().ref().child('places').push().key;
+                  const newPlaceKey = props.firebase.db.app.database().ref().child('map').push().key;
                 var postData = {
                     author: props.authUser.username,
                     uid: props.authUser.uid,
@@ -70,18 +101,17 @@ export default function Placemodal(props) {
                     body: downloadURL,
                     file_name: file.name,
                     createdAt: Date.now(),
-                    city: city,
                     address: props.info.raw[0].address,
                     coordinates: [props.info.raw[0].lat, props.info.raw[0].lon],
-                    placeid: props.info.raw[0].place_id
+                    placeid: newPlaceKey
                     };
            
                     var updates = {};
                     //places-together für Markerposition
-                    updates['/places-together/' + coupleId + '/' + city] = postData
+                    updates['map/places-together/' + coupleId + '/' + city] = postData
                     //places für Bilder
-                    updates['/places/' + coupleId + '/' + city + '/' + newPlaceKey] = postData;
-                    updates['/user-places/' + props.authUser.uid + '/' + city + '/' + newPlaceKey] = postData;
+                    updates['map/places/' + coupleId + '/' + city + '/' + newPlaceKey] = postData;
+                    updates['map/user-places/' + props.authUser.uid + '/' + city + '/' + newPlaceKey] = postData;
                     setIsLoading(false)
                     
                     return (props.firebase.db.app.database().ref().update(updates),
@@ -113,10 +143,10 @@ export default function Placemodal(props) {
                         Country: 
                     </Col>
                 </Row>
-                <Form>
+                <Form onSubmit={writeNewMessage}>
                     <Form.Group controlId="exampleForm.ControlTextarea1">
                         <Form.Label>Story</Form.Label>
-                        <Form.Control as="textarea" rows="3" />
+                        <Form.Control as="textarea" rows="3" value={textValue} onChange={updateText} />
                     </Form.Group>
                 </Form>
                 <Row>
@@ -142,7 +172,7 @@ export default function Placemodal(props) {
                 <Button variant="secondary" onClick={handleClose}>
                 Close
                 </Button>
-                <Button variant="primary" onClick={handleSave}>
+                <Button variant="primary" onClick={writeNewMessage}>
                 Save Memory
                 </Button>  
             </Modal.Footer>

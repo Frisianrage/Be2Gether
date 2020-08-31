@@ -23,7 +23,7 @@ export default function PlacePopup(props) {
   return (
     <Popup>
       <div>
-  <p>This is {props.placeinfos.city}</p>
+  <p>This is {props.placeinfos.address.city}</p>
         <Button variant="success" onClick={handleClick}>New Memory</Button>
         <p></p>
         <Button variant="success" onClick={handleShow}>Gallery</Button>

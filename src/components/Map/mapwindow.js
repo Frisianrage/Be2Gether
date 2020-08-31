@@ -26,7 +26,7 @@ const MyMap = (props) => {
   const [newmarkerposition, setNewMarkerPosition] = useState([])
   const centerpos = [53.36745, 7.20778]
 
-  const storageUrl = props.firebase.db.app.database().ref().child('/places-together/' + newerId)
+  const storageUrl = props.firebase.db.app.database().ref().child('map/places-together/' + newerId)
 
 useEffect(() => {
   let mounted = true
@@ -48,12 +48,15 @@ useEffect(() => {
 )    
   
 const handleClick = (e) => {
-  const lat = e.latlng.lat
-  const lng = e.latlng.lng
-  setNewMarkerPosition([lat,lng])
-  setNewmarker(true)
-}  
-
+  if(!newmarker){
+    const lat = e.latlng.lat
+    const lng = e.latlng.lng
+    setNewMarkerPosition([lat,lng])
+    setNewmarker(true)
+  } else{
+  setNewmarker(false)
+}
+}
   return (<AuthUserContext.Consumer>
     {authUser => (
     <div>
@@ -72,9 +75,7 @@ const handleClick = (e) => {
                    }
                   }
                 </Search>
-                <div>
-                 </div>
-                 {position.map((place, key) => <Marker key={key} position={place.coordinates}><Placepopup newerId={newerId} authUser={authUser} placeinfos={place} firebase={props.firebase} ></Placepopup></Marker>)}
+                  {position.map((place, key) => <Marker key={key} position={place.coordinates}><Placepopup newerId={newerId} authUser={authUser} placeinfos={place} firebase={props.firebase} ></Placepopup></Marker>)}
                   {newmarker && <Marker position={newmarkerposition}><Newplacepopup position={newmarkerposition} authUser={authUser} firebase={props.firebase} newerId={newerId}></Newplacepopup></Marker> }
                 </Map>
         </div>

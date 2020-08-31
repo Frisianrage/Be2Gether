@@ -3,23 +3,60 @@ import {Modal, Button, Container, Row, Col, Form, Image} from 'react-bootstrap';
 import addpic from '../../../Pics/addpic.png';
 import loading from  '../../../Pics/loading.gif'
 
+
+
 export default function Newplacemodal(props) {
+    const coupleId = props.newerId
     const [isloading, setIsLoading] = useState(false)
     const [preview, setPreview] = useState([])
+    const [textValue, setTextValue] = useState("")
 
     const handleClose = () => props.setButtonclicked(false);
 
-    const handleSave = () => console.log(test)
+   
+    const [location, setLocation] = useState({
+                                            address: "",
+                                            city: "", 
+                                            country: ""
+                                          })
+    const {city, address, country} = location
 
-    const handleChange = (e) => {
+    function updateText(e) { 
+      e.preventDefault() 
+      setTextValue(e.target.value) 
+    }
+      
+      
+    function writeNewMessage(e) {
+      e.preventDefault()
+      if(!textValue) return
+      const newMessageKey = props.firebase.db.app.database().ref().child('travel-memories').push().key;
+      var blogData = {
+        type: "text",
+        author: props.authUser.username,
+        uid: props.authUser.uid,
+        body: textValue,
+        address:location,
+        coordinates: props.position ,
+        pictures: preview,
+        createdAt: Date.now(),
+        placeid: newMessageKey
+      };
+      
+      var updates = {};
+      updates['map/places-together/' + coupleId + '/' + location.city] = blogData
+      updates['travel/memories/' + coupleId + '/' + newMessageKey] = blogData
+      updates['travel/travel-memories/' + newMessageKey] = blogData;
+      updates['travel/user-travel-memories/' + props.authUser.uid + '/' + newMessageKey] = blogData;
+
+      return props.firebase.db.app.database().ref().update(updates);
+    }
+  
+    const HandleChange = (e) => {
         let loadedpictures = []
         var fileElement = document.getElementById('placepic');
         var allfiles = fileElement.files 
         const filesarray = Object.values(allfiles)
-        const city = document.getElementById("cityinput").value
-        const address = document.getElementById("addressinput").value
-        const country = document.getElementById("countryinput").value
-        const coupleId = props.newerId
 
         filesarray.map((file) => {
             var storageRef = props.firebase.store.app.storage().ref();
@@ -72,10 +109,7 @@ export default function Newplacemodal(props) {
                     body: downloadURL,
                     file_name: file.name,
                     createdAt: Date.now(),
-                    city: city,
-                    address: {address: address,
-                      city: city, 
-                      country: country},
+                    address: location,
                     coordinates: props.position ,
                     placeid: newPlaceKey,
                     };
@@ -87,20 +121,22 @@ export default function Newplacemodal(props) {
                     updates['/places/' + coupleId + '/' + city + '/' + newPlaceKey] = postData;
                     updates['/user-places/' + props.authUser.uid + '/' + city + '/' + newPlaceKey] = postData;
                     setIsLoading(false)
-                    
-                    return (props.firebase.db.app.database().ref().update(updates),
-                    loadedpictures.push(postData))
-                    
-                    
+
+                    loadedpictures.push(postData)
+                    return props.firebase.db.app.database().ref().update(updates)
                   });
               })
         })
         setPreview(loadedpictures)
     } 
-    const handleClick = () => {
-        document.getElementById("placepic").click()
-            }
-
+    const handleClick = (e) => {
+      document.getElementById("placepic").click()
+    }
+    const handleLocationChange = (e) => {
+      const key = e.target.name
+      const value = e.target.value
+      setLocation({...location, [key]:value})
+    }
     return (
        <Modal size="lg" show={props.buttonclicked} onHide={handleClose}>
             <Modal.Header closeButton>
@@ -115,13 +151,13 @@ export default function Newplacemodal(props) {
                           City*: 
                       </Col>
                       <Col xs={5} md={5}>
-                          <input id="cityinput" required></input>
+                          <input value={city} name="city" onChange={handleLocationChange} id="cityinput" required></input>
                       </Col>
                       <Col xs={1} md={1}>
                           Address:
                       </Col>
                       <Col xs={5} md={5}>
-                          <input id="addressinput"></input>
+                          <input value={address} name="address" onChange={handleLocationChange} id="addressinput"></input>
                       </Col>
                   </Row>
                   <br />
@@ -130,16 +166,17 @@ export default function Newplacemodal(props) {
                           Country:
                       </Col>
                       <Col xs={5} md={5}>
-                          <input id="countryinput"></input>
+                          <input value={country} name="country" onChange={handleLocationChange} id="countryinput"></input>
                       </Col>
                   </Row>
                   <br />
-                  <Form>
-                      <Form.Group controlId="exampleForm.ControlTextarea1">
-                          <Form.Label>Story</Form.Label>
-                          <Form.Control as="textarea" rows="3" />
-                      </Form.Group>
-                  </Form>
+              
+                    <Form onSubmit={writeNewMessage}>
+                        <Form.Group controlId="exampleForm.ControlTextarea1">
+                            <Form.Label>Story</Form.Label>
+                            <Form.Control as="textarea" rows="3" value={textValue} onChange={updateText} />
+                        </Form.Group>
+                    </Form>
                   <Row>
                       <Col xs={2} md={2}>
                           Pictures:
@@ -153,20 +190,22 @@ export default function Newplacemodal(props) {
                   <Row>
                       <Col xs={6} md={4}>
                           <Image onClick={handleClick} src={addpic} thumbnail />
-                          <input multiple accept="image/*" onChange={handleChange} type="file" id="placepic" style={{display: "none"}}></input>
+                          <input multiple accept="image/*" onChange={HandleChange} type="file" id="placepic" style={{display: "none"}}></input>
                           {isloading && <img src={loading} alt="loading"></img>}
                       </Col>
                   </Row>
                 </Container>
-            </Modal.Body>
-            <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                Close
-                </Button>
-                <Button variant="primary" onClick={handleSave}>
-                Save Memory
-                </Button> 
-            </Modal.Footer>
+              </Modal.Body>
+              <Modal.Footer>
+                  <Button variant="secondary" onClick={handleClose}>
+                    Close
+                  </Button>
+                  <Button variant="primary" type="submit" id="memorySubmit" onClick={writeNewMessage}>
+                    Save Memory
+                  </Button> 
+              </Modal.Footer>
+        
+                  
             <p><small>*Pflichtfeld</small></p>
         </Modal>
     );

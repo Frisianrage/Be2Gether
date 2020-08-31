@@ -7,6 +7,7 @@ import CostumPopup from './Search/Custompopup'
 import Placemodal from './Search/Placemodal'
 import {newerId, userTwoName} from './mapuserlist'
 import Placepopup from './Myplaces/Placepopup'
+import Newplacepopup from './Addplace/Newplacepopup'
 
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -19,14 +20,10 @@ L.Icon.Default.mergeOptions({
 
 
 const MyMap = (props) => {
-  //for displaying the placemodal
-  
- 
 
-  //const [placeinfos, setPlaceinfos] = useState([])
-
-  
   const [position, setPosition] = useState([])
+  const [newmarker, setNewmarker] = useState(false)
+  const [newmarkerposition, setNewMarkerPosition] = useState([])
   const centerpos = [53.36745, 7.20778]
 
   const storageUrl = props.firebase.db.app.database().ref().child('/places-together/' + newerId)
@@ -47,19 +44,23 @@ useEffect(() => {
   return () => {
     mounted = false
   }
-   
-
 }
 )    
   
-  
+const handleClick = (e) => {
+  const lat = e.latlng.lat
+  const lng = e.latlng.lng
+  setNewMarkerPosition([lat,lng])
+  setNewmarker(true)
+}  
+
   return (<AuthUserContext.Consumer>
     {authUser => (
     <div>
       <div>
         <h1 className="mapwindowhead">Places where {userTwoName} and you've been...</h1>
         <div className="leaflet">
-          <Map className="MyMap" center={centerpos} zoom={3}>
+          <Map onClick={handleClick} className="MyMap" center={centerpos} zoom={3}>
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors" />
           <Search position="topleft" inputPlaceholder="Custom placeholder" showMarker={true} zoom={7} closeResultsOnClick={true} openSearchOnLoad={false}>
                 {(info) =>  { 
@@ -74,6 +75,7 @@ useEffect(() => {
                 <div>
                  </div>
                  {position.map((place, key) => <Marker key={key} position={place.coordinates}><Placepopup newerId={newerId} authUser={authUser} placeinfos={place} firebase={props.firebase} ></Placepopup></Marker>)}
+                  {newmarker && <Marker position={newmarkerposition}><Newplacepopup position={newmarkerposition} authUser={authUser} firebase={props.firebase} newerId={newerId}></Newplacepopup></Marker> }
                 </Map>
         </div>
        </div>
@@ -86,8 +88,3 @@ useEffect(() => {
 const condition = authUser => !!authUser;
 
 export default withAuthorization(condition)(MyMap);
- 
-
-/*
-               
-*/

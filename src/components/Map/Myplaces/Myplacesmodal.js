@@ -1,14 +1,18 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Modal, Button, Container, Row, Col, Form, Image} from 'react-bootstrap';
 import addpic from '../../../Pics/addpic.png';
+import loading from  '../../../Pics/loading.gif'
 
 export default function Placemodal(props) {
-    
+  const [isloading, setIsLoading] = useState(false)
+  const [preview, setPreview] = useState([])
+
     const handleClose = () => props.setButtonclicked(false);
 
     const handleSave = () => console.log(props)
 
     const handleChange = (e) => {
+        let loadedpictures = []
         var fileElement = document.getElementById('placepic');
         var allfiles = fileElement.files 
         const filesarray = Object.values(allfiles)
@@ -26,6 +30,7 @@ export default function Placemodal(props) {
               uploadTask.on(props.firebase.store.app.firebase_.storage.TaskEvent.STATE_CHANGED, 
                 function(snapshot) {
                   var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                  setIsLoading(true)
                   console.log('Upload is ' + progress + '% done');
                   switch (snapshot.state) {
                     case props.firebase.store.app.firebase_.storage.TaskState.PAUSED: // or 'paused'
@@ -77,11 +82,14 @@ export default function Placemodal(props) {
                     //places für Bilder
                     updates['/places/' + coupleId + '/' + city + '/' + newPlaceKey] = postData;
                     updates['/user-places/' + props.authUser.uid + '/' + city + '/' + newPlaceKey] = postData;
-        
-                    return props.firebase.db.app.database().ref().update(updates); 
+                    setIsLoading(false)
+
+                    return (props.firebase.db.app.database().ref().update(updates),
+                    loadedpictures.push(postData)) 
                 });
               })
         })
+        setPreview(loadedpictures)
     } 
     
     const handleClick = () => {
@@ -112,11 +120,22 @@ export default function Placemodal(props) {
                     </Form.Group>
                 </Form>
                 <Row>
-                    <Col xs={6} md={4}>
-                        <Image onClick={handleClick} src={addpic} thumbnail />
-                        <input multiple accept="image/*" onChange={handleChange} type="file" id="placepic" style={{display: "none"}}></input>
-                    </Col>
-                </Row>
+                      <Col xs={2} md={2}>
+                          Pictures:
+                      </Col>
+                      <Col xs={10} md={10}>
+                          { preview && preview.map((pic, key) => <div key={key} className="previewpic">
+                            <Image src={pic.body} alt="preview" thumbnail />
+                            </div>)}
+                      </Col>
+                  </Row>
+                  <Row>
+                      <Col xs={6} md={4}>
+                          <Image onClick={handleClick} src={addpic} thumbnail />
+                          <input multiple accept="image/*" onChange={handleChange} type="file" id="placepic" style={{display: "none"}}></input>
+                          {isloading && <img src={loading} alt="loading"></img>}
+                      </Col>
+                  </Row>
                 </Container>
             </Modal.Body>
             <Modal.Footer>

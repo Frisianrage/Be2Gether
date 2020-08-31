@@ -206,7 +206,11 @@ position: relative;
   width: 900px;
 }
 
-
+.previewpic {
+  display: inline-flex;
+  width: 100px;
+  height: 100px;
+}
 
 
 

@@ -3,20 +3,22 @@ import {Modal, Button, Container, Row, Col, Form, Image} from 'react-bootstrap';
 import addpic from '../../../Pics/addpic.png';
 import loading from  '../../../Pics/loading.gif'
 
-export default function Placemodal(props) {
+export default function Newplacemodal(props) {
     const [isloading, setIsLoading] = useState(false)
     const [preview, setPreview] = useState([])
- 
+
     const handleClose = () => props.setButtonclicked(false);
 
-    const handleSave = () => console.log(props.info.latLng)
+    const handleSave = () => console.log(test)
 
     const handleChange = (e) => {
         let loadedpictures = []
         var fileElement = document.getElementById('placepic');
         var allfiles = fileElement.files 
         const filesarray = Object.values(allfiles)
-        const city = props.info.raw[0].address.city
+        const city = document.getElementById("cityinput").value
+        const address = document.getElementById("addressinput").value
+        const country = document.getElementById("countryinput").value
         const coupleId = props.newerId
 
         filesarray.map((file) => {
@@ -71,9 +73,11 @@ export default function Placemodal(props) {
                     file_name: file.name,
                     createdAt: Date.now(),
                     city: city,
-                    address: props.info.raw[0].address,
-                    coordinates: [props.info.raw[0].lat, props.info.raw[0].lon],
-                    placeid: props.info.raw[0].place_id
+                    address: {address: address,
+                      city: city, 
+                      country: country},
+                    coordinates: props.position ,
+                    placeid: newPlaceKey,
                     };
            
                     var updates = {};
@@ -85,19 +89,20 @@ export default function Placemodal(props) {
                     setIsLoading(false)
                     
                     return (props.firebase.db.app.database().ref().update(updates),
-                    loadedpictures.push(postData)) 
-                });
+                    loadedpictures.push(postData))
+                    
+                    
+                  });
               })
         })
         setPreview(loadedpictures)
     } 
-    
     const handleClick = () => {
         document.getElementById("placepic").click()
             }
 
     return (
-       <Modal show={props.buttonclicked} onHide={handleClose}>
+       <Modal size="lg" show={props.buttonclicked} onHide={handleClose}>
             <Modal.Header closeButton>
             <Modal.Title id="contained-modal-title-vcenter">
                  New Memory
@@ -105,21 +110,37 @@ export default function Placemodal(props) {
             </Modal.Header>
             <Modal.Body className="show-grid">
                 <Container>
-                <Row>
-                    <Col xs={12} md={6}>
-                        City: 
-                    </Col>
-                    <Col xs={6} md={6}>
-                        Country: 
-                    </Col>
-                </Row>
-                <Form>
-                    <Form.Group controlId="exampleForm.ControlTextarea1">
-                        <Form.Label>Story</Form.Label>
-                        <Form.Control as="textarea" rows="3" />
-                    </Form.Group>
-                </Form>
-                <Row>
+                  <Row>
+                      <Col xs={1} md={1}>
+                          City*: 
+                      </Col>
+                      <Col xs={5} md={5}>
+                          <input id="cityinput" required></input>
+                      </Col>
+                      <Col xs={1} md={1}>
+                          Address:
+                      </Col>
+                      <Col xs={5} md={5}>
+                          <input id="addressinput"></input>
+                      </Col>
+                  </Row>
+                  <br />
+                  <Row>
+                      <Col xs={1} md={1}>
+                          Country:
+                      </Col>
+                      <Col xs={5} md={5}>
+                          <input id="countryinput"></input>
+                      </Col>
+                  </Row>
+                  <br />
+                  <Form>
+                      <Form.Group controlId="exampleForm.ControlTextarea1">
+                          <Form.Label>Story</Form.Label>
+                          <Form.Control as="textarea" rows="3" />
+                      </Form.Group>
+                  </Form>
+                  <Row>
                       <Col xs={2} md={2}>
                           Pictures:
                       </Col>
@@ -144,8 +165,9 @@ export default function Placemodal(props) {
                 </Button>
                 <Button variant="primary" onClick={handleSave}>
                 Save Memory
-                </Button>  
+                </Button> 
             </Modal.Footer>
-        </Modal> 
+            <p><small>*Pflichtfeld</small></p>
+        </Modal>
     );
 }

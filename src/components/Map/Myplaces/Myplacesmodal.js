@@ -92,7 +92,7 @@ export default function Placemodal(props) {
             }, function() {
               uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
                 console.log('File available at', downloadURL);
-                const newPlaceKey = props.firebase.db.app.database().ref().child('travel').push().key;
+                const newMessageKey = props.firebase.db.app.database().ref().child('travel').push().key;
               var postData = {
                   author: props.authUser.username,
                   uid: props.authUser.uid,
@@ -102,7 +102,7 @@ export default function Placemodal(props) {
                   createdAt: Date.now(),
                   address: props.placeinfos.address,
                   coordinates: props.placeinfos.coordinates,
-                  placeid: newPlaceKey
+                  placeid: newMessageKey
                   };
           
                   var updates = {};
@@ -110,8 +110,8 @@ export default function Placemodal(props) {
                   //places-together für Markerposition
                   updates['map/places-together/' + coupleId + '/' + city] = postData
                   //places für Bilder
-                  updates['map/places/' + coupleId + '/' + city + '/' + newPlaceKey] = postData;
-                  updates['map/user-places/' + props.authUser.uid + '/' + city + '/' + newPlaceKey] = postData;
+                  updates['map/places/' + coupleId + '/' + city + '/' + newMessageKey] = postData;
+                  updates['map/user-places/' + props.authUser.uid + '/' + city + '/' + newMessageKey] = postData;
                   setIsLoading(false)
 
                   return (props.firebase.db.app.database().ref().update(updates),

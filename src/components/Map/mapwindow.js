@@ -49,6 +49,7 @@ useEffect(() => {
   
 const handleClick = (e) => {
   if(!newmarker){
+    console.log(e)
     const lat = e.latlng.lat
     const lng = e.latlng.lng
     setNewMarkerPosition([lat,lng])

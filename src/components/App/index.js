@@ -14,7 +14,8 @@ import * as ROUTES from '../../constants/routes';
 import { withAuthentication } from '../Session';
 import Map from '../Map';
 import MyMap from '../Map/mapwindow'
-import Travel from '../Travel/index'
+import Travel from '../Travel/Travel'
+import MyTravel from '../Travel/index'
 
 
 const App = () => (
@@ -37,9 +38,9 @@ const App = () => (
       <Route exact path={ROUTES.MAP} component={Map} />
       <Route exact path={ROUTES.MAPWINDOW} component={MyMap} />
       <Route exact path={ROUTES.TRAVEL} render={(props) => (
-    <Travel {...props} isAuthed={true} />
-  )} />
-    </div>
+      <Travel {...props} isAuthed={true} />)} />
+      <Route exact path={ROUTES.TRAVELWINDOW} component={MyTravel} />
+ </div>
      
   </Router>
 );

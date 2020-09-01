@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
- 
-import SignOutButton from '../SignOut';
+ import SignOutButton from '../SignOut';
 import * as ROUTES from '../../constants/routes';
 import * as ROLES from '../../constants/roles';
 
@@ -37,7 +36,7 @@ const NavigationAuth = ({ authUser }) => (
       <Link to={ROUTES.MAP}>Map</Link>
     </li>
     <li>
-      <Link to={ROUTES.TRAVEL}>Travel-Blog</Link>
+      <Link to={ROUTES.TRAVELWINDOW}>Travel-Blog</Link>
     </li>
     {!!authUser.roles[ROLES.ADMIN] && (
       <li>

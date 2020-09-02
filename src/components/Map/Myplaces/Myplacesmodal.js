@@ -9,6 +9,7 @@ import "react-datepicker/dist/react-datepicker.css";
 export default function Placemodal(props) {
   const [isloading, setIsLoading] = useState(false)
   const [preview, setPreview] = useState([])
+  const [headValue, setheadValue] = useState("")
   const [textValue, setTextValue] = useState("")
   const coupleId = props.newerId
   const [startDate, setStartDate] = useState(new Date());
@@ -20,8 +21,17 @@ export default function Placemodal(props) {
     e.preventDefault() 
     setTextValue(e.target.value) 
   }
+
+  function updateHeadline(e) {
+    e.preventDefault() 
+    setheadValue(e.target.value) 
+  }
     
   function writeNewMessage(e) {
+    const start = startDate.toDateString();
+    const end = endDate.toDateString()
+    const city = props.placeinfos.address.city
+    const country = props.placeinfos.address.country
     e.preventDefault()
     if(!textValue) return
     const newMessageKey = props.firebase.db.app.database().ref().child('travel').push().key;
@@ -29,21 +39,25 @@ export default function Placemodal(props) {
       type: "text",
       author: props.authUser.username,
       uid: props.authUser.uid,
-      body: textValue,
+      body: {
+        headline: headValue, 
+        text: textValue,
+      },
       address: props.placeinfos.address,
       coordinates: props.position ,
       traveldate: {
-        startDate,
-        endDate
+        start,
+        end
       },
       pictures: preview,
       createdAt: Date.now(),
     };
     
     var updates = {};
-    updates['map/places-together/' + coupleId + '/' + props.placeinfos.address.city] = blogData
-    updates['travel/memories/' + coupleId + '/' + props.placeinfos.address.city + '/' + startDate + '/' + newMessageKey] = blogData
-    updates['travel/travel-memories/'+ coupleId + '/' + props.placeinfos.address.city + '/' + newMessageKey] = blogData;
+    // upload for marker
+    updates['map/places-together/' + coupleId + '/' + city] = blogData
+    updates['travel/memories/' + coupleId + '/' + country + '/' + city + '/' + start + '/' + newMessageKey] = blogData
+    updates['travel/travel-memories/'+ coupleId + '/' + country + '/' + city + '/' + newMessageKey] = blogData;
     updates['travel/user-travel-memories/' + props.authUser.uid + '/' + newMessageKey] = blogData;
 
     return (props.firebase.db.app.database().ref().update(updates),
@@ -52,10 +66,12 @@ export default function Placemodal(props) {
 
   const handleChange = (e) => {
       let loadedpictures = []
+      const start = startDate.toDateString();
       var fileElement = document.getElementById('placepic');
       var allfiles = fileElement.files 
       const filesarray = Object.values(allfiles)
       const city = props.placeinfos.address.city
+      const country = props.placeinfos.address.country
       const coupleId = props.newerId
 
       filesarray.map((file) => {
@@ -119,8 +135,9 @@ export default function Placemodal(props) {
                   //places-together für Markerposition
                   updates['map/places-together/' + coupleId + '/' + city] = postData
                   //places für Bilder
-                  updates['map/places/' + coupleId + '/' + city + '/' + startDate + '/' + newMessageKey] = postData;
-                  updates['map/user-places/' + props.authUser.uid + '/' + city + '/' + newMessageKey] = postData;
+                  updates['map/places/' + coupleId + '/' + country + '/' + city + '/' + newMessageKey] = postData;
+                  updates['map/places/' + coupleId + '/' + country + '/' + city + '/' + start + '/' + newMessageKey] = postData;
+                  updates['map/user-places/' + props.authUser.uid + '/' + country + '/' + city + '/' + newMessageKey] = postData;
                   setIsLoading(false)
 
                   return (props.firebase.db.app.database().ref().update(updates),
@@ -169,10 +186,12 @@ export default function Placemodal(props) {
                       </Col>
                   </Row>
                   <br />
-                <Form onSubmit={writeNewMessage}>
+                  <Form onSubmit={writeNewMessage}>
                     <Form.Group controlId="exampleForm.ControlTextarea1">
-                        <Form.Label>Story</Form.Label>
-                        <Form.Control as="textarea" rows="3" value={textValue} onChange={updateText} />
+                        <Form.Label>Your Memory</Form.Label>
+                        <Form.Control type="text" placeholder="Headline" value={headValue} onChange={updateHeadline} />
+                        <br />
+                        <Form.Control as="textarea" placeholder="The story..." rows="3" value={textValue} onChange={updateText} />
                     </Form.Group>
                 </Form>
                 <Row>

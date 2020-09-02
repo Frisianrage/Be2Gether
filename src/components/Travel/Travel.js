@@ -1,48 +1,20 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import { withAuthorization } from '../Session';
-import {Image} from 'react-bootstrap';
+import Country from './Countrypage'
+import AltCountry from './AltCountrypage'
 
 const Travel = (props) => {
-    const urlhash = props.history.location.hash
-    const city = urlhash.substring(1)
+  const hash = props.history.location.hash
+  const search = props.history.location.search
+  const newerId = "Hy5UQEqX1FNhYsverbOyzQUVep5H"
 
-    const [thisplacehistory, setThisPlacehistory] = useState([])
-    const [placepictures, setPlacepictures] = useState([])
-    const newerId = "Hy5UQEqX1FNhYsverbOyzQUVep5H"
-    
-    const storageUrl =  props.firebase.db.app.database().ref().child('map/places-together/' + newerId + '/' + city)
-    
-  useEffect(() => {
-    let mounted = true
-    storageUrl.once('value').then( async function (snapshot) {
-      let newArray = await snapshot.val();
-      if(mounted) {
-        if (newArray){
-          const places = Object.keys(newArray).map(key => newArray[key]);
-          const pictures = places[5]
-          setPlacepictures(pictures)
-          setThisPlacehistory(places)
-          console.log(placepictures)
-        }
-      }
-    })
-    return () => {
-        
-     mounted = false
-    }
-  })
- 
    return (
- <div>
-     <p>{thisplacehistory[2]}</p>
-     
- </div>
- );
+          <div>
+            { hash ? <Country firebase={props.firebase} hash={hash} newerId={newerId} /> : <AltCountry firebase={props.firebase} search={search} newerId={newerId} />}
+          </div>
+          );
 }
  
 const condition = authUser => !!authUser;
  
 export default withAuthorization(condition)(Travel);
-
-//    {placepictures.map((pic, key) => <Image className="bigpic" key={key} src={pic.body} alt="preview"/> )}  
-  

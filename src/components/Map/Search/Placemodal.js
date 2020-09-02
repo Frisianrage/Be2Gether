@@ -8,6 +8,7 @@ import "react-datepicker/dist/react-datepicker.css";
 export default function Placemodal(props) {
     const [isloading, setIsLoading] = useState(false)
     const [preview, setPreview] = useState([])
+    const [headValue, setheadValue] = useState("")
     const [textValue, setTextValue] = useState("")
     const coupleId = props.newerId
     const [startDate, setStartDate] = useState(new Date());
@@ -19,8 +20,18 @@ export default function Placemodal(props) {
       e.preventDefault() 
       setTextValue(e.target.value) 
     }
-      
+
+    function updateHeadline(e) {
+      e.preventDefault() 
+      setheadValue(e.target.value) 
+    }
+
+          
     function writeNewMessage(e) {
+      const start = startDate.toDateString();
+      const end = endDate.toDateString()
+      const city = props.info.raw[0].address.city
+      const country =  props.info.raw[0].address.country
       e.preventDefault()
       if(!textValue) return
       const newPlaceKey = props.firebase.db.app.database().ref().child('travel').push().key;
@@ -28,18 +39,25 @@ export default function Placemodal(props) {
         type: "text",
         author: props.authUser.username,
         uid: props.authUser.uid,
-        body: textValue,
+        body: {
+          headline: headValue, 
+          text: textValue,
+        },
         address: props.info.raw[0].address,
         coordinates: [props.info.raw[0].lat, props.info.raw[0].lon],
+        traveldate: {
+          start,
+          end
+        },
         pictures: preview,
         createdAt: Date.now(),
         placeid: newPlaceKey
       };
       
       var updates = {};
-      updates['map/places-together/' + coupleId + '/' + props.info.raw[0].address.city] = blogData
-      updates['travel/memories/' + coupleId + '/' + props.info.raw[0].address.city + '/' + startDate + '/' + newPlaceKey] = blogData
-      updates['travel/travel-memories/'+ coupleId + '/' + props.info.raw[0].address.city + '/' + newPlaceKey] = blogData;
+      updates['map/places-together/' + coupleId + '/' + city] = blogData
+      updates['travel/memories/' + coupleId + '/' + country + '/' + city + '/' + start + '/' + newPlaceKey] = blogData
+      updates['travel/travel-memories/'+ coupleId + '/' + country + '/' + city + '/' + newPlaceKey] = blogData;
       updates['travel/user-travel-memories/' + props.authUser.uid + '/' + newPlaceKey] = blogData;
   
       return (props.firebase.db.app.database().ref().update(updates),
@@ -49,11 +67,12 @@ export default function Placemodal(props) {
 
     const handleChange = (e) => {
         let loadedpictures = []
+        const start = startDate.toDateString();
         var fileElement = document.getElementById('placepic');
         var allfiles = fileElement.files 
         const filesarray = Object.values(allfiles)
         const city = props.info.raw[0].address.city
-        
+        const country = props.info.raw[0].address.country
 
         filesarray.map((file) => {
             var storageRef = props.firebase.store.app.storage().ref();
@@ -115,8 +134,9 @@ export default function Placemodal(props) {
                     //places-together für Markerposition
                     updates['map/places-together/' + coupleId + '/' + city] = postData
                     //places für Bilder
-                    updates['map/places/' + coupleId + '/' + city + '/' + startDate + '/' + newPlaceKey] = postData;
-                    updates['map/user-places/' + props.authUser.uid + '/' + city + '/' + newPlaceKey] = postData;
+                    updates['map/places/' + coupleId + '/' + country + '/' + city + '/' + newPlaceKey] = postData;
+                    updates['map/places/' + coupleId + '/' + country + '/' + city + '/' + start + '/' + newPlaceKey] = postData;
+                    updates['map/user-places/' + props.authUser.uid + '/' + country + '/' + city + '/' + newPlaceKey] = postData;
                     setIsLoading(false)
                     
                     return (props.firebase.db.app.database().ref().update(updates),
@@ -142,10 +162,10 @@ export default function Placemodal(props) {
                 <Container>
                 <Row>
                     <Col xs={12} md={6}>
-                        City: props.info.raw[0].address.city
+                        City: {props.info.raw[0].address.city}
                     </Col>
                     <Col xs={6} md={6}>
-                        Country: props.info.raw[0].address.country
+                        Country: {props.info.raw[0].address.country}
                     </Col>
                 </Row>
                 <br />
@@ -166,8 +186,10 @@ export default function Placemodal(props) {
                   <br />
                 <Form onSubmit={writeNewMessage}>
                     <Form.Group controlId="exampleForm.ControlTextarea1">
-                        <Form.Label>Story</Form.Label>
-                        <Form.Control as="textarea" rows="3" value={textValue} onChange={updateText} />
+                        <Form.Label>Your Memory</Form.Label>
+                        <Form.Control type="text" placeholder="Headline" value={headValue} onChange={updateHeadline} />
+                        <br />
+                        <Form.Control as="textarea" placeholder="The story..." rows="3" value={textValue} onChange={updateText} />
                     </Form.Group>
                 </Form>
                 <Row>

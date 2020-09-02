@@ -11,6 +11,7 @@ export default function Newplacemodal(props) {
     const coupleId = props.newerId
     const [isloading, setIsLoading] = useState(false)
     const [preview, setPreview] = useState([])
+    const [headValue, setheadValue] = useState("")
     const [textValue, setTextValue] = useState("")
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
@@ -29,9 +30,15 @@ export default function Newplacemodal(props) {
       e.preventDefault() 
       setTextValue(e.target.value) 
     }
-      
+    
+    function updateHeadline(e) {
+      e.preventDefault() 
+      setheadValue(e.target.value) 
+    }
       
     function writeNewMessage(e) {
+      const start = startDate.toDateString();
+      const end = endDate.toDateString()
       e.preventDefault()
       if(!textValue) return
       const newMessageKey = props.firebase.db.app.database().ref().child('travel').push().key;
@@ -39,12 +46,15 @@ export default function Newplacemodal(props) {
         type: "text",
         author: props.authUser.username,
         uid: props.authUser.uid,
-        body: textValue,
+        body: {
+          headline: headValue, 
+          text: textValue,
+        },
         address:location,
         coordinates: props.position ,
         traveldate: {
-          startDate,
-          endDate
+          start,
+          end
         },
         pictures: preview,
         createdAt: Date.now(),
@@ -53,8 +63,8 @@ export default function Newplacemodal(props) {
       console.log(city)
       var updates = {};
       updates['map/places-together/' + coupleId + '/' + city] = blogData
-      updates['travel/memories/' + coupleId + '/' + city + '/' + startDate + '/' + newMessageKey] = blogData
-      updates['travel/travel-memories/'+ coupleId + '/' + city + '/' + newMessageKey] = blogData;
+      updates['travel/memories/' + coupleId + '/' + country + '/' + city + '/' + start + '/' + newMessageKey] = blogData
+      updates['travel/travel-memories/'+ coupleId + '/' + country + '/' + city + '/' + newMessageKey] = blogData;
       updates['travel/user-travel-memories/' + props.authUser.uid + '/' + newMessageKey] = blogData;
 
       return (props.firebase.db.app.database().ref().update(updates),
@@ -63,6 +73,7 @@ export default function Newplacemodal(props) {
   
     const HandleChange = (e) => {
         let loadedpictures = []
+        const start = startDate.toDateString();
         var fileElement = document.getElementById('placepic');
         var allfiles = fileElement.files 
         const filesarray = Object.values(allfiles)
@@ -127,8 +138,9 @@ export default function Newplacemodal(props) {
                     //places-together für Markerposition
                     updates['map/places-together/' + coupleId + '/' + city] = postData
                     //places für Bilder
-                    updates['map/places/' + coupleId + '/' + city + '/' + startDate + '/' + newPlaceKey] = postData;
-                    updates['map/user-places/' + props.authUser.uid + '/' + city + '/' + newPlaceKey] = postData;
+                    updates['map/places/' + coupleId + '/' + country + '/' + city + '/' + newPlaceKey] = postData;
+                    updates['map/places/' + coupleId + '/' + country + '/' + city + '/' + start + '/' + newPlaceKey] = postData;
+                    updates['map/user-places/' + props.authUser.uid + '/' + country + '/' + city + '/' + newPlaceKey] = postData;
                     setIsLoading(false)
                     loadedpictures.push(postData)
                     return props.firebase.db.app.database().ref().update(updates)
@@ -195,11 +207,13 @@ export default function Newplacemodal(props) {
                   </Row>
                   <br />
                   <Form onSubmit={writeNewMessage}>
-                      <Form.Group controlId="exampleForm.ControlTextarea1">
-                          <Form.Label>Story</Form.Label>
-                          <Form.Control as="textarea" rows="3" value={textValue} onChange={updateText} />
-                      </Form.Group>
-                  </Form>
+                    <Form.Group controlId="exampleForm.ControlTextarea1">
+                        <Form.Label>Your Memory</Form.Label>
+                        <Form.Control type="text" placeholder="Headline" value={headValue} onChange={updateHeadline} />
+                        <br />
+                        <Form.Control as="textarea" placeholder="The story..." rows="3" value={textValue} onChange={updateText} />
+                    </Form.Group>
+                </Form>
                   <Row>
                       <Col xs={2} md={2}>
                           Pictures:

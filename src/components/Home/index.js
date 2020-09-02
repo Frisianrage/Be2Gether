@@ -1,9 +1,10 @@
 import React from 'react';
 import { withAuthorization } from '../Session';
+import MyCard from './MyCard'
 
 const HomePage = (props) => (
  <div>
-   Here comes the Homepage!
+   <MyCard props={props}/>
  </div>
 
 );

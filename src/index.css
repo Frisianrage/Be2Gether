@@ -182,6 +182,10 @@ position: relative;
   text-align: center;
 }
 
+.cardpic {
+  max-height: 300px;
+}
+
 .bigpic {
   max-width: 300px;
   text-align: center;

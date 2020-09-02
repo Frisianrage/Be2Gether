@@ -3,7 +3,6 @@ import { AuthUserContext, withAuthorization } from '../Session';
 import MapUserlist from './mapuserlist'
 
 function Map(props) {
-
 return (
     <AuthUserContext.Consumer> 
           {authUser => 

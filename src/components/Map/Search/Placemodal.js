@@ -2,12 +2,17 @@ import React, {useState} from 'react';
 import {Modal, Button, Container, Row, Col, Form, Image} from 'react-bootstrap';
 import addpic from '../../../Pics/addpic.png';
 import loading from  '../../../Pics/loading.gif'
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function Placemodal(props) {
     const [isloading, setIsLoading] = useState(false)
     const [preview, setPreview] = useState([])
     const [textValue, setTextValue] = useState("")
     const coupleId = props.newerId
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
+
     const handleClose = () => props.setButtonclicked(false);
 
     function updateText(e) { 
@@ -33,7 +38,7 @@ export default function Placemodal(props) {
       
       var updates = {};
       updates['map/places-together/' + coupleId + '/' + props.info.raw[0].address.city] = blogData
-      updates['travel/memories/' + coupleId + '/' + newPlaceKey] = blogData
+      updates['travel/memories/' + coupleId + '/' + props.info.raw[0].address.city + '/' + startDate + '/' + newPlaceKey] = blogData
       updates['travel/travel-memories/'+ coupleId + '/' + props.info.raw[0].address.city + '/' + newPlaceKey] = blogData;
       updates['travel/user-travel-memories/' + props.authUser.uid + '/' + newPlaceKey] = blogData;
   
@@ -110,7 +115,7 @@ export default function Placemodal(props) {
                     //places-together für Markerposition
                     updates['map/places-together/' + coupleId + '/' + city] = postData
                     //places für Bilder
-                    updates['map/places/' + coupleId + '/' + city + '/' + newPlaceKey] = postData;
+                    updates['map/places/' + coupleId + '/' + city + '/' + startDate + '/' + newPlaceKey] = postData;
                     updates['map/user-places/' + props.authUser.uid + '/' + city + '/' + newPlaceKey] = postData;
                     setIsLoading(false)
                     
@@ -127,7 +132,7 @@ export default function Placemodal(props) {
             }
 
     return (
-       <Modal show={props.buttonclicked} onHide={handleClose}>
+       <Modal size="lg" show={props.buttonclicked} onHide={handleClose}>
             <Modal.Header closeButton>
             <Modal.Title id="contained-modal-title-vcenter">
                  New Memory
@@ -137,12 +142,28 @@ export default function Placemodal(props) {
                 <Container>
                 <Row>
                     <Col xs={12} md={6}>
-                        City: 
+                        City: props.info.raw[0].address.city
                     </Col>
                     <Col xs={6} md={6}>
-                        Country: 
+                        Country: props.info.raw[0].address.country
                     </Col>
                 </Row>
+                <br />
+                  <Row>
+                      <Col xs={1} md={1}>
+                          From:
+                      </Col>
+                      <Col xs={5} md={5}>
+                      <DatePicker selected={startDate} onChange={date => setStartDate(date)} dateFormat="yyyy/MM/dd" peekNextMonth showMonthDropdown showYearDropdown dropdownMode="select" />
+                      </Col>
+                      <Col xs={1} md={1}>
+                          To:
+                      </Col>
+                      <Col xs={5} md={5}>
+                      <DatePicker selected={endDate} onChange={date => setEndDate(date)} dateFormat="yyyy/MM/dd" peekNextMonth showMonthDropdown showYearDropdown dropdownMode="select" />
+                      </Col>
+                  </Row>
+                  <br />
                 <Form onSubmit={writeNewMessage}>
                     <Form.Group controlId="exampleForm.ControlTextarea1">
                         <Form.Label>Story</Form.Label>

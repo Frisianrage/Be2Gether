@@ -24,16 +24,21 @@ export default function PlacePopup(props) {
  
   return (
     <Popup>
-      <div>
-  <p>This is {props.placeinfos.address.city}</p>
-        <Button variant="success" onClick={handleClick}>New Memory</Button>
-        <p></p>
-        <Button variant="success" onClick={handleShow}>Gallery</Button>
-        <p></p>
-        { buttonclicked && <Myplacesmodal firebase={props.firebase} authUser={props.authUser} placeinfos={props.placeinfos} buttonclicked={buttonclicked} setButtonclicked={setButtonclicked} newerId={props.newerId}/> } 
-        { showpicsclicked && <ShowPlaceCarousel firebase={props.firebase} newerId={props.newerId} placeinfos={props.placeinfos} showpicsclicked={showpicsclicked} setShowpicsclicked={setShowpicsclicked} /> }
-        <Link to={{pathname: ROUTES.TRAVEL, hash: props.placeinfos.address.city}}><Button variant="success">Travel Blog</Button></Link>
-
+      <div className="Custompopup">
+          <h3>This is {props.placeinfos.address.city}</h3>
+          <div className="popupbuttons">
+            <div>
+              <Button variant="success" onClick={handleClick}>New Memory</Button>
+            </div>
+            <div>
+              <Button variant="success" onClick={handleShow}>Gallery</Button>
+            </div>
+            <div>
+              <Link to={{pathname: ROUTES.TRAVEL, hash: props.placeinfos.address.city}}><Button variant="success">Travel Blog</Button></Link>
+            </div>
+          </div>
+          { buttonclicked && <Myplacesmodal firebase={props.firebase} authUser={props.authUser} placeinfos={props.placeinfos} buttonclicked={buttonclicked} setButtonclicked={setButtonclicked} newerId={props.newerId}/> } 
+          { showpicsclicked && <ShowPlaceCarousel firebase={props.firebase} newerId={props.newerId} placeinfos={props.placeinfos} showpicsclicked={showpicsclicked} setShowpicsclicked={setShowpicsclicked} /> }
       </div>
     </Popup>
   );

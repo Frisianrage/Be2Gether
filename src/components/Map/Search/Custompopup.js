@@ -19,6 +19,7 @@ export default function CostumPopup(props) {
     <Popup>
       <div>
   <p>This is {props.info.raw[0].address.city}!!!!!</p>
+  
         <Button variant="success" onClick={handleClick}>New Memory</Button>
         <p></p>
         <Button variant="success" onClick={handleShow}>Gallery

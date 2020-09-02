@@ -22,9 +22,9 @@ export default function MessagesInput(props) {
       };
       
         var updates = {};
-        updates['/chats/' + newerId + '/' + newMessageKey] = postData
-        updates['/messages/' + newMessageKey] = postData;
-        updates['/user-message/' + props.authUser.uid + '/' + newMessageKey] = postData;
+        updates['chat/chats/' + newerId + '/' + newMessageKey] = postData
+        updates['chat/messages/' + newMessageKey] = postData;
+        updates['chat/user-message/' + props.authUser.uid + '/' + newMessageKey] = postData;
 
         setTextValue("")
         return props.firebase.db.app.database().ref().update(updates);

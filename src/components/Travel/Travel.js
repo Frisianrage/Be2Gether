@@ -22,6 +22,7 @@ const Travel = (props) => {
           const pictures = places[5]
           setPlacepictures(pictures)
           setThisPlacehistory(places)
+          console.log(placepictures)
         }
       }
     })
@@ -34,7 +35,7 @@ const Travel = (props) => {
    return (
  <div>
      <p>{thisplacehistory[2]}</p>
-     {placepictures.map((pic, key) => <Image className="bigpic" key={key} src={pic.body} alt="preview"/> )}
+     
  </div>
  );
 }
@@ -43,5 +44,5 @@ const condition = authUser => !!authUser;
  
 export default withAuthorization(condition)(Travel);
 
-//      
+//    {placepictures.map((pic, key) => <Image className="bigpic" key={key} src={pic.body} alt="preview"/> )}  
   

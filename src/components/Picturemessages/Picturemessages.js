@@ -15,7 +15,7 @@ export default function Picturemessages(props) {
             contentType: 'image/jpeg'
           };
           
-          var uploadTask = storageRef.child('images/' + file.name).put(file, metadata);
+          var uploadTask = storageRef.child('images/' + newerId + '/chats/' + file.name).put(file, metadata);
 
           
           uploadTask.on(props.firebase.store.app.firebase_.storage.TaskEvent.STATE_CHANGED, 
@@ -64,9 +64,9 @@ export default function Picturemessages(props) {
        
         
                 var updates = {};
-                updates['/chats/' + newerId + '/' + newMessageKey] = postData
-                updates['/messages/' + newMessageKey] = postData;
-                updates['/user-message/' + props.authUser.uid + '/' + newMessageKey] = postData;
+                updates['chat/chats/' + newerId + '/' + newMessageKey] = postData
+                updates['chat/messages/' + newMessageKey] = postData;
+                updates['chat/user-message/' + props.authUser.uid + '/' + newMessageKey] = postData;
 
                 return props.firebase.db.app.database().ref().update(updates);
             });

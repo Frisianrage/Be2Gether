@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import {Modal, Button, Container, Row, Col, Form, Image} from 'react-bootstrap';
 import addpic from '../../../Pics/addpic.png';
 import loading from  '../../../Pics/loading.gif'
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 
 
@@ -10,6 +12,8 @@ export default function Newplacemodal(props) {
     const [isloading, setIsLoading] = useState(false)
     const [preview, setPreview] = useState([])
     const [textValue, setTextValue] = useState("")
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
 
     const handleClose = () => props.setButtonclicked(false);
 
@@ -38,6 +42,10 @@ export default function Newplacemodal(props) {
         body: textValue,
         address:location,
         coordinates: props.position ,
+        traveldate: {
+          startDate,
+          endDate
+        },
         pictures: preview,
         createdAt: Date.now(),
         placeid: newMessageKey
@@ -45,7 +53,7 @@ export default function Newplacemodal(props) {
       console.log(city)
       var updates = {};
       updates['map/places-together/' + coupleId + '/' + city] = blogData
-      updates['travel/memories/' + coupleId + '/' + newMessageKey] = blogData
+      updates['travel/memories/' + coupleId + '/' + city + '/' + startDate + '/' + newMessageKey] = blogData
       updates['travel/travel-memories/'+ coupleId + '/' + city + '/' + newMessageKey] = blogData;
       updates['travel/user-travel-memories/' + props.authUser.uid + '/' + newMessageKey] = blogData;
 
@@ -103,7 +111,7 @@ export default function Newplacemodal(props) {
                 uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
                   console.log('File available at', downloadURL);
                   const newPlaceKey = props.firebase.db.app.database().ref().child('places').push().key;
-                var postData = {
+                  var postData = {
                     author: props.authUser.username,
                     uid: props.authUser.uid,
                     type: "image",
@@ -115,18 +123,18 @@ export default function Newplacemodal(props) {
                     placeid: newPlaceKey,
                     };
            
-                    var updates = {};
+                  var updates = {};
                     //places-together für Markerposition
                     updates['map/places-together/' + coupleId + '/' + city] = postData
                     //places für Bilder
-                    updates['map/places/' + coupleId + '/' + city + '/' + newPlaceKey] = postData;
+                    updates['map/places/' + coupleId + '/' + city + '/' + startDate + '/' + newPlaceKey] = postData;
                     updates['map/user-places/' + props.authUser.uid + '/' + city + '/' + newPlaceKey] = postData;
                     setIsLoading(false)
-
                     loadedpictures.push(postData)
                     return props.firebase.db.app.database().ref().update(updates)
-                  });
-              })
+                });
+              }
+            )
         })
         setPreview(loadedpictures)
     } 
@@ -171,13 +179,27 @@ export default function Newplacemodal(props) {
                       </Col>
                   </Row>
                   <br />
-              
-                    <Form onSubmit={writeNewMessage}>
-                        <Form.Group controlId="exampleForm.ControlTextarea1">
-                            <Form.Label>Story</Form.Label>
-                            <Form.Control as="textarea" rows="3" value={textValue} onChange={updateText} />
-                        </Form.Group>
-                    </Form>
+                  <Row>
+                      <Col xs={1} md={1}>
+                          From:
+                      </Col>
+                      <Col xs={5} md={5}>
+                      <DatePicker selected={startDate} onChange={date => setStartDate(date)} dateFormat="yyyy/MM/dd" peekNextMonth showMonthDropdown showYearDropdown dropdownMode="select" />
+                      </Col>
+                      <Col xs={1} md={1}>
+                          To:
+                      </Col>
+                      <Col xs={5} md={5}>
+                      <DatePicker selected={endDate} onChange={date => setEndDate(date)} dateFormat="yyyy/MM/dd" peekNextMonth showMonthDropdown showYearDropdown dropdownMode="select" />
+                      </Col>
+                  </Row>
+                  <br />
+                  <Form onSubmit={writeNewMessage}>
+                      <Form.Group controlId="exampleForm.ControlTextarea1">
+                          <Form.Label>Story</Form.Label>
+                          <Form.Control as="textarea" rows="3" value={textValue} onChange={updateText} />
+                      </Form.Group>
+                  </Form>
                   <Row>
                       <Col xs={2} md={2}>
                           Pictures:

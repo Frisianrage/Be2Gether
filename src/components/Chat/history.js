@@ -8,7 +8,7 @@ function History(props) {
   const [selectedImage, setSelectedImage] = useState(false)
   const [imageWasClicked, setImageWasClicked] = useState(false)
   
-    props.firebase.db.app.database().ref().child('chats/'+ props.newerId)
+    props.firebase.db.app.database().ref().child('chat/chats/'+ props.newerId)
    .once('value')
    .then( async function (snapshot) {
       let newArray = await snapshot.val(); 

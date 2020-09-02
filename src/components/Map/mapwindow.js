@@ -1,13 +1,13 @@
 import React, {useState, useEffect} from 'react'
 import { AuthUserContext, withAuthorization } from '../Session';
-import { Map, Marker, TileLayer } from 'react-leaflet'
+import { Map, Marker, TileLayer, useLeaflet } from 'react-leaflet'
 import L from 'leaflet';
 import Search from "react-leaflet-search";
 import CostumPopup from './Search/Custompopup'
-import Placemodal from './Search/Placemodal'
 import {newerId, userTwoName} from './mapuserlist'
 import Placepopup from './Myplaces/Placepopup'
 import Newplacepopup from './Addplace/Newplacepopup'
+import "leaflet-control-geocoder/dist/Control.Geocoder.js";
 
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -17,8 +17,6 @@ L.Icon.Default.mergeOptions({
     shadowUrl: require('leaflet/dist/images/marker-shadow.png')
 });
 
-
-
 const MyMap = (props) => {
 
   const [position, setPosition] = useState([])
@@ -27,10 +25,10 @@ const MyMap = (props) => {
   const centerpos = [53.36745, 7.20778]
 
   const storageUrl = props.firebase.db.app.database().ref().child('map/places-together/' + newerId)
-
+  
+  
 useEffect(() => {
   let mounted = true
-
   storageUrl.once('value')
   .then(async function (snapshot) {
      const newArray = await snapshot.val();
@@ -54,10 +52,10 @@ const handleClick = (e) => {
     const lng = e.latlng.lng
     setNewMarkerPosition([lat,lng])
     setNewmarker(true)
-  } else{
-  setNewmarker(false)
-}
-}
+     } else{
+      setNewmarker(false)
+      }
+  }
   return (<AuthUserContext.Consumer>
     {authUser => (
     <div>
@@ -90,3 +88,4 @@ const handleClick = (e) => {
 const condition = authUser => !!authUser;
 
 export default withAuthorization(condition)(MyMap);
+

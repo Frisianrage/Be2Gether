@@ -16,6 +16,8 @@ import Map from '../Map';
 import MyMap from '../Map/mapwindow'
 import Travel from '../Travel/Travel'
 import MyTravel from '../Travel/index'
+import "leaflet-control-geocoder/dist/Control.Geocoder.js";
+
 
 
 const App = () => (

@@ -122,13 +122,13 @@ position: relative;
 
 .picme {
   width: 100px;
-  border: 3px solid lightpink;
+  border: 3px solid white;
   border-radius: 10px;
 }
 
 .picyou {
   width: 100px;
-  border: 3px solid lightpink;
+  border: 3px solid white;
   border-radius: 10px;
 }
 
@@ -195,6 +195,11 @@ position: relative;
   height: 600px;
   
 }
+
+.Custompopup {
+  width: 400px;
+}
+
 
 .Newplace {
   height: 600px;

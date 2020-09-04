@@ -8,7 +8,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 
 export default function Newplacemodal(props) {
-    const coupleId = props.newerId
+    const coupleId = props.authUser.friendwith.coupleid
     const [isloading, setIsLoading] = useState(false)
     const [preview, setPreview] = useState([])
     const [headValue, setheadValue] = useState("")
@@ -39,6 +39,7 @@ export default function Newplacemodal(props) {
     function writeNewMessage(e) {
       const start = startDate.toDateString();
       const end = endDate.toDateString()
+      const time = start + end
       e.preventDefault()
       if(!textValue) return
       const newMessageKey = props.firebase.db.app.database().ref().child('travel').push().key;
@@ -53,6 +54,7 @@ export default function Newplacemodal(props) {
         address:location,
         coordinates: props.position ,
         traveldate: {
+          time,
           start,
           end
         },
@@ -63,7 +65,8 @@ export default function Newplacemodal(props) {
       console.log(city)
       var updates = {};
       updates['map/places-together/' + coupleId + '/' + city] = blogData
-      updates['travel/memories/' + coupleId + '/' + country + '/' + city + '/' + start + '/' + newMessageKey] = blogData
+      updates['travel/memories/' + coupleId + '/' + country + '/' + city + '/' + time + '/' + newMessageKey] = blogData
+      updates['travel/city-memories/' + coupleId + '/' + city + '/' + time + '/' + newMessageKey] = blogData
       updates['travel/travel-memories/'+ coupleId + '/' + country + '/' + city + '/' + newMessageKey] = blogData;
       updates['travel/user-travel-memories/' + props.authUser.uid + '/' + newMessageKey] = blogData;
 
@@ -74,6 +77,8 @@ export default function Newplacemodal(props) {
     const HandleChange = (e) => {
         let loadedpictures = []
         const start = startDate.toDateString();
+        const end = endDate.toDateString()
+        const time = start + end
         var fileElement = document.getElementById('placepic');
         var allfiles = fileElement.files 
         const filesarray = Object.values(allfiles)
@@ -131,6 +136,11 @@ export default function Newplacemodal(props) {
                     createdAt: Date.now(),
                     address: location,
                     coordinates: props.position ,
+                    traveldate: {
+                      time,
+                      start,
+                      end
+                    },
                     placeid: newPlaceKey,
                     };
            
@@ -139,7 +149,7 @@ export default function Newplacemodal(props) {
                     updates['map/places-together/' + coupleId + '/' + city] = postData
                     //places für Bilder
                     updates['map/places/' + coupleId + '/' + country + '/' + city + '/' + newPlaceKey] = postData;
-                    updates['map/places/' + coupleId + '/' + country + '/' + city + '/' + start + '/' + newPlaceKey] = postData;
+                    updates['map/places/' + coupleId + '/' + country + '/' + city + '/' + time + '/' + newPlaceKey] = postData;
                     updates['map/user-places/' + props.authUser.uid + '/' + country + '/' + city + '/' + newPlaceKey] = postData;
                     setIsLoading(false)
                     loadedpictures.push(postData)

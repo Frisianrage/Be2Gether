@@ -1,13 +1,13 @@
 import React from 'react';
 import { AuthUserContext, withAuthorization } from '../Session';
-import Userlist from './userlist'
+import Chatwindow from './chatwindow'
 
 function Chats(props) {
 
 return (
     <AuthUserContext.Consumer> 
-          {authUser => 
-                <Userlist firebase={props.firebase} authUser={authUser} />
+          {authUser =>  
+                <Chatwindow firebase={props.firebase} authUser={authUser} />
           }
     </AuthUserContext.Consumer>  
   )
@@ -16,10 +16,4 @@ return (
 const condition = authUser => !!authUser;
 
 export default withAuthorization(condition)(Chats);
-
-
-/*
- {authUser.chats.map(message => {
-                         return <p key={message.timestamp}>{message.content}</p>
-                          })}*/
   

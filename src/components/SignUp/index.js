@@ -25,7 +25,6 @@ const INITIAL_STATE = {
     isAdmin: false,
     error: null,
     id:"",
-    friendwith:"",
     lastLogin:""
   };
  
@@ -53,6 +52,7 @@ class SignUpFormBase extends Component {
         return this.props.firebase
           .user(authUser.user.uid)
           .set({
+            avatar: '',
             username,            
             first_name,
             last_name,
@@ -61,7 +61,7 @@ class SignUpFormBase extends Component {
             roles,
             isAdmin: false,
             id: authUser.user.uid,
-            friendwith: "",
+            friendwith: {} ,
             lastLogin: new Date()
             
           },);
@@ -178,7 +178,7 @@ export default SignUpPage;
  
 export { SignUpForm, SignUpLink };
 /*
-<label>
+        <label>
           Admin:
           <input
             name="isAdmin"

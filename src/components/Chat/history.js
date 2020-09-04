@@ -1,29 +1,28 @@
 import React,  {useState} from 'react';
 import PictureModal from './picturemodal'
 
-
 function History(props) {
    
   const [chathistory, setchathistory] = useState([])
   const [selectedImage, setSelectedImage] = useState(false)
   const [imageWasClicked, setImageWasClicked] = useState(false)
   
-    props.firebase.db.app.database().ref().child('chat/chats/'+ props.newerId)
-   .once('value')
-   .then( async function (snapshot) {
-      let newArray = await snapshot.val(); 
-      if (newArray){
-        const messages = Object.keys(newArray).map(key => newArray[key]);
-        setchathistory(messages)
-      } else (setchathistory([]))
-    }) 
+  props.firebase.db.app.database().ref().child('chat/chats/'+ props.authUser.friendwith.coupleid)
+  .once('value')
+  .then( async function (snapshot) {
+    let newArray = await snapshot.val(); 
+    if (newArray){
+      const messages = Object.keys(newArray).map(key => newArray[key]);
+      setchathistory(messages)
+    } else (setchathistory([]))
+  }) 
    
-    const handleClick = (e) => {
-      setSelectedImage(e.target)
-      if(!imageWasClicked) {
-      setImageWasClicked(true);
+  const handleClick = (e) => {
+    setSelectedImage(e.target)
+    if(!imageWasClicked) {
+    setImageWasClicked(true);
     } else setImageWasClicked(false)
-    }
+  }
 
   return <div className="test">
             <div className="historyContainer">
@@ -44,6 +43,4 @@ function History(props) {
         </div>
 }
 
-
 export default History;
-

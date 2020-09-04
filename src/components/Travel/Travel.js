@@ -10,7 +10,7 @@ const Travel = (props) => {
 
    return (
           <div>
-            { hash ? <Country firebase={props.firebase} hash={hash} newerId={newerId} /> : <AltCountry firebase={props.firebase} search={search} newerId={newerId} />}
+            { hash ? <Country firebase={props.firebase} authUser={props.authUser} hash={hash} newerId={newerId} /> : <AltCountry firebase={props.firebase} authUser={props.authUser} search={search} newerId={newerId} />}
           </div>
           );
 }

@@ -3,10 +3,10 @@ import {Modal, Carousel} from 'react-bootstrap';
 
 function ShowPlaceCarousel(props) {
   const [thisplacehistory, setThisPlacehistory] = useState([])
-  const newerId = props.newerId
+  //const newerId = props.authUser.friendwith.coupleid
   const thiscity = props.placeinfos.address.city
   const thiscountry = props.placeinfos.address.country
-  const storageUrl =  props.firebase.db.app.database().ref().child('map/places/' + newerId + '/' + thiscountry + '/' + thiscity)
+  const storageUrl =  props.firebase.db.app.database().ref().child('map/places/' + props.authUser.friendwith.coupleid + '/' + thiscountry + '/' + thiscity)
 
   const handleClose = () => {
     props.setShowpicsclicked(false);
@@ -40,14 +40,13 @@ function ShowPlaceCarousel(props) {
                 <Carousel indicators={false}>
                   {thisplacehistory.map((place, key) => 
                   <Carousel.Item key={key} className="carousel-item">
-                      <img
+                      <img 
                         className="d-block w-100"
                         src={place.body}
                         alt={place.file_name}
                       />
                       <Carousel.Caption>
-                        <h3>Our trip to {thiscity}</h3>
-                        <p>Our trip to {thiscity}. We've been here... (Time)!!</p>
+                        <h3>Our memories from {thiscity}</h3>
                       </Carousel.Caption>
                     </Carousel.Item>
                     ) 

@@ -1,12 +1,13 @@
 import React from 'react';
 import { AuthUserContext, withAuthorization } from '../Session';
-import MapUserlist from './mapuserlist'
+import Mapwindow from './mapwindow'
 
 function Map(props) {
+      console.log(props)
 return (
     <AuthUserContext.Consumer> 
           {authUser => 
-                <MapUserlist firebase={props.firebase} authUser={authUser} />
+                <Mapwindow firebase={props.firebase} authUser={authUser} />
           }
     </AuthUserContext.Consumer>  
   )

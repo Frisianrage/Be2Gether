@@ -3,13 +3,10 @@ import {Modal, Carousel} from 'react-bootstrap';
 
 
 function ShowPicCarousel(props) {
-   const handleClose = () => props.setShowpicsclicked(false);
-
    const [placehistory, setPlacehistory] = useState([])
-   const newerId = props.newerId
    const city = props.info.raw[0].address.city 
    const country = props.info.raw[0].address.country 
-   const storageUrl = props.firebase.db.app.database().ref().child('map/places/' + newerId + '/' + country + '/' + city)
+   const storageUrl = props.firebase.db.app.database().ref().child('map/places/' + props.authUser.friendwith.coupleid + '/' + country + '/' + city)
   
   useEffect(() => {
     let mounted = true
@@ -27,6 +24,8 @@ function ShowPicCarousel(props) {
       mounted = false
     }
   })
+
+  const handleClose = () => props.setShowpicsclicked(false);
     
   return (
     <div className="placemodal">

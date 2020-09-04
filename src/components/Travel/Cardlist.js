@@ -1,8 +1,12 @@
 import React, {useState, useEffect} from 'react';
+import {Link} from 'react-router-dom'
 import {Card, Button} from 'react-bootstrap';
+import * as ROUTES from '../../constants/routes';
+
 
 
 const Cardlist = (props) => {
+ 
    const [ourmemories, setOurmemories] = useState([])
    const [titleimg, setTitleimg] = useState()
 
@@ -25,7 +29,7 @@ const Cardlist = (props) => {
       }
     }
     )
-
+    
       return (
          
         <div>
@@ -35,10 +39,10 @@ const Cardlist = (props) => {
                 <Card.Img className="cardpic" variant="top" src={titleimg} />
                     <Card.Body>
                         <Card.Title>{memo.body.headline}</Card.Title>
-                        <Card.Text>
-                         {memo.body.text}
-                        </Card.Text>
-                        <Button variant="primary">To your memory</Button>
+                        <div>
+                          <Link to={{pathname: ROUTES.MEMORY, hash: memo.address.city, search: memo.traveldate.time}}><Button variant="primary">To your memory</Button></Link>
+                        </div>
+                        
                     </Card.Body>
                     </Card>
                    

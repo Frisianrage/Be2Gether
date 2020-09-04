@@ -38,7 +38,7 @@ export default function PlacePopup(props) {
             </div>
           </div>
           { buttonclicked && <Myplacesmodal firebase={props.firebase} authUser={props.authUser} placeinfos={props.placeinfos} buttonclicked={buttonclicked} setButtonclicked={setButtonclicked} newerId={props.newerId}/> } 
-          { showpicsclicked && <ShowPlaceCarousel firebase={props.firebase} newerId={props.newerId} placeinfos={props.placeinfos} showpicsclicked={showpicsclicked} setShowpicsclicked={setShowpicsclicked} /> }
+          { showpicsclicked && <ShowPlaceCarousel firebase={props.firebase} authUser={props.authUser} placeinfos={props.placeinfos} showpicsclicked={showpicsclicked} setShowpicsclicked={setShowpicsclicked} /> }
       </div>
     </Popup>
   );

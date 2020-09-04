@@ -24,8 +24,8 @@ export default function CostumPopup(props) {
         <p></p>
         <Button variant="success" onClick={handleShow}>Gallery
         </Button>
-        { buttonclicked && <Placemodal firebase={props.firebase} authUser={props.authUser} info={props.info} buttonclicked={buttonclicked} setButtonclicked={setButtonclicked} newerId={props.newerId}/> } 
-        { showpicsclicked && <ShowPicCarousel firebase={props.firebase} info={props.info} showpicsclicked={showpicsclicked} setShowpicsclicked={setShowpicsclicked} newerId={props.newerId} /> }
+        { buttonclicked && <Placemodal firebase={props.firebase} authUser={props.authUser} info={props.info} buttonclicked={buttonclicked} setButtonclicked={setButtonclicked} /> } 
+        { showpicsclicked && <ShowPicCarousel firebase={props.firebase} info={props.info} showpicsclicked={showpicsclicked} setShowpicsclicked={setShowpicsclicked} /> }
       </div>
     </Popup>
   );

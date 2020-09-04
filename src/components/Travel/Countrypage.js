@@ -3,9 +3,11 @@ import Cardlist from './Cardlist'
 
 
 const Country = (props) => {
+  console.log(props)
+  const newerId = props.authUser.friendwith.coupleid
   const city = props.hash.substring(1)
   const [thiscountry, setThiscountry] = useState()
-  const storageUrl =  props.firebase.db.app.database().ref().child('map/places-together/' + props.newerId + '/' + city)
+  const storageUrl =  props.firebase.db.app.database().ref().child('map/places-together/' + newerId + '/' + city)
     
     useEffect(() => {
     let mounted = true
@@ -28,11 +30,16 @@ const Country = (props) => {
     )
 
       return (
-         
         <div>
-            <Cardlist firebase={props.firebase} newerId={props.newerId} country={thiscountry} city={city} />
+          <h3>Memories from {thiscountry}</h3> 
+          <hr />
+          <div>
+            <h5> Memories from {city}</h5>
+            <div>
+              <Cardlist firebase={props.firebase} newerId={newerId} country={thiscountry} city={city} />
+            </div>
+          </div> 
         </div>
-         
       )
 }
 

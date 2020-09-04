@@ -5,10 +5,8 @@ import * as ROUTES from '../../constants/routes';
 
 const MyTravel = (props) => {
   const [countries, setCountries] = useState([])
-  const newerId = "Hy5UQEqX1FNhYsverbOyzQUVep5H"
+  const newerId = props.authUser.friendwith.coupleid
   const storageUrl = props.firebase.db.app.database().ref().child('travel/travel-memories/' + newerId)
-  
-  console.log(props)
 
   useEffect(() => {
     let mounted = true
@@ -40,7 +38,3 @@ const MyTravel = (props) => {
 const condition = authUser => !!authUser;
  
 export default withAuthorization(condition)(MyTravel);
-
-/*
-, hash: place
-*/

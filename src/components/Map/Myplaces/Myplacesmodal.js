@@ -28,6 +28,7 @@ export default function Placemodal(props) {
   }
     
   function writeNewMessage(e) {
+    console.log(props.placeinfos.coordinates)
     const start = startDate.toDateString();
     const end = endDate.toDateString()
     const time = start + end
@@ -45,13 +46,14 @@ export default function Placemodal(props) {
         text: textValue,
       },
       address: props.placeinfos.address,
-      coordinates: props.position ,
+      coordinates: props.placeinfos.coordinates,
       traveldate: {
         time,
         start,
         end
       },
       pictures: preview,
+      titlepicture: preview[0],
       createdAt: Date.now(),
     };
     
@@ -85,7 +87,7 @@ export default function Placemodal(props) {
               contentType: 'image/jpeg'
             };
         
-            var uploadTask = storageRef.child('images/' + coupleId + '/' + city + '/' + file.name).put(file, metadata);
+            var uploadTask = storageRef.child('images/' + coupleId + '/' + city + '/' + time + '/' + file.name).put(file, metadata);
       
             uploadTask.on(props.firebase.store.app.firebase_.storage.TaskEvent.STATE_CHANGED, 
               function(snapshot) {

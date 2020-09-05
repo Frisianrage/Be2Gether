@@ -59,6 +59,7 @@ export default function Newplacemodal(props) {
           end
         },
         pictures: preview,
+        titlepicture: preview[0],
         createdAt: Date.now(),
         placeid: newMessageKey
       };
@@ -89,7 +90,7 @@ export default function Newplacemodal(props) {
                 contentType: 'image/jpeg'
               };
          
-              var uploadTask = storageRef.child('images/' + coupleId + '/' + city + '/' + file.name).put(file, metadata);
+              var uploadTask = storageRef.child('images/' + coupleId + '/' + city + '/' + time + '/' + file.name).put(file, metadata);
         
               uploadTask.on(props.firebase.store.app.firebase_.storage.TaskEvent.STATE_CHANGED, 
                 function(snapshot) {

@@ -117,7 +117,20 @@ position: relative;
   background-color: lightgreen;
   display: inline;
   border-radius: 10px;
-  padding: 5px 15px
+  padding: 5px 15px;
+ 
+}
+
+
+.messagebody {
+  font-family: monospace;
+  font-size: 20px;
+  font-weight: bold;
+  padding-right: 20px
+}
+
+.timestamp {
+  font-size: 12px;
 }
 
 .picme {
@@ -153,7 +166,6 @@ position: relative;
 .inputContainer {
   display: flex;
   width: 100%;
- 
 }
 
 .messageContainer {
@@ -197,7 +209,11 @@ position: relative;
   z-index: 0;
   overflow: hidden;
   height: 600px;
-  
+}
+
+.travelcontainer {
+  width: 300px; 
+  height: 400px;
 }
 
 .Custompopup {

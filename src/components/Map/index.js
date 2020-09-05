@@ -1,18 +1,21 @@
 import React from 'react';
-import { AuthUserContext, withAuthorization } from '../Session';
-import Mapwindow from './mapwindow'
+import {withAuthorization } from '../Session';
+import MyMap from './MyMap'
 
-function Map(props) {
-      console.log(props)
-return (
-    <AuthUserContext.Consumer> 
-          {authUser => 
-                <Mapwindow firebase={props.firebase} authUser={authUser} />
-          }
-    </AuthUserContext.Consumer>  
-  )
-}
+function Mappage(props) {
+      console.log(props.authUser.friendwith) 
+      return (
+        <div>
+         {props.authUser && props.authUser.friendwith ?
+         <MyMap firebase={props.firebase} authUser={props.authUser} />
+        :
+        <div>
+          <h1>You are not connected to anyone! Please find your Contact and come back!!!</h1>
+        </div> }
+       </div>
+      )
+    }
+     
+    const condition = authUser => !!authUser;
 
-const condition = authUser => !!authUser;
-
-export default withAuthorization(condition)(Map);
+export default withAuthorization(condition)(Mappage);

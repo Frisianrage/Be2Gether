@@ -10,6 +10,8 @@ export default function MessagesInput(props) {
   
   function writeNewMessage(e) {
     e.preventDefault()
+    const date = new Date();
+    const timestamp = date.toTimeString().slice(0, 5);
     if(!textValue) return
     const newMessageKey = props.firebase.db.app.database().ref().child('messages').push().key;
     var postData = {
@@ -17,6 +19,7 @@ export default function MessagesInput(props) {
       author: props.authUser.username,
       uid: props.authUser.uid,
       body: textValue,
+      timestamp: timestamp,
       createdAt: Date.now(),
     };
     

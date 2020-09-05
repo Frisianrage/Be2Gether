@@ -11,10 +11,10 @@ import Chats from '../Chat/index';
 import Chatwindow from '../Chat/chatwindow'
 import * as ROUTES from '../../constants/routes';
 import { withAuthentication } from '../Session';
-import Map from '../Map';
-import MyMap from '../Map/mapwindow'
+import Mappage from '../Map/index'
+import MyMap from '../Map/MyMap'
 import Travel from '../Travel/Travel'
-import MyTravel from '../Travel/index'
+import Travelpage from '../Travel/index'
 import { AuthUserContext} from '../Session';
 import "leaflet-control-geocoder/dist/Control.Geocoder.js";
 import Home from '../Home';
@@ -39,20 +39,33 @@ const firebase = props.firebase
           path={ROUTES.PASSWORD_FORGET}
           component={PasswordForgetPage}
         />
+        {/* Home - Page */}
         <Route exact path={ROUTES.HOME} render={(props) => (
         <Home {...props} authUser={authUser} isAuthed={true} />)} />
+
+         {/* Account - Page */}
         <Route exact path={ROUTES.ACCOUNT} component={AccountPage} />
+
+        {/* Admin - Page */}
         <Route exact path={ROUTES.ADMIN} component={AdminPage} />
-        <Route exact path={ROUTES.CHATS} component={Chats} />
+
+         {/* Chat - Page */ }
+        <Route exact path={ROUTES.CHATS} render={(props) => (
+        <Chats {...props} authUser={authUser} isAuthed={true} />)} />
         <Route exact path={ROUTES.CHATWINDOW} component={Chatwindow} />
-        <Route exact path={ROUTES.MAP} component={Map} />
+
+         {/* Map - Page */}
+        <Route exact path={ROUTES.MAP}  render={(props) => (
+        <Mappage {...props} authUser={authUser} isAuthed={true} />)} />
         <Route exact path={ROUTES.MAPWINDOW} component={MyMap} />
+
+         {/* Travel - Page */}
         <Route exact path={ROUTES.ALTTRAVEL} render={(props) => (
         <Travel {...props} authUser={authUser} isAuthed={true} />)} />
         <Route exact path={ROUTES.TRAVEL} render={(props) => (
         <Travel {...props} authUser={authUser} isAuthed={true} />)} />
         <Route exact path={ROUTES.TRAVELWINDOW} render={(props) => (
-          <MyTravel {...props} authUser={authUser} isAuthed={true} />)} />
+          <Travelpage {...props} authUser={authUser} isAuthed={true} />)} />
          <Route exact path={ROUTES.MEMORY} render={(props) => (
           <Memory {...props} firebase={firebase} authUser={authUser} isAuthed={true} />)} />
          </div>

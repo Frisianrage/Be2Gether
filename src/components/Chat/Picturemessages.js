@@ -3,6 +3,8 @@ import addpic from '../../Pics/addpic.png';
 
 export default function Picturemessages(props) {
     const handleChange = (event) => {
+      const date = new Date();
+      const timestamp = date.toTimeString().slice(0, 5);
         var fileElement = document.getElementById('getpic');
         var file = fileElement.files[0];
         console.log(file)
@@ -56,6 +58,7 @@ export default function Picturemessages(props) {
                   uid: props.authUser.uid,
                   type: "image",
                   body: downloadURL,
+                  timestamp,
                   name: file.name,
                   createdAt: Date.now(),
                 };

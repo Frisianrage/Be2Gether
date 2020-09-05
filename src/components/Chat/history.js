@@ -31,9 +31,15 @@ function History(props) {
                           <div key={key} className={(message.author === props.authUser.username) ? "right" : "left"}>
                             <li id={chathistory.length}>
                               {(message.type === "image") ?
+                              <div>
                                 <img onClick={handleClick} id={message.name} className={(message.author === props.authUser.username) ? "picme" : "picyou"} src={message.body} alt="Something is wrong" ></img>
-                                  : 
-                                <p className={(message.author === props.authUser.username) ? "chatme" : "chatyou"}>{message.body}</p> }
+                                <small>{message.timestamp}</small>
+                              </div>
+                                  :
+                                <div className={(message.author === props.authUser.username) ? "chatme" : "chatyou"}>
+                                  <span className="messagebody">{message.body}</span>
+                                  <small className="timestamp">{message.timestamp}</small>
+                                </div>}
                             </li>
                           </div> 
                     )} 

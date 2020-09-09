@@ -1,7 +1,7 @@
 import React from 'react';
-import { AuthUserContext, withAuthorization } from '../Session';
+import {withAuthorization } from '../Session';
+import MyMap from './MyMap'
 
-<<<<<<< Updated upstream
 const Map = (props) => (
  <div>
    Here comes the Map!
@@ -15,15 +15,24 @@ const Map = (props) => (
 const condition = authUser => !!authUser;
  
 export default withAuthorization(condition)(Map);
-=======
+
 function Mappage(props) {
+
+function Mappage(props) {
+      console.log(props.authUser.friendwith) 
+
       return (
         <div>
          {props.authUser && props.authUser.friendwith ?
          <MyMap firebase={props.firebase} authUser={props.authUser} />
         :
+
         <div className="counterpage">
           <h2>You are not connected to someone! <br/> Please find your Contact and come back!!!</h2>
+
+        <div>
+          <h1>You are not connected to anyone! Please find your Contact and come back!!!</h1>
+
         </div> }
        </div>
       )
@@ -31,5 +40,8 @@ function Mappage(props) {
      
     const condition = authUser => !!authUser;
 
+
 export default withAuthorization(condition)(Mappage);
->>>>>>> Stashed changes
+
+export default withAuthorization(condition)(Mappage);
+

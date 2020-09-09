@@ -31,6 +31,13 @@ const MyTravel = (props) => {
      You have been to these countries:
     </h2> 
     {countries.map((place, key) => (<div key={key} ><br /><h1><Link to={{pathname: ROUTES.ALTTRAVEL, search: place}}>{place}</Link></h1></div>))}
+
+    <div>
+    <h2>
+     You have been to these countries:
+    </h2> 
+    {countries.map(place => (<div><br /><Link to={{pathname: ROUTES.ALTTRAVEL, search: place}}>{place}</Link></div>))}
+
    </div>
   )
 }

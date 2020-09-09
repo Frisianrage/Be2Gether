@@ -44,6 +44,7 @@ export default function Request(props) {
       sender: true,
       id: user.id,
       avatar: user.avatar,
+
       coupleid: coupleId,
     };
     var requestreciever = {
@@ -55,7 +56,8 @@ export default function Request(props) {
       age: reciever.age, 
       sender: false,
       id: reciever.id, 
-      avatar: reciever.avatar,                                                                                                                                                                                     id: reciever.id,
+      avatar: reciever.avatar,  
+      id: reciever.id,      
       coupleid: coupleId,
     };
 
@@ -74,7 +76,11 @@ export default function Request(props) {
         <div>
           <Modal show={show} onHide={handleClose}>
                                                   <Modal.Header closeButton>
+
                                                     <Modal.Title>{user.username}</Modal.Title>
+
+                                                    <Modal.Title>New connection</Modal.Title>
+
                                                   </Modal.Header>
                                                   <Modal.Body>
                                                               <p>Firstname: {user.first_name}</p>
@@ -83,6 +89,7 @@ export default function Request(props) {
                                                   </Modal.Body>
                                                   <Modal.Footer>
                                                     { !user.friendwith ? <div><Button variant="secondary" onClick={handleClose}>
+                                                    <Button variant="secondary" onClick={handleClose}>
                                                       Close
                                                     </Button>
                                                     <Button variant="primary" onClick={handleRequest}>
@@ -91,6 +98,7 @@ export default function Request(props) {
                                                     :
                                                      <p> Sorry, no connection possible...</p>  }
                                                     
+                                                    </Button>
                                                   </Modal.Footer>
                                                 </Modal>
         </div>

@@ -1,8 +1,6 @@
 import React from 'react';
-import { AuthUserContext, withAuthorization } from '../Session';
-import Userlist from './userlist'
-
-<<<<<<< Updated upstream
+import { withAuthorization } from '../Session';
+import Chats from './Chats'
 function Chats(props) {
 
 return (
@@ -13,7 +11,6 @@ return (
     </AuthUserContext.Consumer>  
   )
 }
-=======
 function Chatpage(props) {
       return (
             <div>
@@ -23,20 +20,14 @@ function Chatpage(props) {
             <div className="counterpage">
           <h2>You are not connected to someone! <br/> Please find your Contact and come back!!!</h2>
         </div> }
+            <div>
+              <h1>You are not connected to anyone! Please find your Contact and come back!!!</h1>
+            </div> }
            </div>
           )
         }
          
- 
->>>>>>> Stashed changes
-
 const condition = authUser => !!authUser;
 
-export default withAuthorization(condition)(Chats);
-
-
-/*
- {authUser.chats.map(message => {
-                         return <p key={message.timestamp}>{message.content}</p>
-                          })}*/
+export default withAuthorization(condition)(Chatpage);
   

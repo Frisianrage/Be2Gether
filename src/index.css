@@ -3,18 +3,15 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-<<<<<<< Updated upstream
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   position: absolute;
   width: 100%;
 
-=======
   width: 100%;
   height: 100%;
   position: relative;
   padding-bottom: 250px;
->>>>>>> Stashed changes
 }
 
 code {
@@ -22,11 +19,11 @@ code {
     monospace;
 }
 
-<<<<<<< Updated upstream
 ul {
   text-align: justify;
   padding: 10px 0
-=======
+}
+
 .Landingpage {
   background-image: url('./Pics/Fernbeziehung.jpg') ;
   background-size: 100%;
@@ -48,7 +45,6 @@ ul {
 
 .dropdownitem {
   font-size: 20px;
->>>>>>> Stashed changes
 }
 
 .signin-input {
@@ -193,13 +189,11 @@ li {
 }
 
 h1 {
-<<<<<<< Updated upstream
   font-size: 26px;
-=======
+
   font-size: 30px;
   padding-top: 2rem;
   padding-bottom: 10px
->>>>>>> Stashed changes
 }
 
 .home {
@@ -239,10 +233,10 @@ h1 {
   margin-left: 50vh
 }
 
-<<<<<<< Updated upstream
 .chatwindowhead {
   text-align: center
-=======
+}
+
 .accountrow {
  width: 550px;
  height: 250px;
@@ -277,7 +271,6 @@ h1 {
   text-align: center;
   font-size: 30px;
   margin-top: -15px
->>>>>>> Stashed changes
 }
 
 .leaflet {
@@ -290,21 +283,15 @@ h1 {
 .chatHistory {
 width: 100%;
 overflow-y: auto;
-<<<<<<< Updated upstream
 position: relative;
 background-color: rgb(235, 231, 231);
-=======
 height: 61vh;
->>>>>>> Stashed changes
 }
 
 .chatwindow {
   width: 100%;
-<<<<<<< Updated upstream
-=======
   height: 67vh;
   background-color: rgb(235, 231, 231);
->>>>>>> Stashed changes
 }
 
 .chatwindowhead {
@@ -342,9 +329,7 @@ height: 61vh;
   background-color: lightgreen;
   display: inline-flex;
   border-radius: 10px;
-<<<<<<< Updated upstream
   padding: 5px 15px
-=======
   margin-top: 10px;
   padding: 1px 15px;
 }
@@ -359,7 +344,6 @@ height: 61vh;
 .timestamp {
   font-size: 14px;
   margin-top: auto
->>>>>>> Stashed changes
 }
 
 .picme {
@@ -376,8 +360,6 @@ height: 61vh;
   margin-top: 10px;
 }
 
-<<<<<<< Updated upstream
-=======
 .placemodal {
   text-align: center;
   width: 1000px;
@@ -399,8 +381,6 @@ height: 61vh;
 }
 
 
-
->>>>>>> Stashed changes
 
 /* //////////////////// MESSAGE INPUT //////// */
 
@@ -429,9 +409,6 @@ input {
   padding: 10px; 
 }
 
-<<<<<<< Updated upstream
-
-
 .try {
   z-index: 10;
   position: absolute;
@@ -439,7 +416,8 @@ input {
 
 .modalbody {
   text-align: center;
-=======
+}
+
 #chat-picture-input {
   display: inline-flex;
   width: 70%;
@@ -469,7 +447,6 @@ input {
   margin-right: 1rem;
   object-fit: scale-down;
   height: 300px;
->>>>>>> Stashed changes
 }
 
 .bigpic {
@@ -487,8 +464,6 @@ input {
   color: black
 }
 
-<<<<<<< Updated upstream
-=======
 .MyMap{
   overflow: hidden;
   height: 60vh;
@@ -534,7 +509,6 @@ input {
   border-radius: 15px;
   
 }
->>>>>>> Stashed changes
 
 
 

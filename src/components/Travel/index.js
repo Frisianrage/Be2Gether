@@ -1,8 +1,11 @@
 import React from 'react';
 import { withAuthorization } from '../Session'
 import MyTravel from './MyTravel'
+ 
 
-const Travelpage = (props) => { 
+const Travelpage = (props) => {
+  console.log(props.authUser.friendwith) 
+
   return (
     <div>
      {props.authUser && props.authUser.friendwith ?
@@ -12,6 +15,9 @@ const Travelpage = (props) => {
       <div className="counterpage">
           <h2>You are not connected to someone! <br/> Please find your Contact and come back!!!</h2>
         </div>
+
+      <h1>You are not connected to anyone! Please find your Contact and come back!!!</h1>
+
     </div> }
    </div>
   )

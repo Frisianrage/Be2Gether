@@ -117,18 +117,31 @@ position: relative;
   background-color: lightgreen;
   display: inline;
   border-radius: 10px;
-  padding: 5px 15px
+  padding: 5px 15px;
+ 
+}
+
+
+.messagebody {
+  font-family: monospace;
+  font-size: 20px;
+  font-weight: bold;
+  padding-right: 20px
+}
+
+.timestamp {
+  font-size: 12px;
 }
 
 .picme {
   width: 100px;
-  border: 3px solid lightpink;
+  border: 3px solid white;
   border-radius: 10px;
 }
 
 .picyou {
   width: 100px;
-  border: 3px solid lightpink;
+  border: 3px solid white;
   border-radius: 10px;
 }
 
@@ -153,7 +166,6 @@ position: relative;
 .inputContainer {
   display: flex;
   width: 100%;
- 
 }
 
 .messageContainer {
@@ -182,6 +194,10 @@ position: relative;
   text-align: center;
 }
 
+.cardpic {
+  max-height: 300px;
+}
+
 .bigpic {
   max-width: 300px;
   text-align: center;
@@ -193,8 +209,17 @@ position: relative;
   z-index: 0;
   overflow: hidden;
   height: 600px;
-  
 }
+
+.travelcontainer {
+  width: 300px; 
+  height: 400px;
+}
+
+.Custompopup {
+  width: 400px;
+}
+
 
 .Newplace {
   height: 600px;

@@ -2,20 +2,37 @@ import React, {useState} from 'react';
 import {Modal, Button, Container, Row, Col, Form, Image} from 'react-bootstrap';
 import addpic from '../../../Pics/addpic.png';
 import loading from  '../../../Pics/loading.gif'
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function Placemodal(props) {
     const [isloading, setIsLoading] = useState(false)
     const [preview, setPreview] = useState([])
+    const [headValue, setheadValue] = useState("")
     const [textValue, setTextValue] = useState("")
-    const coupleId = props.newerId
+    const coupleId = props.authUser.friendwith.coupleid
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
+
     const handleClose = () => props.setButtonclicked(false);
 
     function updateText(e) { 
       e.preventDefault() 
       setTextValue(e.target.value) 
     }
-      
+
+    function updateHeadline(e) {
+      e.preventDefault() 
+      setheadValue(e.target.value) 
+    }
+
+          
     function writeNewMessage(e) {
+      const start = startDate.toDateString();
+      const end = endDate.toDateString()
+      const time = start + end
+      const city = props.info.raw[0].address.city
+      const country =  props.info.raw[0].address.country
       e.preventDefault()
       if(!textValue) return
       const newPlaceKey = props.firebase.db.app.database().ref().child('travel').push().key;
@@ -23,18 +40,28 @@ export default function Placemodal(props) {
         type: "text",
         author: props.authUser.username,
         uid: props.authUser.uid,
-        body: textValue,
+        body: {
+          headline: headValue, 
+          text: textValue,
+        },
         address: props.info.raw[0].address,
         coordinates: [props.info.raw[0].lat, props.info.raw[0].lon],
+        traveldate: {
+          time,
+          start,
+          end
+        },
         pictures: preview,
+        titlepicture: preview[0],
         createdAt: Date.now(),
         placeid: newPlaceKey
       };
       
       var updates = {};
-      updates['map/places-together/' + coupleId + '/' + props.info.raw[0].address.city] = blogData
-      updates['travel/memories/' + coupleId + '/' + newPlaceKey] = blogData
-      updates['travel/travel-memories/' + newPlaceKey] = blogData;
+      updates['map/places-together/' + coupleId + '/' + city] = blogData
+      updates['travel/memories/' + coupleId + '/' + country + '/' + city + '/' + time + '/' + newPlaceKey] = blogData
+      updates['travel/city-memories/' + coupleId + '/' + city + '/' + time + '/' + newPlaceKey] = blogData
+      updates['travel/travel-memories/'+ coupleId + '/' + country + '/' + city + '/' + newPlaceKey] = blogData;
       updates['travel/user-travel-memories/' + props.authUser.uid + '/' + newPlaceKey] = blogData;
   
       return (props.firebase.db.app.database().ref().update(updates),
@@ -44,11 +71,14 @@ export default function Placemodal(props) {
 
     const handleChange = (e) => {
         let loadedpictures = []
+        const start = startDate.toDateString();
+        const end = endDate.toDateString()
+        const time = start + end
         var fileElement = document.getElementById('placepic');
         var allfiles = fileElement.files 
         const filesarray = Object.values(allfiles)
         const city = props.info.raw[0].address.city
-        
+        const country = props.info.raw[0].address.country
 
         filesarray.map((file) => {
             var storageRef = props.firebase.store.app.storage().ref();
@@ -56,7 +86,7 @@ export default function Placemodal(props) {
                 contentType: 'image/jpeg'
               };
          
-              var uploadTask = storageRef.child('images/' + coupleId + '/' + city + '/' + file.name).put(file, metadata);
+              var uploadTask = storageRef.child('images/' + coupleId + '/' + city + '/' + time + '/' + file.name).put(file, metadata);
         
               uploadTask.on(props.firebase.store.app.firebase_.storage.TaskEvent.STATE_CHANGED, 
                 function(snapshot) {
@@ -103,6 +133,11 @@ export default function Placemodal(props) {
                     createdAt: Date.now(),
                     address: props.info.raw[0].address,
                     coordinates: [props.info.raw[0].lat, props.info.raw[0].lon],
+                    traveldate: {
+                      time,
+                      start,
+                      end
+                    },
                     placeid: newPlaceKey
                     };
            
@@ -110,8 +145,9 @@ export default function Placemodal(props) {
                     //places-together für Markerposition
                     updates['map/places-together/' + coupleId + '/' + city] = postData
                     //places für Bilder
-                    updates['map/places/' + coupleId + '/' + city + '/' + newPlaceKey] = postData;
-                    updates['map/user-places/' + props.authUser.uid + '/' + city + '/' + newPlaceKey] = postData;
+                    updates['map/places/' + coupleId + '/' + country + '/' + city + '/' + newPlaceKey] = postData;
+                    updates['map/places/' + coupleId + '/' + country + '/' + city + '/' + time + '/' + newPlaceKey] = postData;
+                    updates['map/user-places/' + props.authUser.uid + '/' + country + '/' + city + '/' + newPlaceKey] = postData;
                     setIsLoading(false)
                     
                     return (props.firebase.db.app.database().ref().update(updates),
@@ -127,7 +163,7 @@ export default function Placemodal(props) {
             }
 
     return (
-       <Modal show={props.buttonclicked} onHide={handleClose}>
+       <Modal size="lg" show={props.buttonclicked} onHide={handleClose}>
             <Modal.Header closeButton>
             <Modal.Title id="contained-modal-title-vcenter">
                  New Memory
@@ -137,16 +173,34 @@ export default function Placemodal(props) {
                 <Container>
                 <Row>
                     <Col xs={12} md={6}>
-                        City: 
+                        City: {props.info.raw[0].address.city}
                     </Col>
                     <Col xs={6} md={6}>
-                        Country: 
+                        Country: {props.info.raw[0].address.country}
                     </Col>
                 </Row>
+                <br />
+                  <Row>
+                      <Col xs={1} md={1}>
+                          From:
+                      </Col>
+                      <Col xs={5} md={5}>
+                      <DatePicker selected={startDate} onChange={date => setStartDate(date)} dateFormat="yyyy/MM/dd" peekNextMonth showMonthDropdown showYearDropdown dropdownMode="select" />
+                      </Col>
+                      <Col xs={1} md={1}>
+                          To:
+                      </Col>
+                      <Col xs={5} md={5}>
+                      <DatePicker selected={endDate} onChange={date => setEndDate(date)} dateFormat="yyyy/MM/dd" peekNextMonth showMonthDropdown showYearDropdown dropdownMode="select" />
+                      </Col>
+                  </Row>
+                  <br />
                 <Form onSubmit={writeNewMessage}>
                     <Form.Group controlId="exampleForm.ControlTextarea1">
-                        <Form.Label>Story</Form.Label>
-                        <Form.Control as="textarea" rows="3" value={textValue} onChange={updateText} />
+                        <Form.Label>Your Memory</Form.Label>
+                        <Form.Control type="text" placeholder="Headline" value={headValue} onChange={updateHeadline} />
+                        <br />
+                        <Form.Control as="textarea" placeholder="The story..." rows="3" value={textValue} onChange={updateText} />
                     </Form.Group>
                 </Form>
                 <Row>

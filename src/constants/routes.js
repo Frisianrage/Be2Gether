@@ -10,3 +10,7 @@ export const CHATS = '/chats';
 export const CHATWINDOW = '/chatwindow='
 export const MAP = '/map'
 export const MAPWINDOW = '/mapwindow='
+export const TRAVEL = '/travel'
+export const ALTTRAVEL = '/alttravel'
+export const TRAVELWINDOW = '/travelwindow='
+export const MEMORY = '/memory'

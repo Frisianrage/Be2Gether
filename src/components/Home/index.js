@@ -1,19 +1,54 @@
 import React from 'react';
-import { withAuthorization } from '../Session';
+import { AuthUserContext, withAuthorization } from '../Session';
+import MyCard from './MyCard'
+import PartnerCard from './PartnerCard'
+import {Button} from 'react-bootstrap'
 
 
-
- 
-const HomePage = (props) => (
- <div>
-   Here comes the Homepage!
- </div>
+  const HomePage = (props) => {
+  const partner = props.authUser.friendwith
   
-           
-    
+  const handleClick = (e) => {
+    var requestsender = "accepted";
+    var requestreciever = "accepted"
+
+    var updates = {};
+    updates['users/' + props.authUser.friendwith.id + '/friendwith/status/'] = requestsender;
+    updates['users/' + props.authUser.uid + '/friendwith/status/'] = requestreciever;
   
+    return (props.firebase.db.app.database().ref().update(updates),
+    window.location.reload())
+  }
+
+  const handleDecline = (e) => {
+    var requestsender = {}
+    var requestreciever = {}
+
+    var updates = {};
+    updates['users/' + props.authUser.friendwith.id + '/friendwith/'] = requestsender;
+    updates['users/' + props.authUser.uid + '/friendwith/'] = requestreciever;
+  
+    return (props.firebase.db.app.database().ref().update(updates),
+    window.location.reload())
+  }
+
+
+  return (
+    <AuthUserContext.Consumer> 
+          {authUser => 
+          <div>
+            {authUser.friendwith && authUser.friendwith.status ? <h2> Your connection status is {authUser.friendwith.status}</h2> : <h2>You have no connection yet...</h2>}
+            <MyCard firebase={props.firebase} authUser={authUser} />
+            <PartnerCard firebase={props.firebase} partner={partner} authUser={authUser} />
+            { partner && !partner.sender && partner.status === "pending" ? <div>
+                    <Button variant="success" onClick={handleClick}>Accept request</Button>
+                    <Button variant="danger" onClick={handleDecline}>Decline request</Button>
+                    </div> : "" }
+          </div>    
+          }
+    </AuthUserContext.Consumer> 
 );
- 
+  } 
 const condition = authUser => !!authUser;
  
 export default withAuthorization(condition)(HomePage);

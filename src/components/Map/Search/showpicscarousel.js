@@ -3,12 +3,10 @@ import {Modal, Carousel} from 'react-bootstrap';
 
 
 function ShowPicCarousel(props) {
-   const handleClose = () => props.setShowpicsclicked(false);
-
    const [placehistory, setPlacehistory] = useState([])
-   const newerId = props.newerId
    const city = props.info.raw[0].address.city 
-   const storageUrl =  props.firebase.db.app.database().ref().child('map/places/' + newerId + '/' + city)
+   const country = props.info.raw[0].address.country 
+   const storageUrl = props.firebase.db.app.database().ref().child('map/places/' + props.authUser.friendwith.coupleid + '/' + country + '/' + city)
   
   useEffect(() => {
     let mounted = true
@@ -26,16 +24,18 @@ function ShowPicCarousel(props) {
       mounted = false
     }
   })
+
+  const handleClose = () => props.setShowpicsclicked(false);
     
   return (
     <div className="placemodal">
-<Modal size="xl" show={props.showpicsclicked} onHide={handleClose}>
+      <Modal size="xl" show={props.showpicsclicked} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>{city}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <Carousel indicators={false}>
-            {placehistory.map((place, key) => 
+            <Carousel indicators={false}>
+              {placehistory.map((place, key) => 
                <Carousel.Item key={key} className="carousel-item">
                 <img
                   className="d-block w-100"
@@ -47,7 +47,7 @@ function ShowPicCarousel(props) {
                   <p>Our trip to {city}. We've been here... (Time)!!</p>
                 </Carousel.Caption>
               </Carousel.Item>
-               ) }
+               )}
             </Carousel>
           </Modal.Body>
       </Modal>

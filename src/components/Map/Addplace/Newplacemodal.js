@@ -2,14 +2,19 @@ import React, {useState} from 'react';
 import {Modal, Button, Container, Row, Col, Form, Image} from 'react-bootstrap';
 import addpic from '../../../Pics/addpic.png';
 import loading from  '../../../Pics/loading.gif'
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 
 
 export default function Newplacemodal(props) {
-    const coupleId = props.newerId
+    const coupleId = props.authUser.friendwith.coupleid
     const [isloading, setIsLoading] = useState(false)
     const [preview, setPreview] = useState([])
+    const [headValue, setheadValue] = useState("")
     const [textValue, setTextValue] = useState("")
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
 
     const handleClose = () => props.setButtonclicked(false);
 
@@ -25,9 +30,16 @@ export default function Newplacemodal(props) {
       e.preventDefault() 
       setTextValue(e.target.value) 
     }
-      
+    
+    function updateHeadline(e) {
+      e.preventDefault() 
+      setheadValue(e.target.value) 
+    }
       
     function writeNewMessage(e) {
+      const start = startDate.toDateString();
+      const end = endDate.toDateString()
+      const time = start + end
       e.preventDefault()
       if(!textValue) return
       const newMessageKey = props.firebase.db.app.database().ref().child('travel').push().key;
@@ -35,18 +47,28 @@ export default function Newplacemodal(props) {
         type: "text",
         author: props.authUser.username,
         uid: props.authUser.uid,
-        body: textValue,
+        body: {
+          headline: headValue, 
+          text: textValue,
+        },
         address:location,
         coordinates: props.position ,
+        traveldate: {
+          time,
+          start,
+          end
+        },
         pictures: preview,
+        titlepicture: preview[0],
         createdAt: Date.now(),
         placeid: newMessageKey
       };
       console.log(city)
       var updates = {};
       updates['map/places-together/' + coupleId + '/' + city] = blogData
-      updates['travel/memories/' + coupleId + '/' + newMessageKey] = blogData
-      updates['travel/travel-memories/' + newMessageKey] = blogData;
+      updates['travel/memories/' + coupleId + '/' + country + '/' + city + '/' + time + '/' + newMessageKey] = blogData
+      updates['travel/city-memories/' + coupleId + '/' + city + '/' + time + '/' + newMessageKey] = blogData
+      updates['travel/travel-memories/'+ coupleId + '/' + country + '/' + city + '/' + newMessageKey] = blogData;
       updates['travel/user-travel-memories/' + props.authUser.uid + '/' + newMessageKey] = blogData;
 
       return (props.firebase.db.app.database().ref().update(updates),
@@ -55,6 +77,9 @@ export default function Newplacemodal(props) {
   
     const HandleChange = (e) => {
         let loadedpictures = []
+        const start = startDate.toDateString();
+        const end = endDate.toDateString()
+        const time = start + end
         var fileElement = document.getElementById('placepic');
         var allfiles = fileElement.files 
         const filesarray = Object.values(allfiles)
@@ -65,7 +90,7 @@ export default function Newplacemodal(props) {
                 contentType: 'image/jpeg'
               };
          
-              var uploadTask = storageRef.child('images/' + coupleId + '/' + city + '/' + file.name).put(file, metadata);
+              var uploadTask = storageRef.child('images/' + coupleId + '/' + city + '/' + time + '/' + file.name).put(file, metadata);
         
               uploadTask.on(props.firebase.store.app.firebase_.storage.TaskEvent.STATE_CHANGED, 
                 function(snapshot) {
@@ -103,7 +128,7 @@ export default function Newplacemodal(props) {
                 uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
                   console.log('File available at', downloadURL);
                   const newPlaceKey = props.firebase.db.app.database().ref().child('places').push().key;
-                var postData = {
+                  var postData = {
                     author: props.authUser.username,
                     uid: props.authUser.uid,
                     type: "image",
@@ -112,21 +137,27 @@ export default function Newplacemodal(props) {
                     createdAt: Date.now(),
                     address: location,
                     coordinates: props.position ,
+                    traveldate: {
+                      time,
+                      start,
+                      end
+                    },
                     placeid: newPlaceKey,
                     };
            
-                    var updates = {};
+                  var updates = {};
                     //places-together für Markerposition
                     updates['map/places-together/' + coupleId + '/' + city] = postData
                     //places für Bilder
-                    updates['map/places/' + coupleId + '/' + city + '/' + newPlaceKey] = postData;
-                    updates['map/user-places/' + props.authUser.uid + '/' + city + '/' + newPlaceKey] = postData;
+                    updates['map/places/' + coupleId + '/' + country + '/' + city + '/' + newPlaceKey] = postData;
+                    updates['map/places/' + coupleId + '/' + country + '/' + city + '/' + time + '/' + newPlaceKey] = postData;
+                    updates['map/user-places/' + props.authUser.uid + '/' + country + '/' + city + '/' + newPlaceKey] = postData;
                     setIsLoading(false)
-
                     loadedpictures.push(postData)
                     return props.firebase.db.app.database().ref().update(updates)
-                  });
-              })
+                });
+              }
+            )
         })
         setPreview(loadedpictures)
     } 
@@ -171,13 +202,29 @@ export default function Newplacemodal(props) {
                       </Col>
                   </Row>
                   <br />
-              
-                    <Form onSubmit={writeNewMessage}>
-                        <Form.Group controlId="exampleForm.ControlTextarea1">
-                            <Form.Label>Story</Form.Label>
-                            <Form.Control as="textarea" rows="3" value={textValue} onChange={updateText} />
-                        </Form.Group>
-                    </Form>
+                  <Row>
+                      <Col xs={1} md={1}>
+                          From:
+                      </Col>
+                      <Col xs={5} md={5}>
+                      <DatePicker selected={startDate} onChange={date => setStartDate(date)} dateFormat="yyyy/MM/dd" peekNextMonth showMonthDropdown showYearDropdown dropdownMode="select" />
+                      </Col>
+                      <Col xs={1} md={1}>
+                          To:
+                      </Col>
+                      <Col xs={5} md={5}>
+                      <DatePicker selected={endDate} onChange={date => setEndDate(date)} dateFormat="yyyy/MM/dd" peekNextMonth showMonthDropdown showYearDropdown dropdownMode="select" />
+                      </Col>
+                  </Row>
+                  <br />
+                  <Form onSubmit={writeNewMessage}>
+                    <Form.Group controlId="exampleForm.ControlTextarea1">
+                        <Form.Label>Your Memory</Form.Label>
+                        <Form.Control type="text" placeholder="Headline" value={headValue} onChange={updateHeadline} />
+                        <br />
+                        <Form.Control as="textarea" placeholder="The story..." rows="3" value={textValue} onChange={updateText} />
+                    </Form.Group>
+                </Form>
                   <Row>
                       <Col xs={2} md={2}>
                           Pictures:

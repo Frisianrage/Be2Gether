@@ -54,10 +54,7 @@ class SignUpFormBase extends Component {
         return this.props.firebase
           .user(authUser.user.uid)
           .set({
-<<<<<<< Updated upstream
-=======
             avatar: NoPic,
->>>>>>> Stashed changes
             username,            
             first_name,
             last_name,
@@ -68,8 +65,7 @@ class SignUpFormBase extends Component {
             id: authUser.user.uid,
             friendwith: "",
             lastLogin: new Date()
-            
-          },);
+          });
       })
       .then(() => {
         this.setState({ ...INITIAL_STATE });
@@ -173,13 +169,3 @@ const SignUpForm = compose(
 export default SignUpPage;
  
 export { SignUpForm, SignUpLink };
-/*
-<label>
-          Admin:
-          <input
-            name="isAdmin"
-            type="checkbox"
-            checked={isAdmin}
-            onChange={this.onChangeCheckbox}
-          />
-        </label> */

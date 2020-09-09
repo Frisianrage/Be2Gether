@@ -1,21 +1,7 @@
 import React from 'react';
-import { AuthUserContext, withAuthorization } from '../Session';
+import { withAuthorization } from '../Session';
+import MyMap from "./mapwindow"
 
-<<<<<<< Updated upstream
-const Map = (props) => (
- <div>
-   Here comes the Map!
- </div>
-  
-           
-    
-  
-);
- 
-const condition = authUser => !!authUser;
- 
-export default withAuthorization(condition)(Map);
-=======
 function Mappage(props) {
       return (
         <div>
@@ -32,4 +18,3 @@ function Mappage(props) {
     const condition = authUser => !!authUser;
 
 export default withAuthorization(condition)(Mappage);
->>>>>>> Stashed changes

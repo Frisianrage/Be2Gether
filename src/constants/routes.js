@@ -1,4 +1,3 @@
-
 export const LANDING = '/';
 export const SIGN_UP = '/signup';
 export const SIGN_IN = '/signin';
@@ -9,3 +8,8 @@ export const PASSWORD_FORGET = '/pw-forget';
 export const CHATS = '/chats';
 export const CHATWINDOW = '/chatwindow='
 export const MAP = '/map'
+export const MAPWINDOW = '/mapwindow='
+export const TRAVEL = '/travel'
+export const ALTTRAVEL = '/alttravel'
+export const TRAVELWINDOW = '/travelwindow='
+export const MEMORY = '/memory'

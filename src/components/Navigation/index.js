@@ -35,15 +35,12 @@ const NavigationAuth = ({ authUser }) => (
     <li>
       <Link to={ROUTES.CHATS} className="nav-item">Chat</Link>
     </li>
-<<<<<<< Updated upstream
-=======
     <li>
       <Link to={ROUTES.MAP} className="nav-item">Map</Link>
     </li>
     <li>
       <Link to={ROUTES.TRAVELWINDOW} className="nav-item">Travel-Blog</Link>
     </li>
->>>>>>> Stashed changes
     {!!authUser.roles[ROLES.ADMIN] && (
       <li>
         <Link to={ROUTES.ADMIN}>Admin</Link>

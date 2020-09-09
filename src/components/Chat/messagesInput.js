@@ -27,27 +27,10 @@ export default function MessagesInput(props) {
           updates['/user-message/' + props.authUser.uid + '/' + newMessageKey] = postData;
 
           document.getElementById("test").reset();
-
-<<<<<<< Updated upstream
+          setTextValue("")
           return props.firebase.db.app.database().ref().update(updates);
       }
     
-      return (
-        <div className="inputContainer">
-          <div className="messageContainer">
-              <form id="test" onSubmit={writeNewMessage}>
-                <input id="ttt" ref={textAreaRef} onChange={updateText} ></input>
-                <Picturemessages firebase={props.firebase} authUser={props.authUser} />
-                <br />
-                <button id="messageSubmit" type="submit">Send</button>
-              </form>
-           </div>
-         </div>
-=======
-    setTextValue("")
-    return props.firebase.db.app.database().ref().update(updates);
-  }
-  
   return (
     <div className="inputContainer">
       <div className="messageContainer">
@@ -59,7 +42,6 @@ export default function MessagesInput(props) {
         </form>
       </div>
     </div>
->>>>>>> Stashed changes
         
        )
   }

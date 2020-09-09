@@ -1,10 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { AuthUserContext, withAuthorization } from '../Session';
 import PasswordChangeForm from '../PasswordChange';
 import {Container, Row, Col, Button} from 'react-bootstrap';
 import addpic from '../../Pics/addpic.png'
 import PartnerCard from './PartnerCard'
-
 
 const AccountPage = (props) => {
   console.log(props)
@@ -14,24 +13,6 @@ const AccountPage = (props) => {
       var fileElement = document.getElementById('getpic');
       var file = fileElement.files[0];
     
-<<<<<<< Updated upstream
-        {authUser => (
-            <div>
-        <h1>Account: {authUser.first_name} {authUser.last_name}</h1>
-        <h4>User</h4>
-        <p>User-ID: {authUser.uid}</p>
-        <p>Username: {authUser.username}</p>
-        <p>Vorname: {authUser.first_name}</p>
-        <p>Nachname: {authUser.last_name}</p>
-        <p>Alter: {authUser.age}</p>
-          <br/>
-        <h3>Change your Password</h3>
-      
-        <PasswordChangeForm />
-=======
-      console.log(file)
-      console.log(props.firebase.store.app.firebase_.storage.TaskEvent)
-     
       var storageRef = props.firebase.store.app.storage().ref();
       var metadata = {
           contentType: 'image/jpeg'
@@ -42,7 +23,6 @@ const AccountPage = (props) => {
       uploadTask.on(props.firebase.store.app.firebase_.storage.TaskEvent.STATE_CHANGED, 
         function(snapshot) {
           var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log('Upload is ' + progress + '% done');
           switch (snapshot.state) {
             case props.firebase.store.app.firebase_.storage.TaskState.PAUSED: // or 'paused'
               console.log('Upload is paused');
@@ -181,7 +161,6 @@ const AccountPage = (props) => {
               </Row>
           </Container>     
         
->>>>>>> Stashed changes
       </div>
     
     )}
@@ -192,16 +171,3 @@ const AccountPage = (props) => {
 const condition = authUser => !!authUser;
  
 export default withAuthorization(condition)(AccountPage);
-
-  /* 
-  import { PasswordForgetForm } from '../PasswordForget';
-  <PasswordForgetForm />
-  
-   <Row>
-                      <div className="profilpicarea">
-                      New Picture:<img onClick={handleClick}  src={addpic} alt="test"></img>
-                       <input onChange={handleChange} type="file" id="getpic" multiple accept="image/*" style={{display: "none"}}></input>
-                      </div>
-                    </Row>
-  
-  */

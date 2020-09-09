@@ -2,8 +2,8 @@ import React from 'react';
 
 
 const Landing = () => (
-  <div>
-    <h1>Landing</h1>
+  <div className="Landingpage">
+    <h1 className="landinghead">Be2Gether</h1>
     
   </div>
 );

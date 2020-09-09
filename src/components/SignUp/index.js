@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
- 
+import NoPic from '../../Pics/NoPic.png';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 import * as ROLES from '../../constants/roles';
+import {Button, InputGroup, FormControl} from 'react-bootstrap'
 
  
-const SignUpPage = () => (
-  <div>
+const SignUpPage = (props) => (
+  <div className="signuppage">
     <h1>SignUp</h1>
     <SignUpForm />
   </div>
@@ -53,6 +54,10 @@ class SignUpFormBase extends Component {
         return this.props.firebase
           .user(authUser.user.uid)
           .set({
+<<<<<<< Updated upstream
+=======
+            avatar: NoPic,
+>>>>>>> Stashed changes
             username,            
             first_name,
             last_name,
@@ -85,6 +90,7 @@ class SignUpFormBase extends Component {
     this.setState({ [event.target.name]: event.target.checked });
   };
 
+ 
   render() {
     const {
       username,
@@ -104,61 +110,51 @@ class SignUpFormBase extends Component {
       username === '';
  
     return (
+    <div>
       <form onSubmit={this.onSubmit}>
-        <input
-          name="username"
-          value={username}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Username"
-        />
-        <input
-          name="first_name"
-          value={first_name}
-          onChange={this.onChange}
-          type="text"
-          placeholder="First Name"
-        />
-        <input
-          name="last_name"
-          value={last_name}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Last Name"
-        />
-        <input
-          name="age"
-          value={age}
-          onChange={this.onChange}
-          type="number"
-          placeholder="Age"
-        />
-        <input
-          name="email"
-          value={email}
-          onChange={this.onChange}
-          type="email"
-          placeholder="Email Address"
-        />
-        <input
-          name="passwordOne"
-          value={passwordOne}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Password"
-        />
-        <input
-          name="passwordTwo"
-          value={passwordTwo}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Confirm Password"
-        />
-        
-        <button disabled={isInvalid} type="submit">Sign Up</button>
- 
+        <InputGroup size="lg">
+    
+          <FormControl placeholder="Username"  name="username"
+            value={username}
+            onChange={this.onChange}
+            type="text" aria-label="Large" aria-describedby="inputGroup-sizing-sm" />
+          <FormControl name="first_name"
+            value={first_name}
+            onChange={this.onChange}
+            type="text"
+            placeholder="First Name" aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
+          <FormControl name="last_name"
+            value={last_name}
+            onChange={this.onChange}
+            type="text"
+            placeholder="Last Name" aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
+          <FormControl name="age"
+            value={age}
+            onChange={this.onChange}
+            type="number"
+            placeholder="Age" aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
+          <FormControl name="email"
+            value={email}
+            onChange={this.onChange}
+            type="email"
+            placeholder="Email Address" aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
+          <FormControl aria-label="Small" name="passwordOne"
+            value={passwordOne}
+            onChange={this.onChange}
+            type="password"
+            placeholder="Password"aria-describedby="inputGroup-sizing-sm" />
+          <FormControl name="passwordTwo"
+            value={passwordTwo}
+            onChange={this.onChange}
+            type="password"
+            placeholder="Confirm Password" aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
+        </InputGroup>
+        <br />
+        <Button variant="secondary" disabled={isInvalid} size="lg" type="submit">Sign Up</Button>
         {error && <p>{error.message}</p>}
       </form>
+    </div>
+      
     );
   }
 }

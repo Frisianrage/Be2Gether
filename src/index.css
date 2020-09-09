@@ -3,11 +3,18 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
+<<<<<<< Updated upstream
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   position: absolute;
   width: 100%;
 
+=======
+  width: 100%;
+  height: 100%;
+  position: relative;
+  padding-bottom: 250px;
+>>>>>>> Stashed changes
 }
 
 code {
@@ -15,75 +22,302 @@ code {
     monospace;
 }
 
+<<<<<<< Updated upstream
 ul {
   text-align: justify;
   padding: 10px 0
+=======
+.Landingpage {
+  background-image: url('./Pics/Fernbeziehung.jpg') ;
+  background-size: 100%;
+  height: 100vh;
+  color: white;
+  font-family: Ubuntu;
 }
 
-.Navbar {
-  display: inline-flex;
-  border-bottom: 1px solid grey;
-  width: 100%
+.landinghead {
+  font-size: 72px;
+  padding-top: 4rem;
+  padding-left: 5rem
+}
 
+.signin-line {
+  display: flex;
+  flex-flow: row;
+}
+
+.dropdownitem {
+  font-size: 20px;
+>>>>>>> Stashed changes
+}
+
+.signin-input {
+  align-items: center;
+  height: 50px;
+  width: 400px;
+  margin-top: 0.5rem;
+  font-size: 20px;
+}
+
+.signin-btn {
+  width: 100%;
+  margin-top: 0.5rem;
+  margin-right: 2rem;
+}
+
+
+
+/* //////////////////   NAVBAR  /////// */
+
+.Navbar {
+  display: flex;
+  flex-flow: row wrap;
+  /* This aligns items to the end line on main-axis */
+  justify-content: flex-end;
+  background-color: #2073ff; 
+  color: white;
+  height: 75px;
+  border-bottom: 1px solid white
+}
+
+.landing-navbar {
+  display: flex;
+  flex-flow: row wrap;
+  /* This aligns items to the end line on main-axis */
+  justify-content: space-between ;
+  background-color: #2073ff; 
+  color: white;
+  height: 75px;
+  border-bottom: 1px solid white
+}
+
+.landing-nav-item {
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 20px
+}
+
+.nav-item {
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.footer-item {
+  color: white;
+  font-size: 22px;
+  text-decoration: underline; 
+}
+
+.footer-text {
+  color: white;
+  font-size: 26px;
+  margin-top: 1rem
+}
+
+.footer-left {
+  padding-top: 20px;
+  padding-left: 30px;
+  font-size: 22px;
+  font-weight: bold;
+  color: white;
+  margin-left: 2rem
+}
+
+.footer-middle {
+  padding-top: 20px;
+  border-left: 1px solid white;
+  border-right: 1px solid white;
+  height: 110%;
+}
+
+.footer-right {
+  padding-left: 40%;
+  margin-top: -4rem
+}
+
+.footer-middle-list {
+  padding-bottom: 5px;
+}
+
+.footer-middle-list-left {
+  padding-top: 20px;
+  border-left: 1px solid white;
+  height: 110%;
+}
+
+.footer-middle-list-right {
+  padding-top: 20px;
+  border-right: 1px solid white;
+  height: 110%;
+}
+
+.footer-icon {
+  width: 90px;
+  margin-top: 15px;
+}
+
+ul {
+  text-align: justify;
+  align-items: center;
+  margin: 0;
 }
 
 li {
   list-style-type: none ;
-  padding-top: 1px;
-  padding-left: 3rem;
-  padding-right: 3rem;
-  margin: 5px;
-}
-
-h1 {
-  font-size: 26px;
-}
-
-#messageSubmit {
-  border: 3px solid green;
-  border-radius: 15px
-}
-
-#test {
-  display: inline-flex;
-  text-align: center;
-  width: 100% ;
-
-}
-
-input {
-  width: 70%;
-  height: 100%;
+  padding-right: 4rem;
   
 }
 
+.signoutbtn {
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 15px;
+}
 
-.chatwindowhead {
+.signuppage {
+  height: 600px;
+
+}
+
+/* //////////////////   Homepage  /////// */
+
+.pending {
+  width: 700px;
+  opacity: 0.3
+}
+
+.accepted {
+  width: 700px;
+}
+
+h1 {
+<<<<<<< Updated upstream
+  font-size: 26px;
+=======
+  font-size: 30px;
+  padding-top: 2rem;
+  padding-bottom: 10px
+>>>>>>> Stashed changes
+}
+
+.home {
+  height: 100vh;
+  margin-left: 40px
+}
+
+/* //////////////////   Accountpage  /////// */
+.accountpage {
+  height: 67vh;
+
+}
+
+.counterpage {
+  height: 67vh;
+  position: relative;
   text-align: center
 }
 
+.counterpage h2{
+  margin: 0;
+    background: yellow;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+}
+.account {
+  display: flex;
+  flex-flow: row wrap;
+  width: 100vh;
+  height: 650px;
+  align-items: center;
+  justify-content: start;
+  font-size: 32px;
+  margin-left: 50vh
+}
 
+<<<<<<< Updated upstream
+.chatwindowhead {
+  text-align: center
+=======
+.accountrow {
+ width: 550px;
+ height: 250px;
+ justify-content: center;
+}
+
+.accountpassword {
+  margin-top: 9rem;
+  padding-top: 3rem;
+  height: 100px
+}
+
+.accounthead {
+  font-size: 40px;
+  width: 600px
+}
+
+.profilpicarea {
+  justify-content: center;
+}
+
+.partnersearch {
+  margin-top: 5rem;
+  width: 90vh
+}
+
+.Travel-blog {
+  height: 100vh
+}
+
+.mapwindowhead {
+  text-align: center;
+  font-size: 30px;
+  margin-top: -15px
+>>>>>>> Stashed changes
+}
+
+.leaflet {
+  height: 60vh
+}
 
 
 /* //////////////////CHAT HISTORY  /////// */
 
 .chatHistory {
 width: 100%;
-height: 650px;
 overflow-y: auto;
+<<<<<<< Updated upstream
 position: relative;
 background-color: rgb(235, 231, 231);
+=======
+height: 61vh;
+>>>>>>> Stashed changes
 }
 
 .chatwindow {
   width: 100%;
+<<<<<<< Updated upstream
+=======
+  height: 67vh;
+  background-color: rgb(235, 231, 231);
+>>>>>>> Stashed changes
+}
+
+.chatwindowhead {
+  text-align: center;
+  border-bottom: 1px solid grey;
+  padding: 10px 0;
 }
 
 .historyContainer {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%
+  width: 100%;
 }
 
 .left {
@@ -98,61 +332,104 @@ background-color: rgb(235, 231, 231);
 
 .chatyou {
   background-color: lightblue;
-  display: inline;
+  display: inline-flex;
   border-radius: 10px;
-  padding: 5px 15px
+  margin-top: 10px;
+  padding: 1px 15px;
 }
 
 .chatme {
   background-color: lightgreen;
-  display: inline;
+  display: inline-flex;
   border-radius: 10px;
+<<<<<<< Updated upstream
   padding: 5px 15px
+=======
+  margin-top: 10px;
+  padding: 1px 15px;
+}
+
+.messagebody {
+  font-family: monospace;
+  font-size: 20px;
+  font-weight: bold;
+  padding-right: 20px
+}
+
+.timestamp {
+  font-size: 14px;
+  margin-top: auto
+>>>>>>> Stashed changes
 }
 
 .picme {
   width: 100px;
   border: 3px solid lightpink;
   border-radius: 10px;
+  margin-top: 10px;
 }
 
 .picyou {
   width: 100px;
   border: 3px solid lightpink;
   border-radius: 10px;
+  margin-top: 10px;
 }
 
+<<<<<<< Updated upstream
+=======
+.placemodal {
+  text-align: center;
+  width: 1000px;
+}
+
+.carousel-item {
+  width: 100%;
+}
+
+.carousel-item img{
+  height: auto;
+  width: 100%;
+  max-height: 800px;
+}
+
+#messageSubmit {
+  border: 3px solid green;
+  border-radius: 15px
+}
+
+
+
+>>>>>>> Stashed changes
 
 /* //////////////////// MESSAGE INPUT //////// */
 
 .inputContainer {
   display: flex;
+  flex-flow: row nowrap;
   width: 100%;
  
 }
 
 .messageContainer {
-  display: inline-flex;
   width: 100%;
-  padding: 10px;
-  margin-top: 25px;
-  height: 1lfr;
-  position: fixed;
-  background-color: aqua;
+  height: 4rem;
+  padding-left: 1rem;
+  background-color: darkgrey;
 }
 
-.userList {
-  width: 300px;
-  border: 3px solid black;
-  padding: 5px
+input {
+  width: 70%;
+  height: 80%;
+  margin-right: 15px
 }
-
 
 #picmessage {
   width: 25px;
   padding: 10px; 
 }
 
+<<<<<<< Updated upstream
 
 
 .try {
@@ -162,6 +439,37 @@ background-color: rgb(235, 231, 231);
 
 .modalbody {
   text-align: center;
+=======
+#chat-picture-input {
+  display: inline-flex;
+  width: 70%;
+  height: 100%;
+  align-items: center;
+}
+
+#getpicimg {
+  margin-right: 15px
+}
+
+.modalbody {
+  text-align: center;
+}
+
+.partnerinfo-container {
+  margin-top: 5rem;
+}
+
+.partner-cardpic {
+  object-fit: scale-down;
+  height: 300px;
+}
+
+.cardpic {
+  margin-top: 5rem;
+  margin-right: 1rem;
+  object-fit: scale-down;
+  height: 300px;
+>>>>>>> Stashed changes
 }
 
 .bigpic {
@@ -169,7 +477,64 @@ background-color: rgb(235, 231, 231);
   text-align: center;
 }
 
+.Footer {
+  border-top: 2px solid white;
+  position: absolute;
+  bottom: 0;
+  height: 180px;
+  width: 100%;
+  background-color: #6073f6; 
+  color: black
+}
 
+<<<<<<< Updated upstream
+=======
+.MyMap{
+  overflow: hidden;
+  height: 60vh;
+}
+
+.travelcontainer {
+  width: 300px; 
+  height: 400px;
+}
+
+.Custompopup {
+  width: 50vh;
+
+}
+.Searchpopup {
+  width: 35vh;
+}
+
+.Clickpopup {
+  width: 50vh;
+}
+
+.clickpopup-head {
+  width: 100vh;
+}
+
+.popupbuttons {
+  padding-top: 1rem;
+  display: flex;
+  width: 25vh;
+
+}
+
+.popupbtn {
+  width: 150px;
+  height: 50px;
+  margin-right: 1rem;
+  justify-content: center;
+  background-color: #28a745;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 15px;
+  
+}
+>>>>>>> Stashed changes
 
 
 

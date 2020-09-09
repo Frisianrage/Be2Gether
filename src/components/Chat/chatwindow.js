@@ -14,7 +14,6 @@ const Chatwindow = (props) => {
                         <div>
                           <History newerId={newerId} authUser={authUser} firebase={props.firebase} />
                           <MessagesInput authUser={authUser} firebase={props.firebase} />
-                          Login in as: <strong>{authUser.username}</strong>
                         </div>
                       </div>
                   </div> 

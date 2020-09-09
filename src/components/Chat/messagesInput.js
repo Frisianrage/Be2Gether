@@ -28,6 +28,7 @@ export default function MessagesInput(props) {
 
           document.getElementById("test").reset();
 
+<<<<<<< Updated upstream
           return props.firebase.db.app.database().ref().update(updates);
       }
     
@@ -42,6 +43,23 @@ export default function MessagesInput(props) {
               </form>
            </div>
          </div>
+=======
+    setTextValue("")
+    return props.firebase.db.app.database().ref().update(updates);
+  }
+  
+  return (
+    <div className="inputContainer">
+      <div className="messageContainer">
+        <form id="chat-picture-input" onSubmit={writeNewMessage}>
+          <input value={textValue} onChange={updateText} ></input>
+          <Picturemessages firebase={props.firebase} authUser={props.authUser} />
+          <br />
+          <button id="messageSubmit" type="submit">Send</button>
+        </form>
+      </div>
+    </div>
+>>>>>>> Stashed changes
         
        )
   }

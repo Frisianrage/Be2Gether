@@ -8,6 +8,7 @@ import * as ROLES from '../../constants/roles';
 
 import { AuthUserContext } from '../Session';
 import SignUpForm from '../SignUp'
+import {Navbar} from 'react-bootstrap'
 
 const Navigation = () => (
   <div>
@@ -22,37 +23,26 @@ const Navigation = () => (
 
 
 const NavigationAuth = ({ authUser }) => (
-  <ul className="Navbar">
-    <li >
+
+<Navbar className="mynavbar">
+  <Navbar.Brand className="nav-item">Be2Gether</Navbar.Brand>
+  <Navbar.Toggle />
+  <Navbar.Collapse className="justify-content-end">
+    <Navbar.Text className="nav-item">
       <Link to={ROUTES.LANDING} className="nav-item">Landing</Link>
-    </li>
-    <li>
       <Link to={ROUTES.HOME} className="nav-item">Home</Link>
-    </li>
-    <li>
       <Link to={ROUTES.ACCOUNT} className="nav-item">Account</Link>
-    </li>
-    <li>
       <Link to={ROUTES.CHATS} className="nav-item">Chat</Link>
-    </li>
-    <li>
       <Link to={ROUTES.MAP} className="nav-item">Map</Link>
-    </li>
-    <li>
       <Link to={ROUTES.TRAVELWINDOW} className="nav-item">Travel-Blog</Link>
-    </li>
     {!!authUser.roles[ROLES.ADMIN] && (
-      <li>
         <Link to={ROUTES.ADMIN}>Admin</Link>
-      </li>
     )}
-    <li>
-      <Link to={ROUTES.MAP}>Map</Link>
-    </li>
-    <li>
       <SignOutButton />
-    </li>
-  </ul>
+    </Navbar.Text>
+  </Navbar.Collapse>
+</Navbar>
+ 
 );
 
 const NavigationNonAuth = () => {
@@ -61,7 +51,7 @@ const NavigationNonAuth = () => {
   return (
   <div className="landing-navbar">
     
-     <Link to={ROUTES.LANDING} className="landing-nav-item">Be2Gether-Logo</Link>
+     <Link to={ROUTES.LANDING} className="landing-nav-item">Be2Gether</Link>
     
      <SignInPage setShowSignUp={setShowSignUp} />
     { showSignUp && <SignUpForm setShowSignUp={setShowSignUp} />}

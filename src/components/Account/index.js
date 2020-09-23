@@ -23,6 +23,7 @@ const AccountPage = (props) => {
       uploadTask.on(props.firebase.store.app.firebase_.storage.TaskEvent.STATE_CHANGED, 
         function(snapshot) {
           var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log('Upload is ' + progress + '% done');
           switch (snapshot.state) {
             case props.firebase.store.app.firebase_.storage.TaskState.PAUSED: // or 'paused'
               console.log('Upload is paused');
@@ -63,7 +64,8 @@ const AccountPage = (props) => {
             else {
             updates['/users/' + props.authUser.uid + '/avatar/'] = newavatar}
             
-            return props.firebase.db.app.database().ref().update(updates)
+            return (props.firebase.db.app.database().ref().update(updates),
+            window.location.reload())
          
         });
       });

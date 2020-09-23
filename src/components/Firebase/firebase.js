@@ -3,17 +3,15 @@ import 'firebase/auth';
 import 'firebase/database';
 import 'firebase/storage'
 
-
-
 const config = {
-    apiKey: "AIzaSyBqP0hYswK7xBlBkhLte6QP8D7a2DfG6R0",
-    authDomain: "projectone-ac97c.firebaseapp.com",
-    databaseURL: "https://projectone-ac97c.firebaseio.com",
-    projectId: "projectone-ac97c",
-    storageBucket: "projectone-ac97c.appspot.com",
-    messagingSenderId: "448588157749",
-    appId: "1:448588157749:web:a235ede43452fad408f27c",
-    measurementId: "G-JC0SL7JJKQ"
+    apiKey: process.env.REACT_APP_API_KEY,
+    authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+    databaseURL: process.env.REACT_APP_DATABASE_URL,
+    projectId: process.env.REACT_APP_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_APP_ID,
+    measurementId: process.env.REACT_APP_MEASUREMENT_ID
   };
   
   class Firebase {

@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
-import {newerId} from './userlist'
-import Picturemessages from '../Picturemessages/Picturemessages'
+import Picturemessages from './Picturemessages'
 
 export default function MessagesInput(props) {
-    const [textValue, setTextValue] = useState("Test") 
-    const textAreaRef = React.createRef(); 
+    const [textValue, setTextValue] = useState("") 
+    var date = new Date();
+    const timestamp = date.toTimeString().slice(0, 5)
+    //const textAreaRef = React.createRef(); 
+
     function updateText(e) { e.preventDefault() 
       setTextValue(e.target.value) }
       
@@ -17,16 +19,17 @@ export default function MessagesInput(props) {
           type: "text",
           author: props.authUser.username,
           uid: props.authUser.uid,
-          body: textAreaRef.current.value,
+          body: textValue,
+          timestamp,
           createdAt: Date.now(),
         };
        
           var updates = {};
-          updates['/chats/' + newerId + '/' + newMessageKey] = postData
-          updates['/messages/' + newMessageKey] = postData;
-          updates['/user-message/' + props.authUser.uid + '/' + newMessageKey] = postData;
+          updates['chat/chats/' + props.authUser.friendwith.coupleid + '/' + newMessageKey] = postData
+          updates['chat/messages/' + newMessageKey] = postData;
+          updates['chat/user-message/' + props.authUser.uid + '/' + newMessageKey] = postData;
 
-          document.getElementById("test").reset();
+          document.getElementById("chat-picture-input").reset();
           setTextValue("")
           return props.firebase.db.app.database().ref().update(updates);
       }

@@ -3,12 +3,14 @@ import PictureModal from './picturemodal'
 
 
 function History(props) {
+  
    
   const [chathistory, setchathistory] = useState([])
   const [selectedImage, setSelectedImage] = useState(false)
   const [imageWasClicked, setImageWasClicked] = useState(false)
   
-    props.firebase.db.app.database().ref().child('chats/'+ props.newerId)
+  
+    props.firebase.db.app.database().ref().child('chat/chats/'+ props.authUser.friendwith.coupleid)
    .once('value')
    .then( async function (snapshot) {
       let newArray = await snapshot.val(); 
@@ -32,9 +34,13 @@ function History(props) {
                           <div key={key} className={(message.author === props.authUser.username) ? "right" : "left"}>
                             <li id={chathistory.length}>
                               {(message.type === "image") ?
-                                <img onClick={handleClick} id={message.name} className={(message.author === props.authUser.username) ? "picme" : "picyou"} src={message.body} alt="Something is wrong" ></img>
+                              <div className={(message.author === props.authUser.username) ? "chatme" : "chatyou"}>
+                                  <img onClick={handleClick} id={message.name} className={(message.author === props.authUser.username) ? "chatme picme" : " chatyou picyou"} src={message.body} alt="Something is wrong" ></img>
+                                  <small className="timestamp">{message.timestamp}</small>
+                              </div>
+                                
                                   : 
-                                <p className={(message.author === props.authUser.username) ? "chatme" : "chatyou"}>{message.body}</p> }
+                                <p className={(message.author === props.authUser.username) ? "chatme" : "chatyou"}>{message.body}<small className="timestamp">{message.timestamp}</small></p> }
                             </li>
                           </div> 
                     )} 

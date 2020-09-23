@@ -34,11 +34,11 @@ const Cardlist = (props) => {
       {ourmemories.map((memo, key) => (
         <Col md={4} key={key}> 
             <Card className="travelcontainer">
-              <Card.Img className="cardpic" variant="top" src={memo.titlepicture.body} />
+              <Card.Img className="memorypic" variant="top" src={memo.titlepicture.body} />
                 <Card.Body>
                     <Card.Title>{memo.body.headline}</Card.Title>
                     <div>
-                      <Link to={{pathname: ROUTES.MEMORY, hash: memo.address.city, search: memo.traveldate.time}}><Button variant="primary">To your memory</Button></Link>
+                      <Button variant="primary">To your memory (in work...)</Button>
                     </div> 
                 </Card.Body>
             </Card>
@@ -53,3 +53,5 @@ const Cardlist = (props) => {
 
 
 export default Cardlist
+
+// set the Button between this <Link to={{pathname: ROUTES.MEMORY, hash: memo.address.city, search: memo.traveldate.time}}></Link>

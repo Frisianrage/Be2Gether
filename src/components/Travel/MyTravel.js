@@ -38,3 +38,5 @@ const MyTravel = (props) => {
 const condition = authUser => !!authUser;
  
 export default withAuthorization(condition)(MyTravel);
+
+//to={{pathname: ROUTES.ALTTRAVEL, search: place}

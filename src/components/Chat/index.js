@@ -1,6 +1,5 @@
 import React from 'react';
 import { AuthUserContext, withAuthorization } from '../Session';
-import Userlist from './userlist'
 import Chats from './Chats'
 
 
@@ -20,4 +19,4 @@ function Chatpage(props) {
 
 const condition = authUser => !!authUser;
 
-export default withAuthorization(condition)(Chats);
+export default withAuthorization(condition)(Chatpage);

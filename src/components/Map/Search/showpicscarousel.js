@@ -55,4 +55,9 @@ function ShowPicCarousel(props) {
   );  
 }
                
+<<<<<<< Updated upstream
 export default ShowPicCarousel;
+=======
+export default ShowPicCarousel;
+
+>>>>>>> Stashed changes

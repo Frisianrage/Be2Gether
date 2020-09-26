@@ -45,3 +45,15 @@ const Country = (props) => {
 
 
 export default Country
+<<<<<<< Updated upstream
+=======
+
+
+/*
+{memo.pictures.map(pic => <img className="bigpic" src={pic.body} alt="alttext"></img> )} 
+
+
+
+
+*/
+>>>>>>> Stashed changes

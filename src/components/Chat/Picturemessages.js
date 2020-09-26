@@ -8,6 +8,13 @@ export default function Picturemessages(props) {
         var fileElement = document.getElementById('getpic');
         var file = fileElement.files[0];
 
+<<<<<<< Updated upstream
+=======
+        console.log(file)
+        console.log(props.firebase.store.app.firebase_.storage.TaskEvent)
+
+
+>>>>>>> Stashed changes
         var storageRef = props.firebase.store.app.storage().ref();
         var metadata = {
             contentType: 'image/jpeg'
@@ -78,6 +85,11 @@ export default function Picturemessages(props) {
     return (
         <div>
             <img onClick={handleClick} id="getpicimg"  src={addpic} alt="test"></img>
+<<<<<<< Updated upstream
+=======
+            <img onClick={handleClick}  src={addpic} alt="test"></img>
+
+>>>>>>> Stashed changes
             <input onChange={handleChange} type="file" id="getpic" multiple accept="image/*" style={{display: "none"}}></input>
          </div>
     )

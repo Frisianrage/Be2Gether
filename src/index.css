@@ -4,6 +4,11 @@ body {
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   width: 100%;
+<<<<<<< Updated upstream
+=======
+
+  width: 100%;
+>>>>>>> Stashed changes
   height: 100%;
   position: relative;
   padding-bottom: 250px;
@@ -37,6 +42,32 @@ code {
   font-size: 20px;
 }
 
+<<<<<<< Updated upstream
+=======
+.Landingpage {
+  background-image: url('./Pics/Fernbeziehung.jpg') ;
+  background-size: 100%;
+  height: 100vh;
+  color: white;
+  font-family: Ubuntu;
+}
+
+.landinghead {
+  font-size: 72px;
+  padding-top: 4rem;
+  padding-left: 5rem
+}
+
+.signin-line {
+  display: flex;
+  flex-flow: row;
+}
+
+.dropdownitem {
+  font-size: 20px;
+}
+
+>>>>>>> Stashed changes
 .signin-input {
   align-items: center;
   height: 50px;
@@ -54,6 +85,7 @@ code {
 
 
 /* //////////////////   NAVBAR  /////// */
+<<<<<<< Updated upstream
 .mynavbar {
   background-color: #2073ff; 
   border-bottom: 1px solid white;
@@ -63,6 +95,8 @@ code {
   color:white !important;
 }
 
+=======
+>>>>>>> Stashed changes
 
 .Navbar {
   display: flex;
@@ -74,6 +108,7 @@ code {
   height: 75px;
   border-bottom: 1px solid white
 }
+<<<<<<< Updated upstream
 
 .landing-navbar {
   display: flex;
@@ -98,6 +133,30 @@ code {
   font-size: 24px;
   font-weight: bold;
   padding-right: 3rem;
+=======
+
+.landing-navbar {
+  display: flex;
+  flex-flow: row wrap;
+  /* This aligns items to the end line on main-axis */
+  justify-content: space-between ;
+  background-color: #2073ff; 
+  color: white;
+  height: 75px;
+  border-bottom: 1px solid white
+}
+
+.landing-nav-item {
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 20px
+}
+
+.nav-item {
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
 }
 
 .footer-item {
@@ -179,6 +238,139 @@ li {
 
 /* //////////////////   Homepage  /////// */
 
+.pending {
+  width: 700px;
+  opacity: 0.3
+}
+
+.accepted {
+  width: 700px;
+>>>>>>> Stashed changes
+}
+
+.footer-item {
+  color: white;
+  font-size: 22px;
+  text-decoration: underline; 
+}
+
+.footer-text {
+  color: white;
+  font-size: 26px;
+<<<<<<< Updated upstream
+  margin-top: 1rem
+}
+
+.footer-left {
+  padding-top: 20px;
+  padding-left: 30px;
+  font-size: 22px;
+  font-weight: bold;
+  color: white;
+  margin-left: 2rem
+}
+
+.footer-middle {
+  padding-top: 20px;
+  border-left: 1px solid white;
+  border-right: 1px solid white;
+  height: 110%;
+}
+=======
+
+  font-size: 30px;
+  padding-top: 2rem;
+  padding-bottom: 10px
+}
+
+.home {
+  height: 100vh;
+  margin-left: 40px
+}
+
+/* //////////////////   Accountpage  /////// */
+.accountpage {
+  height: 67vh;
+>>>>>>> Stashed changes
+
+.footer-right {
+  padding-left: 40%;
+  margin-top: -4rem
+}
+
+<<<<<<< Updated upstream
+.footer-middle-list {
+  padding-bottom: 5px;
+}
+
+.footer-middle-list-left {
+  padding-top: 20px;
+  border-left: 1px solid white;
+  height: 110%;
+}
+
+.footer-middle-list-right {
+  padding-top: 20px;
+  border-right: 1px solid white;
+  height: 110%;
+}
+
+.footer-icon {
+  width: 90px;
+  margin-top: 15px;
+}
+
+ul {
+  text-align: justify;
+  align-items: center;
+  margin: 0;
+}
+
+li {
+  list-style-type: none ;
+  padding-right: 4rem;
+  
+}
+
+.signoutbtn {
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 15px;
+=======
+.counterpage {
+  height: 67vh;
+  position: relative;
+  text-align: center
+}
+
+.counterpage h2{
+  margin: 0;
+    background: yellow;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+}
+.account {
+  display: flex;
+  flex-flow: row wrap;
+  width: 100vh;
+  height: 650px;
+  align-items: center;
+  justify-content: start;
+  font-size: 32px;
+  margin-left: 50vh
+>>>>>>> Stashed changes
+}
+
+.signuppage {
+  height: 600px;
+
+}
+
+/* //////////////////   Homepage  /////// */
+
 .homepage {
   height: 67vh;
 }
@@ -225,6 +417,7 @@ h1 {
   text-align: center
 }
 
+<<<<<<< Updated upstream
 .counterpage h2{
   margin: 0;
     background: yellow;
@@ -245,6 +438,8 @@ h1 {
   margin-left: 30vh
 }
 
+=======
+>>>>>>> Stashed changes
 .accountrow {
  width: 550px;
  height: 250px;
@@ -261,6 +456,7 @@ h1 {
   font-size: 40px;
   width: 600px
 }
+<<<<<<< Updated upstream
 
 .profilpicarea {
   justify-content: center;
@@ -283,6 +479,28 @@ h1 {
   margin-top: -15px
 }
 
+=======
+
+.profilpicarea {
+  justify-content: center;
+}
+
+.partnersearch {
+  margin-top: 5rem;
+  width: 90vh
+}
+
+.Travel-blog {
+  height: 100vh
+}
+
+.mapwindowhead {
+  text-align: center;
+  font-size: 30px;
+  margin-top: -15px
+}
+
+>>>>>>> Stashed changes
 .leaflet {
   height: 60vh
 }
@@ -293,6 +511,11 @@ h1 {
 .chatHistory {
 width: 100%;
 overflow-y: auto;
+<<<<<<< Updated upstream
+=======
+position: relative;
+background-color: rgb(235, 231, 231);
+>>>>>>> Stashed changes
 height: 61vh;
 }
 
@@ -329,26 +552,38 @@ height: 61vh;
   background-color: lightblue;
   display: inline-flex;
   border-radius: 10px;
+<<<<<<< Updated upstream
   margin: 2px;
   padding: 1px 15px;
   font-size: 20px;
   font-weight: bold;
+=======
+  margin-top: 10px;
+  padding: 1px 15px;
+>>>>>>> Stashed changes
 }
 
 .chatme {
   background-color: lightgreen;
   display: inline-flex;
   border-radius: 10px;
+<<<<<<< Updated upstream
   margin: 2px;
   padding: 1px 15px;
   font-size: 20px;
   font-weight: bold;
+=======
+  padding: 5px 15px;
+  margin-top: 10px;
+  padding: 1px 15px;
+>>>>>>> Stashed changes
 }
 
 .messagebody {
   font-family: monospace;
   font-size: 20px;
   font-weight: bold;
+<<<<<<< Updated upstream
   
 }
 
@@ -356,19 +591,32 @@ height: 61vh;
   font-size: 12px;
   margin-top: auto;
   padding-left: 20px;
+=======
+  padding-right: 20px
+}
+
+.timestamp {
+  font-size: 14px;
+  margin-top: auto
+>>>>>>> Stashed changes
 }
 
 .picme {
   width: 100px;
   border: 3px solid white;;
   border-radius: 10px;
+<<<<<<< Updated upstream
   padding: 0;
+=======
+  margin-top: 10px;
+>>>>>>> Stashed changes
 }
 
 .picyou {
   width: 100px;
   border: 3px solid white;;
   border-radius: 10px;
+<<<<<<< Updated upstream
   padding: 0;
 }
 
@@ -381,6 +629,20 @@ height: 61vh;
   width: 100%;
 }
 
+=======
+  margin-top: 10px;
+}
+
+.placemodal {
+  text-align: center;
+  width: 1000px;
+}
+
+.carousel-item {
+  width: 100%;
+}
+
+>>>>>>> Stashed changes
 .carousel-item img{
   height: auto;
   width: 100%;
@@ -393,7 +655,10 @@ height: 61vh;
 }
 
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 
 /* //////////////////// MESSAGE INPUT //////// */
 
@@ -422,6 +687,29 @@ input {
   padding: 10px; 
 }
 
+<<<<<<< Updated upstream
+#chat-picture-input {
+  display: inline-flex;
+  width: 70%;
+  height: 100%;
+  align-items: center;
+}
+
+#getpicimg {
+  margin-right: 15px
+=======
+.try {
+  z-index: 10;
+  position: absolute;
+>>>>>>> Stashed changes
+}
+
+.modalbody {
+  text-align: center;
+}
+
+<<<<<<< Updated upstream
+=======
 #chat-picture-input {
   display: inline-flex;
   width: 70%;
@@ -437,6 +725,7 @@ input {
   text-align: center;
 }
 
+>>>>>>> Stashed changes
 .partnerinfo-container {
   margin-top: 5rem;
 }
@@ -475,6 +764,7 @@ input {
 
 .travelcontainer {
   width: 300px; 
+<<<<<<< Updated upstream
   height: 300px;
   margin-top: 2rem;
   margin-bottom: 2rem;
@@ -505,6 +795,32 @@ input {
   display: flex;
   width: 25vh;
 
+=======
+  height: 400px;
+}
+
+.Custompopup {
+  width: 50vh;
+
+}
+.Searchpopup {
+  width: 35vh;
+}
+
+.Clickpopup {
+  width: 50vh;
+}
+
+.clickpopup-head {
+  width: 100vh;
+}
+
+.popupbuttons {
+  padding-top: 1rem;
+  display: flex;
+  width: 25vh;
+
+>>>>>>> Stashed changes
 }
 
 .popupbtn {

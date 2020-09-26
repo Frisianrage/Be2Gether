@@ -52,3 +52,12 @@ return (
    
   )
 }
+<<<<<<< Updated upstream
+=======
+/*
+const condition = authUser => !!authUser;
+
+export default withAuthorization(condition)(Chats);
+
+*/
+>>>>>>> Stashed changes

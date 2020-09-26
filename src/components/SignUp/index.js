@@ -26,7 +26,6 @@ const INITIAL_STATE = {
     isAdmin: false,
     error: null,
     id:"",
-    friendwith:"",
     lastLogin:""
   };
  
@@ -55,6 +54,10 @@ class SignUpFormBase extends Component {
           .user(authUser.user.uid)
           .set({
             avatar: NoPic,
+<<<<<<< Updated upstream
+=======
+            avatar: '',
+>>>>>>> Stashed changes
             username,            
             first_name,
             last_name,
@@ -63,7 +66,7 @@ class SignUpFormBase extends Component {
             roles,
             isAdmin: false,
             id: authUser.user.uid,
-            friendwith: "",
+            friendwith: {} ,
             lastLogin: new Date()
           });
       })
@@ -169,3 +172,16 @@ const SignUpForm = compose(
 export default SignUpPage;
  
 export { SignUpForm, SignUpLink };
+<<<<<<< Updated upstream
+=======
+/*
+        <label>
+          Admin:
+          <input
+            name="isAdmin"
+            type="checkbox"
+            checked={isAdmin}
+            onChange={this.onChangeCheckbox}
+          />
+        </label> */
+>>>>>>> Stashed changes

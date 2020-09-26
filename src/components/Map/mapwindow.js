@@ -46,6 +46,10 @@ useEffect(() => {
   
 const handleClick = (e) => {
   if(!newmarker){
+<<<<<<< Updated upstream
+=======
+    console.log(e)
+>>>>>>> Stashed changes
     const lat = e.latlng.lat
     const lng = e.latlng.lng
     setNewMarkerPosition([lat,lng])
@@ -57,6 +61,10 @@ const handleClick = (e) => {
   return (<AuthUserContext.Consumer>
     {authUser => (
     <div>
+<<<<<<< Updated upstream
+=======
+      <div>
+>>>>>>> Stashed changes
         <h1 className="mapwindowhead">Places where {props.authUser.friendwith.first_name} and you've been...</h1>
         <div className="leaflet">
           <Map onClick={handleClick} className="MyMap" center={centerpos} zoom={3}>
@@ -71,10 +79,19 @@ const handleClick = (e) => {
                    }
                   }
                 </Search>
+<<<<<<< Updated upstream
                 {position.map((place, key) => <Marker key={key} position={place.coordinates}><Placepopup authUser={authUser} placeinfos={place} firebase={props.firebase} ></Placepopup></Marker>)}
                 {newmarker && <Marker position={newmarkerposition}><Newplacepopup position={newmarkerposition} authUser={authUser} firebase={props.firebase} ></Newplacepopup></Marker> }
           </Map>
         </div>
+=======
+                  {position.map((place, key) => <Marker key={key} position={place.coordinates}><Placepopup authUser={authUser} placeinfos={place} firebase={props.firebase} ></Placepopup></Marker>)}
+                  {newmarker && <Marker position={newmarkerposition}><Newplacepopup position={newmarkerposition} authUser={authUser} firebase={props.firebase} ></Newplacepopup></Marker> }
+                </Map>
+        </div>
+       </div>
+       
+>>>>>>> Stashed changes
     </div> )}
   </AuthUserContext.Consumer>
   )
@@ -84,8 +101,11 @@ const condition = authUser => !!authUser;
 
 export default withAuthorization(condition)(MyMap);
 
+<<<<<<< Updated upstream
 /*  
 
 
                  
 */
+=======
+>>>>>>> Stashed changes

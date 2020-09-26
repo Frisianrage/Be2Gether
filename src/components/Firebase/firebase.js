@@ -72,14 +72,14 @@ const config = {
       fallback();
     }
   });
-            // *** User API ***
-            message = uid => this.db.ref(`messages/${uid}`)
+    // *** User API ***
+    message = uid => this.db.ref(`messages/${uid}`)
 
-            messages = () => this.db.ref('messages')
+    messages = () => this.db.ref('messages')
 
-            user = uid => this.db.ref(`users/${uid}`);
+    user = uid => this.db.ref(`users/${uid}`);
 
-            users = () => this.db.ref('users');
+    users = () => this.db.ref('users');
   
   }
   

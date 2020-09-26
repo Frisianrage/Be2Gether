@@ -31,12 +31,26 @@ const MyTravel = (props) => {
      You have been to these countries:
     </h2> 
     {countries.map((place, key) => (<div key={key} ><br /><h1><Link to={{pathname: ROUTES.ALTTRAVEL, search: place}}>{place}</Link></h1></div>))}
+<<<<<<< Updated upstream
+=======
+
+    <div>
+    <h2>
+     You have been to these countries:
+    </h2> 
+    {countries.map(place => (<div><br /><Link to={{pathname: ROUTES.ALTTRAVEL, search: place}}>{place}</Link></div>))}
+
+>>>>>>> Stashed changes
    </div>
   )
 }
  
 const condition = authUser => !!authUser;
  
+<<<<<<< Updated upstream
 export default withAuthorization(condition)(MyTravel);
 
 //to={{pathname: ROUTES.ALTTRAVEL, search: place}
+=======
+export default withAuthorization(condition)(MyTravel);
+>>>>>>> Stashed changes

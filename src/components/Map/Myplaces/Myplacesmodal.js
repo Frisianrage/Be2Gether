@@ -236,8 +236,4 @@ export default function Placemodal(props) {
             </Modal.Footer>
         </Modal>
     );
-<<<<<<< Updated upstream
 }
-=======
-}
->>>>>>> Stashed changes

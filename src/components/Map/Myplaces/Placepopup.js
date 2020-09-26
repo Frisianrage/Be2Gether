@@ -23,20 +23,6 @@ export default function PlacePopup(props) {
   }
  
   return (
-    <Popup className="Custompopup">
-      <div >
-          <h3>This is {props.placeinfos.address.city}</h3>
-          <div className="popupbuttons">
-            <div className="popupbtn">
-              <button  className="popupbtn" variant="success" onClick={handleClick}>New Memory</button>
-            </div>
-            <div className="popupbtn">
-              <button  className="popupbtn" variant="success" onClick={handleShow}>Gallery</button>
-            </div>
-            <div className="popupbtn">
-              <Link to={{pathname: ROUTES.TRAVEL, hash: props.placeinfos.address.city}}><button className="popupbtn" variant="success">Travel Blog</button></Link>
-<<<<<<< Updated upstream
-=======
     <Popup>
       <div className="Custompopup">
           <h3>This is {props.placeinfos.address.city}</h3>
@@ -49,8 +35,6 @@ export default function PlacePopup(props) {
             </div>
             <div>
               <Link to={{pathname: ROUTES.TRAVEL, hash: props.placeinfos.address.city}}><Button variant="success">Travel Blog</Button></Link>
-
->>>>>>> Stashed changes
             </div>
           </div>
           { buttonclicked && <Myplacesmodal firebase={props.firebase} authUser={props.authUser} placeinfos={props.placeinfos} buttonclicked={buttonclicked} setButtonclicked={setButtonclicked} newerId={props.newerId}/> } 

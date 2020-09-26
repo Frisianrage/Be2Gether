@@ -45,8 +45,6 @@ const Country = (props) => {
 
 
 export default Country
-<<<<<<< Updated upstream
-=======
 
 
 /*
@@ -56,4 +54,3 @@ export default Country
 
 
 */
->>>>>>> Stashed changes

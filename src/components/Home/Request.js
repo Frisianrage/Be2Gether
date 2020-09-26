@@ -44,10 +44,6 @@ export default function Request(props) {
       sender: true,
       id: user.id,
       avatar: user.avatar,
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
       coupleid: coupleId,
     };
     var requestreciever = {
@@ -59,12 +55,8 @@ export default function Request(props) {
       age: reciever.age, 
       sender: false,
       id: reciever.id, 
-<<<<<<< Updated upstream
-      avatar: reciever.avatar,                                                                                                                                                                                     id: reciever.id,
-=======
       avatar: reciever.avatar,  
       id: reciever.id,      
->>>>>>> Stashed changes
       coupleid: coupleId,
     };
 
@@ -83,15 +75,11 @@ export default function Request(props) {
         <div>
           <Modal show={show} onHide={handleClose}>
                                                   <Modal.Header closeButton>
-<<<<<<< Updated upstream
-                                                    <Modal.Title>{user.username}</Modal.Title>
-=======
 
                                                     <Modal.Title>{user.username}</Modal.Title>
 
                                                     <Modal.Title>New connection</Modal.Title>
 
->>>>>>> Stashed changes
                                                   </Modal.Header>
                                                   <Modal.Body>
                                                               <p>Firstname: {user.first_name}</p>
@@ -99,23 +87,22 @@ export default function Request(props) {
                                                               <p>Age: {user.age}</p>
                                                   </Modal.Body>
                                                   <Modal.Footer>
-                                                    { !user.friendwith ? <div><Button variant="secondary" onClick={handleClose}>
-<<<<<<< Updated upstream
-=======
+                                                    { !user.friendwith ? 
+                                                    <div>
                                                     <Button variant="secondary" onClick={handleClose}>
->>>>>>> Stashed changes
                                                       Close
                                                     </Button>
                                                     <Button variant="primary" onClick={handleRequest}>
                                                       Request
-                                                    </Button></div> 
-                                                    :
-                                                     <p> Sorry, no connection possible...</p>  }
-                                                    
-<<<<<<< Updated upstream
-=======
                                                     </Button>
->>>>>>> Stashed changes
+                                                    </div> 
+                                                    :
+                                                    <div>
+                                                    <p> Sorry, no connection possible...</p> 
+                                                     <Button variant="secondary" onClick={handleClose}>
+                                                      Close</Button>
+                                                    </div>
+                                                     }
                                                   </Modal.Footer>
                                                 </Modal>
         </div>

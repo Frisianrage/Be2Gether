@@ -1,15 +1,5 @@
 import React from 'react';
 import { AuthUserContext, withAuthorization } from '../Session';
-<<<<<<< Updated upstream
-import undercon from '../../Pics/undercon.png'
-
-const HomePage = (props) => (
-<div className="homepage">
-  <img className="homepagepic" src={undercon} alt="test"></img>
-</div>
-  
- 
-=======
 import MyCard from './MyCard'
 import PartnerCard from './PartnerCard'
 import giphy from '../../Pics/giphy.gif'
@@ -60,31 +50,13 @@ import {Button} from 'react-bootstrap'
           }
     </AuthUserContext.Consumer> 
 
->>>>>>> Stashed changes
 );
   } 
 const condition = authUser => !!authUser;
  
 export default withAuthorization(condition)(HomePage);
 
-=======
-    return (props.firebase.db.app.database().ref().update(updates),
-    window.location.reload())
-  }
 
-
-  return (
-    <div className="accountpage">
-      <h1>This is the Homepage</h1>
-    </div>
-    
-);
-  } 
-const condition = authUser => !!authUser;
- 
-export default withAuthorization(condition)(HomePage);
-<<<<<<< Updated upstream
-=======
   /*
   <AuthUserContext.Consumer> 
           {authUser => 
@@ -108,7 +80,22 @@ export default withAuthorization(condition)(HomePage);
                     </div> : "" }
             </Row>
             </div>
-           
+           =======
+    return (props.firebase.db.app.database().ref().update(updates),
+    window.location.reload())
+  }
+
+
+  return (
+    <div className="accountpage">
+      <h1>This is the Homepage</h1>
+    </div>
+    
+);
+  } 
+const condition = authUser => !!authUser;
+ 
+export default withAuthorization(condition)(HomePage);
             
             
            
@@ -117,4 +104,3 @@ export default withAuthorization(condition)(HomePage);
     </AuthUserContext.Consumer> 
 
     */
->>>>>>> Stashed changes

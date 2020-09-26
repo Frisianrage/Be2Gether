@@ -3,14 +3,8 @@ import { AuthUserContext, withAuthorization } from '../Session';
 import MessagesInput from './messagesInput'
 import History from './history'
 
-<<<<<<< Updated upstream
-
-const Chatwindow = (props) => { 
-  console.log(props)  
-=======
 const Chatwindow = (props) => { 
  
->>>>>>> Stashed changes
   return (<AuthUserContext.Consumer>   
               {authUser => (
                   <div className="chatwindow">

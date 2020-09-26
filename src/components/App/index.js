@@ -12,11 +12,7 @@ import Chatwindow from '../Chat/chatwindow'
 import * as ROUTES from '../../constants/routes';
 import { withAuthentication } from '../Session';
 import Mappage from '../Map/index'
-<<<<<<< Updated upstream
-import MyMap from '../Map/mapwindow'
-=======
 import MyMap from '../Map/MyMap'
->>>>>>> Stashed changes
 import Travel from '../Travel/Travel'
 import Travelpage from '../Travel/index'
 import { AuthUserContext} from '../Session';
@@ -26,74 +22,14 @@ import Memory from '../Travel/memory'
 import Footer from '../Footer/Footer'
 
 
-<<<<<<< Updated upstream
-
-const App = (props) => {
-const firebase = props.firebase
-=======
 const App = (props) => {
 const firebase = props.firebase
 
->>>>>>> Stashed changes
   return(
     <Router>
       <AuthUserContext.Consumer> 
           {authUser => 
               <div >
-<<<<<<< Updated upstream
-                <div className="Header">
-                  <Navigation />
-                </div>
-                  <Route exact path={ROUTES.LANDING} component={LandingPage} />
-                  <Route exact path={ROUTES.SIGN_UP} className="signuppage" component={SignUpPage} />
-                  
-                  <Route
-                    exact
-                    path={ROUTES.PASSWORD_FORGET}
-                    component={PasswordForgetPage}
-                  />
-                  {/* Home - Page */}
-                  <Route exact path={ROUTES.HOME} render={(props) => (
-                  <Home {...props} authUser={authUser} isAuthed={true} />)} />
-
-                  {/* Account - Page */}
-                  <Route exact path={ROUTES.ACCOUNT} render={(props) => (
-                  <AccountPage {...props} authUser={authUser} isAuthed={true} />)} />
-
-                  {/* Admin - Page */}
-                  <Route exact path={ROUTES.ADMIN} component={AdminPage} />
-
-                  {/* Chat - Page */ }
-                  <Route exact path={ROUTES.CHATS} render={(props) => (
-                  <Chats {...props} authUser={authUser} isAuthed={true} />)} />
-                  <Route exact path={ROUTES.CHATWINDOW} component={Chatwindow} />
-
-                  {/* Map - Page */}
-                  <Route exact path={ROUTES.MAP}  render={(props) => (
-                  <Mappage {...props} authUser={authUser} isAuthed={true} />)} />
-                  <Route exact path={ROUTES.MAPWINDOW} component={MyMap} />
-
-                  {/* Travel - Page */}
-                  <Route exact path={ROUTES.ALTTRAVEL} render={(props) => (
-                  <Travel {...props} authUser={authUser} isAuthed={true} />)} />
-                  <Route exact path={ROUTES.TRAVEL} render={(props) => (
-                  <Travel {...props} authUser={authUser} isAuthed={true} />)} />
-                  <Route exact path={ROUTES.TRAVELWINDOW} render={(props) => (
-                    <Travelpage {...props} authUser={authUser} isAuthed={true} />)} />
-                  <Route exact path={ROUTES.MEMORY} render={(props) => (
-                    <Memory {...props} firebase={firebase} authUser={authUser} isAuthed={true} />)} />
-                <div className="Footer">
-                  <Footer />
-                </div>
-         </div>
-         }
-        </AuthUserContext.Consumer>
-    </Router>
-  );
-} 
-
-export default withAuthentication(App);
-=======
         <Navigation />
         <Route exact path={ROUTES.LANDING} component={LandingPage} />
         <Route exact path={ROUTES.SIGN_UP} component={SignUpPage} />
@@ -142,4 +78,3 @@ export default withAuthentication(App);
 
 export default withAuthentication(App);
 
->>>>>>> Stashed changes

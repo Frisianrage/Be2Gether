@@ -54,10 +54,7 @@ class SignUpFormBase extends Component {
           .user(authUser.user.uid)
           .set({
             avatar: NoPic,
-<<<<<<< Updated upstream
-=======
             avatar: '',
->>>>>>> Stashed changes
             username,            
             first_name,
             last_name,
@@ -172,8 +169,6 @@ const SignUpForm = compose(
 export default SignUpPage;
  
 export { SignUpForm, SignUpLink };
-<<<<<<< Updated upstream
-=======
 /*
         <label>
           Admin:
@@ -184,4 +179,3 @@ export { SignUpForm, SignUpLink };
             onChange={this.onChangeCheckbox}
           />
         </label> */
->>>>>>> Stashed changes

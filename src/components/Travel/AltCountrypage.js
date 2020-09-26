@@ -44,12 +44,8 @@ const AltCountry = (props) => {
 }
 
 
-<<<<<<< Updated upstream
-export default AltCountry
-=======
 export default AltCountry
 
 /*
  
 */
->>>>>>> Stashed changes

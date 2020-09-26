@@ -6,10 +6,6 @@ import * as ROUTES from '../../constants/routes';
 import * as ROLES from '../../constants/roles';
 import { AuthUserContext } from '../Session';
 import SignUpForm from '../SignUp'
-<<<<<<< Updated upstream
-import {Navbar} from 'react-bootstrap'
-=======
->>>>>>> Stashed changes
 
 const Navigation = () => (
   <div>
@@ -24,20 +20,6 @@ const Navigation = () => (
 
 
 const NavigationAuth = ({ authUser }) => (
-<<<<<<< Updated upstream
-
-<Navbar className="mynavbar">
-  <Navbar.Brand className="nav-item">Be2Gether</Navbar.Brand>
-  <Navbar.Toggle />
-  <Navbar.Collapse className="justify-content-end">
-    <Navbar.Text className="nav-item">
-      <Link to={ROUTES.LANDING} className="nav-item">Landing</Link>
-      <Link to={ROUTES.HOME} className="nav-item">Home</Link>
-      <Link to={ROUTES.ACCOUNT} className="nav-item">Account</Link>
-      <Link to={ROUTES.CHATS} className="nav-item">Chat</Link>
-      <Link to={ROUTES.MAP} className="nav-item">Map</Link>
-      <Link to={ROUTES.TRAVELWINDOW} className="nav-item">Travel-Blog</Link>
-=======
   <ul className="Navbar">
     <li >
       <Link to={ROUTES.LANDING} className="nav-item">Landing</Link>
@@ -63,19 +45,14 @@ const NavigationAuth = ({ authUser }) => (
     <li>
       <Link to={ROUTES.TRAVELWINDOW}>Travel-Blog</Link>
     </li>
->>>>>>> Stashed changes
     {!!authUser.roles[ROLES.ADMIN] && (
         <Link to={ROUTES.ADMIN}>Admin</Link>
     )}
-<<<<<<< Updated upstream
-=======
     
     <li>
->>>>>>> Stashed changes
       <SignOutButton />
-    </Navbar.Text>
-  </Navbar.Collapse>
-</Navbar>
+    </li>
+  </ul>
  
 );
 
@@ -85,11 +62,7 @@ const NavigationNonAuth = () => {
   return (
   <div className="landing-navbar">
     
-<<<<<<< Updated upstream
-     <Link to={ROUTES.LANDING} className="landing-nav-item">Be2Gether</Link>
-=======
      <Link to={ROUTES.LANDING} className="landing-nav-item">Be2Gether-Logo</Link>
->>>>>>> Stashed changes
     
      <SignInPage setShowSignUp={setShowSignUp} />
     { showSignUp && <SignUpForm setShowSignUp={setShowSignUp} />}

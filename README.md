@@ -1,3 +1,36 @@
+## Be2Gether
+
+Be2Gether is a social media webapplication for people in a LDR (long distance relationship). I build this app as my final project in the WBS Coding school fullstack web and app bootcamp.
+
+The stack i used:
+- react (frontend)
+- firebase (backend)
+
+The CSS is custom made, that's also the reason why it's not very pretty, yet! ;-)
+
+This project is still work in progress!
+
+Check the code and give me feedback if you like. 
+
+You can test my app here: https://projectone-ac97c.web.app/ 
+
+
+### Usage
+
+For full usage you need (of course) a partner.
+
+Main components so far are a chat, a map and a travelblog.
+
+The chat is obviously a chat where you can text with your loved one and also exchange pictures. 
+The map is a worldmap in which you can mark places you've been together. Add places, pictures and stories. 
+You can access these pictures and stories through the map or the travelblog. 
+The travelblog is right now still under construction but the first stones are set.
+
+### Future
+
+I hope i build more into this project because it's really my baby. I also have some more plans, but as usual it's challenging to find the right time for it.
+So if you like my project or have any sort of feedback feel free to reach out to me!
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
